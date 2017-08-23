@@ -448,7 +448,11 @@ incl_ava_defs={
       'reportBody':[
         {tag:'div',child:[
           {tag:'div',attr:{className:'span-12'},child:[
-		    {tag:'section',attr:{'style':'padding-left:15%; padding-right:15%'},child:[
+		    {tag:'section',attr:{'style':'padding-left:30%; padding-right:30%'},child:[
+            {tag:'div',attr:{style:'margin-top:15px;',id:'depth_chart',className:'demo-placeholder'}},
+                {tag:'hr',attr:{'style':'border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); margin-left:7%; margin-right:7%'}}
+          ]},
+        {tag:'section',attr:{'style':'padding-left:15%; padding-right:15%'},child:[
               {tag:'table',attr:{id:'depths',style:"text-align:center"},child:[
 			    {tag:'thead',child:[
 				  {tag:'tr',child:[
@@ -460,12 +464,9 @@ incl_ava_defs={
 			    ]},
                 {tag:'tbody'}
               ]},
-                {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Cliquez sur un moment précis pour vérifier le point de contrôle et de profondeur disponible"]},
-                {tag:'hr',attr:{'style':'border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); margin-left:7%; margin-right:7%'}}
-          ]},
-		  {tag:'section',attr:{'style':'padding-left:30%; padding-right:30%'},child:[
-            {tag:'div',attr:{style:'margin-top:15px;',id:'depth_chart',className:'demo-placeholder'}}
+                {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Cliquez sur un moment précis pour vérifier le point de contrôle et de profondeur disponible"]}
           ]}
+		  
 		]}
       ]}],
       'reportDetail':[

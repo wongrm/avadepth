@@ -817,26 +817,26 @@ incl_ava_defs={
       ],
       'reportBody':[
         {tag:'div',child:[
-          {tag:'div',attr:{className:'span-12'},child:[
-		    {tag:'section',attr:{'style':'padding-left:20%; padding-right:20%'},child:[
-				{tag:'table',attr:{id:'depths',style:"text-align:center"},child:[
-				  {tag:'thead',child:[
-					{tag:'tr',child:[
-					  {tag:'th',attr:{className:'verify'},child:["Time (pst)"]},
-					  {tag:'th',child:["Chainage (km)"]},
-					  {tag:'th',child:["Available Depth (m)"]},
-					  {tag:'th',child:["Location of Control Point"]},
-					  {tag:'th',child:["num"]}
-					]}
-				  ]},
-				  {tag:'tbody'}
-				]},
-                {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Click on a specific time to verify the control point and available depth"]},
-                {tag:'hr',attr:{'style':'border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); margin-left:7%; margin-right:7%'}}
-          ]},
+          {tag:'div',attr:{className:'span-12'},child:[ 
 		  {tag:'section',child:[
-		    {tag:'div',attr:{style:'margin-top:15px;;margin-left:auto; margin-right:auto',id:'depth_chart',className:'demo-placeholder'}}
-		  ]}
+		    {tag:'div',attr:{style:'margin-top:15px;;margin-left:auto; margin-right:auto',id:'depth_chart',className:'demo-placeholder'}},
+            {tag:'hr',attr:{'style':'border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); margin-left:7%; margin-right:7%'}}
+		  ]},
+          {tag:'section',attr:{'style':'padding-left:20%; padding-right:20%'},child:[
+                {tag:'table',attr:{id:'depths',style:"text-align:center"},child:[
+                  {tag:'thead',child:[
+                    {tag:'tr',child:[
+                      {tag:'th',attr:{className:'verify'},child:["Time (pst)"]},
+                      {tag:'th',child:["Chainage (km)"]},
+                      {tag:'th',child:["Available Depth (m)"]},
+                      {tag:'th',child:["Location of Control Point"]},
+                      {tag:'th',child:["num"]}
+                    ]}
+                  ]},
+                  {tag:'tbody'}
+                ]},
+                {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Click on a specific time to verify the control point and available depth"]}
+          ]}
         ]}
       ]}],
       'reportDetail':[
