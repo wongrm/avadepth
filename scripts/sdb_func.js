@@ -98,7 +98,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 location = "At " + location;
             }
 
-            avaIFaceJS.reportWindow.addTitle(header, wat, chann + " " + location);
+            avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
             
             // (Param)      (Column Name)
             // river:       RiverCode
