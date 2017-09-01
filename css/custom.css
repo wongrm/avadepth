@@ -537,6 +537,14 @@ div#report_body table tr td {
     position: absolute;
 }
 
+.tickLabel {
+    font-size: 150%;
+}
+
+#legend_container table {
+    margin-left: 1.5in !important;
+    width: 6in !important;
+}
 
 /* everything below adds thick blue borders to the local nav and map border */
 /*
