@@ -537,7 +537,7 @@ div#report_body table tr td {
     position: absolute;
 }
 
-.tickLabel {
+#hydrograph_chart .flot-text div .tickLabel {
     font-size: 150%;
 }
 
