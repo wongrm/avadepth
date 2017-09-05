@@ -152,6 +152,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                         ]);
                 });
                 avaIFaceJS.sdb_func.tableReport.draw();
+                $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
+                    $(this).css('text-align', 'right'); 
+                });
                 avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
                 avaIFaceJS.reportWindow.show();
             }).done(function() {
