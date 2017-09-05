@@ -779,7 +779,7 @@ incl_ava_defs={
    		  {tag:'label',attr:{for:'condition'},child:["Current Soundings"]},
           //{tag:'span',child:["Current Soundings"]},
           {tag:'br'},
-          {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition_dg',value:'1'}},
+          {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition',value:'1'}},
           " ",
           {tag:'label',attr:{for:'condition_dg'},child:["Design Grade"]},
           //{tag:'span',child:["Design Grade"]}
@@ -980,7 +980,7 @@ incl_ava_defs={
    		  	  {tag:'label',attr:{for:'condition'},child:["Current Soundings"]},
          	  //{tag:'span',child:["Current Soundings"]},
           	  {tag:'br'},
-         	  {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition_dg',value:'1'}},
+         	  {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition',value:'1'}},
          	  " ",
          	  {tag:'label',attr:{for:'condition_dg'},child:["Design Grade"]},
          	  //{tag:'span',child:["Design Grade"]}

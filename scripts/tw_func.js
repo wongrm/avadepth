@@ -302,7 +302,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                           + $('input[name="channel"]:checked').next().text()
                           + "\n"
                           + "Condition du chenal: "
-                          + $('input[name="sounding"]:checked').next().text()
+                          + $('input[name="condition"]:checked').next().text()
                           + " pour Km 1 à Km "
                           + $('select#chainage').val()
                           + " à "
@@ -318,7 +318,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                           + $('input[name="channel"]:checked').next().text()
                           + "\n"
                           + "Channel Condition: "
-                          + $('input[name="sounding"]:checked').next().text()
+                          + $('input[name="condition"]:checked').next().text()
                           + " for Km 1 to Km "
                           + $('select#chainage').val()
                           + " at "
@@ -357,7 +357,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             $('#static-window').text($('#window').val());
 
             //TODO: Change to following line for production
-            return $.getJSON(getAPI(("api/transit?date=" + ($('#date').val()) + "&") + ("lane=" + ($('input[name=channel]:checked').val()) + "&") + ("window=" + ($('#window').val()) + "&") + ("cmp=" + ($('#cmp').val()) + "&") + ("flowType=" + ($('#flowType').val()) + "&") + ("periodType=" + ($('#period').val()) + "&") + ("chainage=" + ($('#chainage').val()) + "&") + ("flowRate=" + ($('#flowRate').val()) + "&") + ("width=" + ($('#width').val()) + "&") + ("sounding=" + ($('input[name=sounding]:checked').val())), "api/depths/transit.json"), function(data2) {
+            return $.getJSON(getAPI(("api/transit?date=" + ($('#date').val()) + "&") + ("lane=" + ($('input[name=channel]:checked').val()) + "&") + ("window=" + ($('#window').val()) + "&") + ("cmp=" + ($('#cmp').val()) + "&") + ("flowType=" + ($('#flowType').val()) + "&") + ("periodType=" + ($('#period').val()) + "&") + ("chainage=" + ($('#chainage').val()) + "&") + ("flowRate=" + ($('#flowRate').val()) + "&") + ("width=" + ($('#width').val()) + "&") + ("sounding=" + ($('input[name=condition]:checked').val())), "api/depths/transit.json"), function(data2) {
                 var item, limit_text, num_days_meeting_standard, total_hr, _i, _len, _ref;
 
                 $('#num_days').text(data2.statistics.numberOfDays);

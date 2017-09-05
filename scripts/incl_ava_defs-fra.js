@@ -407,7 +407,7 @@ incl_ava_defs={
           {tag:'label',attr:{for:'condition'},child:["Profondeur actuelle sondée"]},
           //{tag:'span',child:["Profondeur actuelle sondée"]},
           {tag:'br'},
-          {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition_dg',value:'1'}},
+          {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition',value:'1'}},
           " ",
           {tag:'label',attr:{for:'condition_dg'},child:["Pente d’origine"]},
           //{tag:'span',child:["Pente d’origine"]}
@@ -610,7 +610,7 @@ incl_ava_defs={
               {tag:'label',attr:{for:'condition'},child:["Profondeur actuelle sondée"]},
               //{tag:'span',child:["Profondeur actuelle sondée"]},
               {tag:'br'},
-              {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition_dg',value:'1'}},
+              {tag:'input',attr:{id:'condition_dg',type:'radio',name:'condition',value:'1'}},
               " ",
               {tag:'label',attr:{for:'condition_dg'},child:["Pente d’origine"]},
               //{tag:'span',child:["Pente d’origine"]}
