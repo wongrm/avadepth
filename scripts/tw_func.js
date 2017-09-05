@@ -411,6 +411,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 $('#transit-window tbody tr td:last-child').each(function() {
                     var my_val;
                     my_val = $(this).text();
+                    $(this).text(parseFloat(my_val).toFixed(2))
                     return total_hr += parseFloat(my_val);
                 });
                 if (isNaN(total_hr)) { // table data does not exist
