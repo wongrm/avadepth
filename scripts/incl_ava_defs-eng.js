@@ -1469,6 +1469,68 @@ incl_ava_defs={
         ],
       'reportDetail':
         [{tag:'p',child:['This tool does not support detailed search items']}]
+    },
+    'isa':{
+      'title_e':"Channel Infill & Scour Analysis",
+      'title_f':"Dessins d'arpentage", //TODO
+      'mapInitState':true,
+      'hasParameters':true,
+      'hasAnimate':false,
+      'longReport':true,
+      'landscapeReport':false,
+      'formParam':
+        [
+          {tag:'label',attr:{for:'isa_waterway', style:'font-weight: bold;'},child:['Waterway: What a Mess']},
+          {tag:'select',attr:{id:'isa_waterway'},ref:{tag:'option',values:
+            function(){
+              var oArr=[];
+              for(var k in incl_ava_defs.locDefs){
+                var v=incl_ava_defs.locDefs[k].Form;
+                oArr[v.Order]={key:k, value:v.Title};
+              }
+              return oArr;
+            }
+          }},
+          {tag:'label',attr:{for:'channel', style:'font-weight: bold;'},child:['Channel:']},
+          {tag:'select',attr:{id:'channel'}},
+          {tag:'label',attr:{for:'location', style:'font-weight: bold;'},child:['Location:']},
+          {tag:'select',attr:{id:'location'}},
+          {tag:'label',attr:{for:'type', style:'font-weight: bold;'},child:['Type:']},
+          {tag:'div',child:[
+            {tag:'select',attr:{id:'type',name:'type'},ref:{tag:'option',values:
+              function() {
+                var res = [];
+                var oArr = ["",
+                            "Recon", "Monitor", "Annual", "Investigation", "Composite",
+                            "Dredging", "Design", "Photograph"];
+                for (var k in oArr) {
+                  res.push({key: oArr[k], value: oArr[k]});
+                }
+                return res;
+              }
+            }}
+          ]}
+        ],
+      'reportBody':
+        [
+          {tag:'section',attr:{'style':'padding:0 20px 0 20px;'},child:[
+            {tag:'table',attr:{id:'report_tbl',className:"styled width-80"},child:[
+              {tag:'thead',child:[
+                {tag:'tr',child:[
+                  {tag:'th',child:['Date']},
+                  {tag:'th',child:['Drawing']},
+                  {tag:'th',child:['Location (km)']},
+                  {tag:'th',child:['Type']},
+                  {tag:'th',child:['Km Start']},
+                  {tag:'th',child:['Km End']}
+                ]}
+              ]},
+              {tag:'tbody'}
+            ]}
+          ]}
+        ],
+      'reportDetail':
+        [{tag:'p',child:['This tool does not support detailed search items']}]
     }
   }
 
