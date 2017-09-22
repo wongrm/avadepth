@@ -1090,6 +1090,21 @@ incl_ava_defs={
         ],
       'reportDetail':
         [{tag:'p',child:['This tool does not support detailed search items']}]
+    },
+    'isa':{
+      'title_e':"Channel Infill & Scour Analysis",
+      'title_f':"Analyse du remplissage et de l'affouillement du chenal",
+      'mapInitState':true,
+      'hasParameters':false,
+      'hasAnimate':false,
+      'longReport':true,
+      'landscapeReport':false,
+      'formParam':
+        [],
+      'reportBody':
+        [],
+      'reportDetail':
+        []
     }
   }
 
