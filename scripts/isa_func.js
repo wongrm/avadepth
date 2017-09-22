@@ -331,10 +331,10 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             if (tileName.indexOf('/') >= 0) {
                 parent.window.open("http://www2.pac.dfo-mpo.gc.ca" + tileName, '_blank');
             } else {
-                parent.avaIFaceJS.isa_func.updateParameters({
-                    "data": tile.feature.data
-                });
-                parent.avaIFaceJS.isa_func.update(); // refresh page from updated parameters
+                console.log("you got this far");
+                parent.window.open("http://google.ca");
+
+                //parent.avaIFaceJS.isa_func.update(); // refresh page from updated parameters
             }
         },
 
