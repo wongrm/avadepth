@@ -14,15 +14,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             locException.push({ riverCode: "FSD",
                                 re: /Fraser\sSurrey\sDocks/});
 
-            avaIFaceJS.isa_func.fillChannel(); // populate dropdowns on load
-
-            /** Event Handlers **/
-            // Load and fill channel drop down
-            $('#isa_waterway').change(avaIFaceJS.isa_func.fillChannel);
-
-            // Load and fill location drop down
-            $('#channel').change(avaIFaceJS.isa_func.fillLocation);
-
             // Colour and resize map extents when waterway field changes
             $('#isa_waterway').change(function() {
                 avaIFaceJS.mapJS.isa_func.setExtents($(this).val());
@@ -42,164 +33,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             $('#location').change(function() {
                 return avaIFaceJS.mapJS.isa_func.refreshLocation($(this).val());
             });
+            document.getElementById('pBarContainer').style.display = 'none'; 
 
-            // Submit form
-            $("#submit").click(function() {
-                $('.spinner').show();
-                return avaIFaceJS.isa_func.update();
-            });
-        },
-
-        // Load and fill channel drop down
-        fillChannel: function() {
-            $('#location option').remove();
-            $('#channel option').remove();
-            $('#channel').append('<option></option>');
-            return $.each(incl_ava_defs.locDefs[$('#isa_waterway').val()]['Sections'], function() {
-                return $('#channel').append("<option value='" + this.Form.Key + "'>" + this.Form.Title + "</option>");
-            });
-        },
-
-        // Load and fill location drop down
-        fillLocation: function() {
-            locationDropdownFilled = true;
-            $('#location option').remove();
-            $('#location').append('<option></option>');
-            if (debug) {
-                console.log("void fillLocation(): isa_waterway=" + $('#isa_waterway').val());
-                console.log("void fillLocation(): channel=" + $('#channel').val());
-            }
-            try {
-                return $.each(incl_ava_defs.locDefs[$('#isa_waterway').val()]['Sections'][$('#channel').val()]['Names'], function() {
-                    return $('#location').append("<option>" + this + "</option>");
-                });
-            } catch (err) {
-                if (debug) console.log("void fillLocation(): No location defined for channel " + $('#channel').val());
-                return;
-            }
-        },
-
-        // process report content and update window
-        update: function() {
-            var header, wat, chann, location;
-            
-            // set report title
-            if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
-                header = "Enquêtes Résultats de la recherche";
-            } else {
-                header = "Surveys Search Results";
-            }
-
-            wat = $('#isa_waterway').find('option:selected').text();
-            chann = $('#channel').find('option:selected').text();
-            location = $('#location').find('option:selected').text();
-
-            if (location != "") {
-                location = "At " + location;
-            }
-
-            avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
-            
-            // (Param)      (Column Name)
-            // river:       RiverCode
-            // drawingType: Type
-            // channel:     NA - not used in the search
-            // location:    Location
-            // channelType: NA - not used in the search
-            var apiBase = "api/surveys/getsurveys?";
-            var apiParams = [];
-            var apiURL = "";
-            apiParams.push("river=", $("#channel").val(), "&");
-            apiParams.push("location=", $("#location").val(), "&");
-            apiParams.push("drawingType=", $("#type").val(), "&");
-            apiParams.push("channel=", "", "&");
-            apiParams.push("channelType=", "");
-
-            // DB Exceptions handled in front end -> dangerous, probably
-            // should be moved to backend for production
-            var chosenLoc = $("#location").val();
-            for (var i = 0; i < locException.length; i++) {
-                var code = locException[i].riverCode;
-                if (locException[i].re.test(chosenLoc)) {
-                    exceptionAPI = true;
-                    if (code.match("FSD")) {
-                        apiParams[1] = locException[i].riverCode;
-                        apiParams[4] = "";
-                    }
-                }
-            }
-
-            if (debug) console.log("void update(): " + apiParams);
-            apiURL = apiBase + apiParams.join("");
-            
-            return $.getJSON(getAPI(apiURL, ""), function(data) {
-                avaIFaceJS.isa_func.tableReport || (avaIFaceJS.isa_func.tableReport = $('#report_tbl').DataTable({
-                    bPaginate: false,
-                    bInfo: false,
-                    bSort: false,
-                    bFilter: false
-                }));
-                avaIFaceJS.isa_func.tableReport.clear();
-                $('#report_tbl tbody tr').remove();
-                $.each(data, function() {
-                    avaIFaceJS.isa_func.tableReport.row.add(
-                        [this.date.split("T")[0],
-                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".dwf?' target='_blank'>" + this.fileNumber + "</a>",
-                            this.location,
-                            this.drawType,
-                            this.kmStart,
-                            this.kmEnd
-                        ]);
-                });
-                avaIFaceJS.isa_func.tableReport.draw();
-                $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
-                    $(this).css('text-align', 'right'); 
-                });
-                avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
-                avaIFaceJS.reportWindow.show();
-            }).done(function() {
-                $('.spinner').hide();
-                pBarToggle();
-            });
-        },
-
-        // update parameter bar from map selected channel
-        updateParameters: (function(jsonData) {
-            var data = jsonData.data
-            switch (data.waterway) {
-                case "FRMA":
-                case "FRMA_SC":
-                case "FRNA":
-                case "FRNA_SC":
-                case "FRPR":
-                case "FRSA":
-                case "FRSA_SC":
-                case "FRUR":
-                    $('#isa_waterway').val("FR");
-                    break;
-                case "PMV":
-                    $('#isa_waterway').val("VH");
-                    avaIFaceJS.isa_func.fillChannel();
-                    $('#channel').val("PMV");
-                    avaIFaceJS.isa_func.fillLocation();
-                    return;
-                case "FSD":
-                    $('#isa_waterway').val("FR");
-                    avaIFaceJS.isa_func.fillChannel();
-                    $('#channel').val("FRSA");
-                    avaIFaceJS.isa_func.fillLocation();
-                    $('#location').val(data.location);
-                    return;
-                default:
-                    $('#isa_waterway').val("CWC");
-            }
-            if ((/WS*/).test(data.waterway)) $('#isa_waterway').val("WS");
-            
-            avaIFaceJS.isa_func.fillChannel();
-            $('#channel').val(data.waterway);
-            avaIFaceJS.isa_func.fillLocation();
-            $('#location').val(data.location);
-        }),
+        },      
     };
 } else if (!(typeof avaMapJS === 'undefined')) {
     /*** Map Interaction functions ***/
@@ -230,7 +66,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             // Map Interaction parameters
             avaMapJS.isa_func.HLFeat = new OpenLayers.Control.SelectFeature(avaMapJS.isa_func.kml, {
-                hover: false,
+                hover:true,
+                highlightOnly:true,
                 toggle: false,
                 clickout: true,
                 multiple: false,
@@ -245,19 +82,15 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 'featureunselected': avaMapJS.isa_func.tileUnselect
             });
 
-            // Sets extents of map
-            avaMapJS.isa_func.setExtents("FR");
+            // Sets extents of map and disable parameter
+            avaMapJS.isa_func.setExtents();
         },
 
         /*** Page-specific functions ***/
         // setExtents: Using the name of provided Waterways selector, draw extents from 'locationExtents' dict.
-        setExtents: function(waterway) {
-            if (!waterway) {
-                return;
-            }
-            var obj = incl_ava_defs.locDefs[waterway].Coords;
+        setExtents: function() {
             try {
-                avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(obj.Lon.min, obj.Lat.min, obj.Lon.max, obj.Lat.max));
+                avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(-13730138, 6282692,-13677350, 6314133));
             } catch (err) {
                 if (debug) console.log("void setExtents(): " + err);
             }
@@ -331,10 +164,18 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             if (tileName.indexOf('/') >= 0) {
                 parent.window.open("http://www2.pac.dfo-mpo.gc.ca" + tileName, '_blank');
             } else {
-                console.log("you got this far");
-                parent.window.open("http://google.ca");
-
-                //parent.avaIFaceJS.isa_func.update(); // refresh page from updated parameters
+                if (tileName == 'AnnievilleChannel') {
+  					window.open("/data/channel_infill_pdfs/2017_annieville_analysis.pdf");
+  				}
+                else if (tileName == 'Sandheads') {
+  					window.open("/data/channel_infill_pdfs/2017_sandheads_analysis.pdf");
+  				}
+                else if (tileName == 'SandheadsReach') {
+  					window.open("/data/channel_infill_pdfs/2017_sandheadsreach_analysis.pdf");
+  				}
+                else if (tileName == 'StevestonCut') {
+  					window.open("/data/channel_infill_pdfs/2017_stevestoncut_analysis.pdf");
+  				}
             }
         },
 
@@ -345,7 +186,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             if (location == "") {
                 avaMapJS.isa_func.kml.redraw();
             }
-            parent.avaIFaceJS.isa_func.update();
         },
 
         /**
