@@ -5,23 +5,11 @@
 <kml xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://www.opengis.net/kml/2.2">
 <Document>
     <name>tiles</name>
-    <color>
     <visibility>1</visibility>
-      <Style id="myPolyStyle">
-        <LineStyle>
-            <color>ff0000ff</color>
-            <width>3</width>
-        </LineStyle>
-        <PolyStyle>
-            <fill>0</fill>
-        </PolyStyle>
-  </Style>
         <Placemark>
         <name>AnnievilleChannel</name>
         <location>Annieville Channel</location>
-            <styleUrl>#myPolyStyle</styleUrl>
         <Polygon>
-            <tessellate>1</tessellate>
             <outerBoundaryIs>
                 <LinearRing>
                     <coordinates>
@@ -33,10 +21,8 @@
     </Placemark>
     <Placemark>
         <name>Sandheads</name>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
         <location>Sandheads</location>
         <Polygon>
-            <tessellate>1</tessellate>
             <outerBoundaryIs>
                 <LinearRing>
                     <coordinates>
@@ -48,10 +34,8 @@
     </Placemark>
     <Placemark>
         <name>SandheadsReach</name>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
         <location>Sandheads Reach</location>
         <Polygon>
-            <tessellate>1</tessellate>
             <outerBoundaryIs>
                 <LinearRing>
                     <coordinates>
@@ -63,10 +47,8 @@
     </Placemark>
     <Placemark>
         <name>StevestonCut</name>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
         <location>Steveston Cut</location>
         <Polygon>
-            <tessellate>1</tessellate>
             <outerBoundaryIs>
                 <LinearRing>
                     <coordinates>

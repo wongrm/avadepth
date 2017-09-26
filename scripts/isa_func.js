@@ -20,15 +20,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 return $('#map').css("min-height", "400px");
             });
 
-            // Colour and resize map when channel field changes
-            $('#channel').change(function() {
-                avaIFaceJS.mapJS.isa_func.refreshLocation("");
-                // console.profile("channel change event");
-                avaIFaceJS.mapJS.isa_func.setChannelExtents($('#isa_waterway').val(), $(this).val()); // Broken?
-                // console.profileEnd();
-                return $('#map').css("min-height", "400px");
-            });
-
             // Colour Tiles when location field changes
             $('#location').change(function() {
                 return avaIFaceJS.mapJS.isa_func.refreshLocation($(this).val());
@@ -117,35 +108,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             avaMapJS.isa_func.refreshTiles(channel, "");
         },
 
-        setExtentsLatLon : function(obj) {
-            try {
-                // LatLon to Spherical Mercator projection
-                var proj = new OpenLayers.Projection("EPSG:4326");
-                var targetProj = new OpenLayers.Projection("EPSG:3857");
-                var box = new OpenLayers.Bounds(obj.Lon.min, obj.Lat.min, obj.Lon.max, obj.Lat.max);
-                box.transform(proj, targetProj);
-                avaMapJS.map.zoomToExtent(box);
-            } catch (err) {
-                if (debug) console.log("void setExtentsLatLon(): " + err);
-            }
-        },
-
-        /**
-         * Convert LatLon to Spherical Mercator Projection in console
-         * @param  {[Array]} obj [minLon, minLat, maxLon, maxLat]
-         * @return {[Object]}     [OpenLayers.Bounds object]
-         */
-        projectLatLon : function(obj) {
-            // LatLon to Spherical Mercator projection
-            var proj = new OpenLayers.Projection("EPSG:4326");
-            var targetProj = new OpenLayers.Projection("EPSG:3857");
-            var box = new OpenLayers.Bounds(obj[0], obj[1], obj[2], obj[3]);
-            box.transform(proj, targetProj);
-            console.log("Lat min/max: " + Math.round(box.bottom) + " & " + Math.round(box.top));
-            console.log("Lon min/max: " + Math.round(box.left) + " & " + Math.round(box.right));
-            return box;
-        },
-
         tileUnselect: function(tile) {
             if (tile.feature.data.location == avaMapJS.isa_func.curLocation) {
                 avaMapJS.isa_func.curLocation = "";
@@ -165,17 +127,17 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 parent.window.open("http://www2.pac.dfo-mpo.gc.ca" + tileName, '_blank');
             } else {
                 if (tileName == 'AnnievilleChannel') {
-  					window.open("/data/channel_infill_pdfs/2017_annieville_analysis.pdf");
-  				}
+                    window.open("/data/channel_infill_pdfs/2017_annieville_analysis.pdf");
+                }
                 else if (tileName == 'Sandheads') {
-  					window.open("/data/channel_infill_pdfs/2017_sandheads_analysis.pdf");
-  				}
+                    window.open("/data/channel_infill_pdfs/2017_sandheads_analysis.pdf");
+                }
                 else if (tileName == 'SandheadsReach') {
-  					window.open("/data/channel_infill_pdfs/2017_sandheadsreach_analysis.pdf");
-  				}
+                    window.open("/data/channel_infill_pdfs/2017_sandheadsreach_analysis.pdf");
+                }
                 else if (tileName == 'StevestonCut') {
-  					window.open("/data/channel_infill_pdfs/2017_stevestoncut_analysis.pdf");
-  				}
+                    window.open("/data/channel_infill_pdfs/2017_stevestoncut_analysis.pdf");
+                }
             }
         },
 
