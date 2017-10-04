@@ -43,7 +43,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 projection: avaMapJS.map.displayProjection,
                 renderers: avaMapJS.renderer,
-                styleMap: mapStyle.area_with_label("${location}"),
+                styleMap: mapStyle.area_for_channel("${location}"),
                 protocol: new OpenLayers.Protocol.HTTP({
                     url: "isa_tiles.kml?",
                     format: new OpenLayers.Format.KML({

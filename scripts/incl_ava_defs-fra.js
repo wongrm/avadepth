@@ -1152,6 +1152,9 @@ var mapStyle = {
   area_select:function(){
     return {fillColor: mapStyle.sel1, strokeColor: mapStyle.sel1}
   },
+    area_channel:function(){
+    return {fillColor: "yellow", fillOpacity: "0.25", strokeColor: "yellow", strokeWidth: 2.0}
+  },
   area_hover:function(){
     return {fillColor: '${getColor}', strokeColor: '${getColor}', fillOpacity: mapStyle.op_sel}
   },
@@ -1188,6 +1191,13 @@ var mapStyle = {
   area_with_label: function (lbl) {
     return new OpenLayers.StyleMap({
       'default':new OpenLayers.Style(mapStyle.area_default(),{context:mapStyle.context}),
+      'select': new OpenLayers.Style(mapStyle.area_select_lbl(lbl)),
+      'temporary': new OpenLayers.Style(mapStyle.area_hover_lbl(lbl),{context:mapStyle.context})
+    })
+  },
+    area_for_channel: function (lbl) {
+    return new OpenLayers.StyleMap({
+      'default':new OpenLayers.Style(mapStyle.area_channel(),{context:mapStyle.context}),
       'select': new OpenLayers.Style(mapStyle.area_select_lbl(lbl)),
       'temporary': new OpenLayers.Style(mapStyle.area_hover_lbl(lbl),{context:mapStyle.context})
     })
