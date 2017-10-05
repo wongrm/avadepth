@@ -24,7 +24,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             $('#location').change(function() {
                 return avaIFaceJS.mapJS.isa_func.refreshLocation($(this).val());
             });
-            document.getElementById('pBarContainer').style.display = 'none'; 
+            //document.getElementById('pBarContainer').style.display = 'none'; 
+            document.getElementById('submit').style.display = 'none'; 
 
         },      
     };

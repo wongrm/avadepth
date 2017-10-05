@@ -1479,7 +1479,7 @@ incl_ava_defs={
       'longReport':true,
       'landscapeReport':false,
       'formParam':
-        [],
+        [{tag:'text', child: ['Hover over a highlighted yellow region to view region name and click to open the corresponding channel infill & scour analysis PDF']}],
       'reportBody':
         [],
       'reportDetail':
