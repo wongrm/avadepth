@@ -1305,6 +1305,18 @@ incl_ava_defs={
                   {tag:'a',attr:{href:'http://usa.autodesk.com/design-review/',target:'_blank'},child:['Download Autodesk viewer']}
                 ]}
               ]}
+            ]},
+            //Shown only for print
+            {tag:'div',attr:{className:'print-margin-0 print_only_show',style:'margin: 0 auto; width: 1000px;'},child:[
+                {tag:'p',attr:{className:'align-center print_only_show_font'},child:[
+                    {tag:'b',attr:{className:'align-center'},child:["Note:  All soundings / depths are relative to local low water level. ",
+                        {tag:'span',child:[
+                            "Least depths highlighted in ",
+                            {tag:'span',attr:{className:'red'},child:["RED"]},
+                            " and marked with * denote high spots and shoal areas within the navigation channel limits."
+                        ]}
+                    ]}
+                ]}
             ]}
           ]},
           {tag:'div',attr:{className:'clear'}},

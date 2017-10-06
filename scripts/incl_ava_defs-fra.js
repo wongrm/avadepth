@@ -929,6 +929,18 @@ incl_ava_defs={
                   ", marquées d’un * dénotent les bas fonds et les hauts fonds à l’intérieur des limites du chenal de navigation."
                 ]}
               ]}
+            ]},
+            //Shown only for print
+            {tag:'div',attr:{className:'print-margin-0 print_only_show',style:'margin: 0 auto; width: 1000px;'},child:[
+                {tag:'p',attr:{className:'align-center print_only_show_font'},child:[
+                    {tag:'b',attr:{className:'align-center'},child:["Remarque : Toutes les profondeurs et tous les sondages sont relatifs au niveau d’eau basse local. ",
+                        {tag:'span',child:[
+                            "Les profondeurs de sondage minimums en surbrillance ",
+                            {tag:'span',attr:{className:'red'},child:["ROUGE"]},
+                            ", marquées d’un * dénotent les bas fonds et les hauts fonds à l’intérieur des limites du chenal de navigation."
+                        ]}
+                    ]}
+                ]}
             ]}
           ]},
           {tag:'div',attr:{className:'clear'}},

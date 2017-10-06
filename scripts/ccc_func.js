@@ -76,6 +76,14 @@ if(!(typeof avaIFaceJS === 'undefined')) {
         avaIFaceJS.reportWindow.addTitle(title1, title2);
 		
         avaIFaceJS.reportWindow.show();
+
+        //Elimination of line breaks to fit print format 
+        var e = document.getElementById('reportTitleDiv');
+        var var1   = e.getElementsByTagName('br');
+        for(var i = var1.length; i--;) {
+          var1[i].parentNode.removeChild(var1[i]);
+        }
+        
       });
 
     },
