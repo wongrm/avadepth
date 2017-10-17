@@ -1112,7 +1112,7 @@ incl_ava_defs={
       'longReport':true,
       'landscapeReport':false,
       'formParam':
-        [{tag:'text', child: ["Cliquez sur une région sur la carte pour ouvrir l'analyse du remplissage et de l'affouillement du chenal correspondante."]}],
+        [{tag:'text', child: ["Pour voir l'analyse du remplissage et de l'affouillement du chenal cliquez sur une zone en surbrillance."]}],
       'reportBody':
         [],
       'reportDetail':

@@ -1491,7 +1491,7 @@ incl_ava_defs={
       'longReport':true,
       'landscapeReport':false,
       'formParam':
-        [{tag:'text', child: ["Click on a region on the map to open the corresponding channel infill & scour analysis."]}],
+        [{tag:'text', child: ["To view channel infill & scour analysi click on a highlighted area."]}],
       'reportBody':
         [],
       'reportDetail':
