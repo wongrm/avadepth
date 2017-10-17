@@ -1505,7 +1505,7 @@ incl_ava_defs={
 var mapStyle = {
 
   // Default Styles and map constants
-  col1: '#dd0000',
+  col1: '#ffff00',
   col2: '#aaaaaa',
   sel1: '#00ffff',
   black: '#000000',
