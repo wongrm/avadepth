@@ -817,7 +817,7 @@ incl_ava_defs={
       ],
       'reportBody':[
         {tag:'div',child:[
-          {tag:'div',attr:{className:'span-12'},child:[ 
+          {tag:'div',attr:{className:'span-12'},child:[
 		  {tag:'section',child:[
 		    {tag:'div',attr:{style:'margin-top:15px;;margin-left:auto; margin-right:auto',id:'depth_chart',className:'demo-placeholder'}},
             {tag:'hr',attr:{'style':'border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); margin-left:7%; margin-right:7%'}}
@@ -1042,7 +1042,7 @@ incl_ava_defs={
         {tag:'div',child:[
           {tag:'table',attr:{id:'header_table',style:'width:75%;margin:5px auto'}},
           {tag:'div',attr:{className:'clear'}},
-          
+
 
 
           {
@@ -1212,7 +1212,7 @@ incl_ava_defs={
                 " at ",
 				{tag:'span',attr:{id:'det_km_time-suff'}},
                 {tag:'span',attr:{id:'det_km_time'}}
-                
+
               ]},
               {tag:'p',child:[
                 {tag:'span',attr:{id:'det_static-date'}},
@@ -1227,8 +1227,8 @@ incl_ava_defs={
                 ')'
               ]},
               {tag:'div',attr:{id:'det_placeholder',className:'demo-placeholder',style:'height:450px;width:800px;'}}
-			  
-			  
+
+
             ]}
           ]}
         ]
@@ -1431,7 +1431,7 @@ incl_ava_defs={
       'formParam':
         [
           {tag:'label',attr:{for:'sdb_waterway', style:'font-weight: bold;'},child:['Waterway:']},
-          {tag:'select',attr:{id:'sdb_waterway'},ref:{tag:'option',values:
+          {tag:'select',attr:{id:'sdb_waterway', style:'width:100%;'},ref:{tag:'option',values:
             function(){
               var oArr=[];
               for(var k in incl_ava_defs.locDefs){
@@ -1442,12 +1442,12 @@ incl_ava_defs={
             }
           }},
           {tag:'label',attr:{for:'channel', style:'font-weight: bold;'},child:['Channel:']},
-          {tag:'select',attr:{id:'channel'}},
+          {tag:'select',attr:{id:'channel',  style:'width:100%;'}},
           {tag:'label',attr:{for:'location', style:'font-weight: bold;'},child:['Location:']},
-          {tag:'select',attr:{id:'location'}},
+          {tag:'select',attr:{id:'location',  style:'width:100%;'}},
           {tag:'label',attr:{for:'type', style:'font-weight: bold;'},child:['Type:']},
           {tag:'div',child:[
-            {tag:'select',attr:{id:'type',name:'type'},ref:{tag:'option',values:
+            {tag:'select',attr:{id:'type',name:'type', style:'width:100%;'},ref:{tag:'option',values:
               function() {
                 var res = [];
                 var oArr = ["",
