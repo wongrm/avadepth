@@ -82,7 +82,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         // process report content and update window
         update: function() {
             var header, wat, chann, location;
-            
+
             // set report title
             if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
                 header = "Enquêtes Résultats de la recherche";
@@ -99,7 +99,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             }
 
             avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
-            
+
             // (Param)      (Column Name)
             // river:       RiverCode
             // drawingType: Type
@@ -131,7 +131,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             if (debug) console.log("void update(): " + apiParams);
             apiURL = apiBase + apiParams.join("");
-            
+
             return $.getJSON(getAPI(apiURL, ""), function(data) {
                 avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
                     bPaginate: false,
@@ -144,7 +144,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 $.each(data, function() {
                     avaIFaceJS.sdb_func.tableReport.row.add(
                         [this.date.split("T")[0],
-                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".dwf?' target='_blank'>" + this.fileNumber + "</a>",
+                        (this.drawType.indexOf('pdf') > -1) ?
+                        "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".pdf' target='_blank'>" + this.fileNumber + "</a>":
+                        "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".dwf?' target='_blank'>" + this.fileNumber + "</a>",
                             this.location,
                             this.drawType,
                             this.kmStart,
@@ -153,7 +155,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 });
                 avaIFaceJS.sdb_func.tableReport.draw();
                 $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
-                    $(this).css('text-align', 'right'); 
+                    $(this).css('text-align', 'right');
                 });
                 avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
                 avaIFaceJS.reportWindow.show();
@@ -194,7 +196,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#sdb_waterway').val("CWC");
             }
             if ((/WS*/).test(data.waterway)) $('#sdb_waterway').val("WS");
-            
+
             avaIFaceJS.sdb_func.fillChannel();
             $('#channel').val(data.waterway);
             avaIFaceJS.sdb_func.fillLocation();
@@ -280,7 +282,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(obj.Lon.min, obj.Lat.min, obj.Lon.max, obj.Lat.max));
             } catch (err) {
                 if (debug) console.log("void setChannelExtents(): " + err);
-            }            
+            }
             avaMapJS.sdb_func.refreshTiles(channel, "");
         },
 
@@ -426,7 +428,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         checkTileRefresh: function(feat) {
             var temp;
             if (window.location.href.indexOf("fra") > -1) {
-                //If url contains 'fra' use 
+                //If url contains 'fra' use
                 if (avaMapJS.sdb_func.curLocation.length > 0 && avaMapJS.sdb_func.curLocation != " - Aperçu du chenal") {
                     temp = feat.data.location == avaMapJS.sdb_func.curLocation;
                 } else {
