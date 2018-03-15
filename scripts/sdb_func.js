@@ -62,6 +62,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // Load and fill location drop down
         fillLocation: function() {
+          if($('#sdb_waterway').val() !== 'WS')
+          {
             locationDropdownFilled = true;
             $('#location option').remove();
             $('#location').append('<option></option>');
@@ -77,6 +79,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 if (debug) console.log("void fillLocation(): No location defined for channel " + $('#channel').val());
                 return;
             }
+          }
         },
 
         // process report content and update window
