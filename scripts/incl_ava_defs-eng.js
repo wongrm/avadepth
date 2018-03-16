@@ -209,6 +209,69 @@ incl_ava_defs={
                 }
             },
             "Sections" : {
+              "FRSA" : {
+                  "Form" : {
+                      "Title" : "South Arm",
+                      "Key" : "FRSA"
+                  },
+                  "Names" : [
+                      "Channel Overview",
+                      "Sand Heads Entrance",
+                      "Sand Heads Reach",
+                      "Steveston Bend",
+                      "Steveston Cut",
+                      "Woodward Reach",
+                      "Gravesend Reach",
+                      "City Reach",
+                      "Annieville - New West",
+                      "Fraser Surrey Docks"
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6282692,
+                          "max" : 6314133
+                      },
+                      "Lon" : {
+                          "min" : -13730138,
+                          "max" : -13677350
+                      }
+                  },
+                  "pwl" : {
+                      "key" : "South Arm"
+                  }
+              },
+              "FRNA" : {
+                  "Form" : {
+                      "Title" : "North Arm",
+                      "Key" : "FRNA"
+                  },
+                  "Names" : [
+                      "Channel Overview",
+                      "Point Grey",
+                      "Iona",
+                      "Musqueam",
+                      "Sea Island",
+                      "Marpole Basin",
+                      "Mitchell Island",
+                      "Mac-Blo",
+                      "Byrne Road",
+                      "Big Bend - Queens",
+                      "Poplar Island"
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6299514,
+                          "max" : 6324716
+                      },
+                      "Lon" : {
+                          "min" : -13728049,
+                          "max" : -13682776
+                      }
+                  },
+                  "pwl" : {
+                      "key" : "North Arm"
+                  }
+              },
                 "FRMA" : {
                     "Form" : {
                         "Title" : "Main Arm",
@@ -236,136 +299,6 @@ incl_ava_defs={
                     },
                     "pwl" : {
                         "key" : "Main Arm"
-                    }
-                },
-                "FRMA_SC" : {
-                    "Form" : {
-                        "Title" : "Main Arm - Side Channel",
-                        "Key" : "FRMA_SC"
-                    },
-                    "Names" : [
-                        "Sapperton Channel",
-                        "Essondale Channel",
-                        "Douglas Island North",
-                        "Parsons Channel",
-                        "Bedford Channel",
-                        "Enterprise Channel"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6294031,
-                            "max" : 6317201
-                        },
-                        "Lon" : {
-                            "min" : -13683886,
-                            "max" : -13614552
-                        }
-                    }
-                },
-                "FRNA" : {
-                    "Form" : {
-                        "Title" : "North Arm",
-                        "Key" : "FRNA"
-                    },
-                    "Names" : [
-                        "Channel Overview",
-                        "Point Grey",
-                        "Iona",
-                        "Musqueam",
-                        "Sea Island",
-                        "Marpole Basin",
-                        "Mitchell Island",
-                        "Mac-Blo",
-                        "Byrne Road",
-                        "Big Bend - Queens",
-                        "Poplar Island"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6299514,
-                            "max" : 6324716
-                        },
-                        "Lon" : {
-                            "min" : -13728049,
-                            "max" : -13682776
-                        }
-                    },
-                    "pwl" : {
-                        "key" : "North Arm"
-                    }
-                },
-                "FRNA_SC" : {
-                    "Form" : {
-                        "Title" : "North Arm - Side Channel",
-                        "Key" : "FRNA_SC"
-                    },
-                    "Names" : [
-                        "Cowards Cove",
-                        "Point Grey Scow Moorage",
-                        "Deering Channel",
-                        "MacDonald Slough",
-                        "Morey Channel",
-                        "Swishwash Island South",
-                        "Mitchell Island North",
-                        "Tree Island"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6299514,
-                            "max" : 6324716
-                        },
-                        "Lon" : {
-                            "min" : -13728049,
-                            "max" : -13682776
-                        }
-                    }
-                },
-                "FRPR" : {
-                    "Form" : {
-                        "Title" : "Pitt River",
-                        "Key" : "FRPR"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6310322,
-                            "max" : 6348569
-                        },
-                        "Lon" : {
-                            "min" : -13671262,
-                            "max" : -13639325
-                        }
-                    }
-                },
-                "FRSA" : {
-                    "Form" : {
-                        "Title" : "South Arm",
-                        "Key" : "FRSA"
-                    },
-                    "Names" : [
-                        "Channel Overview",
-                        "Sand Heads Entrance",
-                        "Sand Heads Reach",
-                        "Steveston Bend",
-                        "Steveston Cut",
-                        "Woodward Reach",
-                        "Gravesend Reach",
-                        "City Reach",
-                        "Annieville - New West",
-                        "Fraser Surrey Docks"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6282692,
-                            "max" : 6314133
-                        },
-                        "Lon" : {
-                            "min" : -13730138,
-                            "max" : -13677350
-                        }
-                    },
-                    "pwl" : {
-                        "key" : "South Arm"
                     }
                 },
                 "FRSA_SC" : {
@@ -397,6 +330,77 @@ incl_ava_defs={
                         }
                     }
                 },
+                "FRNA_SC" : {
+                    "Form" : {
+                        "Title" : "North Arm - Side Channel",
+                        "Key" : "FRNA_SC"
+                    },
+                    "Names" : [
+                        "Cowards Cove",
+                        "Point Grey Scow Moorage",
+                        "Deering Channel",
+                        "MacDonald Slough",
+                        "Morey Channel",
+                        "Swishwash Island South",
+                        "Mitchell Island North",
+                        "Tree Island"
+                    ],
+                    "Coords" : {
+                        "Lat" : {
+                            "min" : 6299514,
+                            "max" : 6324716
+                        },
+                        "Lon" : {
+                            "min" : -13728049,
+                            "max" : -13682776
+                        }
+                    }
+                },
+                "FRMA_SC" : {
+                    "Form" : {
+                        "Title" : "Main Arm - Side Channel",
+                        "Key" : "FRMA_SC"
+                    },
+                    "Names" : [
+                        "Sapperton Channel",
+                        "Essondale Channel",
+                        "Douglas Island North",
+                        "Parsons Channel",
+                        "Bedford Channel",
+                        "Enterprise Channel"
+                    ],
+                    "Coords" : {
+                        "Lat" : {
+                            "min" : 6294031,
+                            "max" : 6317201
+                        },
+                        "Lon" : {
+                            "min" : -13683886,
+                            "max" : -13614552
+                        }
+                    }
+                },
+
+
+                "FRPR" : {
+                    "Form" : {
+                        "Title" : "Pitt River",
+                        "Key" : "FRPR"
+                    },
+                    "Names" : "",
+                    "Coords" : {
+                        "Lat" : {
+                            "min" : 6310322,
+                            "max" : 6348569
+                        },
+                        "Lon" : {
+                            "min" : -13671262,
+                            "max" : -13639325
+                        }
+                    }
+                },
+
+
                 "FRUR" : {
                     "Form" : {
                         "Title" : "Mission to Hope",

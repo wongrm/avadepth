@@ -30,32 +30,16 @@ incl_ava_defs={
       'Names': {'Main': ['Channel'],'Secondary': [],'Other': []},
       'Coords':{'Lat':{'min':6386978,'max':6394557},'Lon':{'min':-13918640,'max':-13904727}}
     },*/
-	
+
   "FR": {
     'Form':{'Title':'Fraser River, BC', 'Order':0},
     'Coords':{'Lat':{'min':6287000,'max':6352933},'Lon':{'min':-13730400,'max':-13510906}},
     'Sections':{
-      'FRMA': {
-        'Form': {'Title': "Main Arm", 'Order': 4, 'Key': "FRMA"},
-        'Names': ['Channel Overview', 'Queens Reach', 'Douglas Island', 'Bishops Reach', 'Derby Reach', 'Russel Reach', 'Plumper Reach', 'Matsqui Island'],
-        'Coords': {'Lat': {'min': 6290650, 'max': 6315727}, 'Lon': {'min': -13685417, 'max': -13610377}},
-        'pwl': {'key': 'Main Arm'}
-      },
-	  'FRMA_SC': {
-        'Form': {'Title': "Main Arm - Side Channel", 'Order': 5, 'Key': "FRMA_SC"},
-        'Names': ['Sapperton Channel', 'Essondale Channel', 'Douglas Island North', 'Parsons Channel', 'Bedford Channel', 'Enterprise Channel'],
-        'Coords': {'Lat': {'min': 6290650, 'max': 6315727}, 'Lon': {'min': -13685417, 'max': -13610377}}
-      },
       'FRSA': {
         'Form': {'Title': "South Arm", 'Order': 0, 'Key': "FRSA"},
         'Names': ['Channel Overview', 'Sand Heads Entrance', 'Sand Heads Reach', 'Steveston Bend', 'Steveston Cut', 'Woodward Reach', 'Gravesend Reach', 'City Reach', 'Annieville - New West', 'Fraser Surrey Docks'],
         'Coords': {'Lat': {'min': 6287000, 'max': 6317590}, 'Lon': {'min': -13730400, 'max': -13669354}},
         'pwl': {'key': "South Arm"}
-      },
-      'FRSA_SC': {
-        'Form': {'Title': "South Arm - Side Channel", 'Order': 1, 'Key': "FRSA_SC"},
-        'Names': ['Ladner Sea Reach','Cannery Channel','Burr Landing Channel','Gundersen Slough','Annacis Channel','Shoal Point - New West'],
-        'Coords': {'Lat': {'min': 6287000, 'max': 6317590}, 'Lon': {'min': -13730400, 'max': -13669354}}
       },
       'FRNA': {
         'Form': {'Title': "North Arm", 'Order': 2, 'Key': "FRNA"},
@@ -63,20 +47,39 @@ incl_ava_defs={
         'Coords': {'Lat': {'min': 6302401, 'max': 6318147}, 'Lon': {'min': -13724567, 'max': -13679776}},
         'pwl': {'key': "North Arm"}
       },
+      'FRMA': {
+        'Form': {'Title': "Main Arm", 'Order': 4, 'Key': "FRMA"},
+        'Names': ['Channel Overview', 'Queens Reach', 'Douglas Island', 'Bishops Reach', 'Derby Reach', 'Russel Reach', 'Plumper Reach', 'Matsqui Island'],
+        'Coords': {'Lat': {'min': 6290650, 'max': 6315727}, 'Lon': {'min': -13685417, 'max': -13610377}},
+        'pwl': {'key': 'Main Arm'}
+      },
+      'FRSA_SC': {
+        'Form': {'Title': "South Arm - Side Channel", 'Order': 1, 'Key': "FRSA_SC"},
+        'Names': ['Ladner Sea Reach','Cannery Channel','Burr Landing Channel','Gundersen Slough','Annacis Channel','Shoal Point - New West'],
+        'Coords': {'Lat': {'min': 6287000, 'max': 6317590}, 'Lon': {'min': -13730400, 'max': -13669354}}
+      },
       'FRNA_SC': {
         'Form': {'Title': "North Arm - Side Channel", 'Order': 3, 'Key': "FRNA_SC"},
         'Names': ['Morey Channel', 'Cowards Cove', 'Point Grey Scow Moorage', 'MacDonald Slough', 'Deering Channel', 'Tree Island'],
         'Coords': {'Lat': {'min': 6302401, 'max': 6318147}, 'Lon': {'min': -13724567, 'max': -13679776}}
       },
-      'FRUR': {
-        'Form': {'Title': "Mission to Hope", 'Order': 6, 'Key': "FRUR"},
-        'Names': [''],
-        'Coords': {'Lat': {'min': 6293247, 'max': 6349886}, 'Lon': {'min': -13625920, 'max': -13510906}}
+
+	  'FRMA_SC': {
+        'Form': {'Title': "Main Arm - Side Channel", 'Order': 5, 'Key': "FRMA_SC"},
+        'Names': ['Sapperton Channel', 'Essondale Channel', 'Douglas Island North', 'Parsons Channel', 'Bedford Channel', 'Enterprise Channel'],
+        'Coords': {'Lat': {'min': 6290650, 'max': 6315727}, 'Lon': {'min': -13685417, 'max': -13610377}}
       },
+
       'FRPR': {
         'Form':{'Title': "Pitt River",'Order': 7, 'Key': "FRPR"},
         'Names': [''],
         'Coords':{'Lat':{'min':6312424,'max':6352933},'Lon':{'min':-13669210,'max':-13633754}}
+      },
+
+      'FRUR': {
+        'Form': {'Title': "Mission to Hope", 'Order': 6, 'Key': "FRUR"},
+        'Names': [''],
+        'Coords': {'Lat': {'min': 6293247, 'max': 6349886}, 'Lon': {'min': -13625920, 'max': -13510906}}
       }
     }
   },
@@ -84,7 +87,7 @@ incl_ava_defs={
   "VH": {
     'Form':{'Title':'Vancouver Harbour, BC', 'Order':1},
     'Coords':{'Lat':{'min':6283000,'max':6319590},'Lon':{'min':-13730400,'max':-13669354}},
-    'Sections':{ 
+    'Sections':{
       'PMV': {
         'Form':{'Title': "Burrard Inlet",'Order':0, 'Key': "PMV"},
         'Names': ['1st Narrows', '2nd Narrows', 'Port Moody'],
@@ -112,11 +115,11 @@ incl_ava_defs={
       }
     }
   },
-  
+
   "CWC": {
     'Form':{'Title':'Coastal Waterway, BC', 'Order':2},
     'Coords':{'Lat':{'min':6197437,'max':7470050},'Lon':{'min':-15055722,'max':-12980383}},
-    'Sections':{ 
+    'Sections':{
       'CWC1': {
       'Form':{'Title': "Campbell River",'Order':0, 'Key': "CWC1"},
       'Names': [''],
@@ -160,7 +163,7 @@ incl_ava_defs={
     }
   }
   /*
-  
+
   ,
     "WCS": {
     'Form':{'Title':'Waterway Control Structures', 'Order':3},
@@ -195,15 +198,15 @@ incl_ava_defs={
       'Coords':{'Lat':{'min':6312424,'max':6352933},'Lon':{'min':-13669210,'max':-13633754}}
 	  }
     }
-  }  
+  }
   ,
-    
+
     'SQ': {
       'Form':{'Title': "Squamish, BC",'Order':7},
       'Names': {'Main': ['Mamquam Blind Channel'],'Secondary': [],'Other': []},
       'Coords':{'Lat':{'min':6389408,'max':6397810},'Lon':{'min':-13712876,'max':-13706003}}
     },
-    
+
     'FPORT': {
       'Form':{'Title': "Fraser Surrey Docks",'Order':9},
       'Names': {'Main': [],'Secondary': [],'Other': []},
@@ -466,7 +469,7 @@ incl_ava_defs={
               ]},
                 {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Cliquez sur un moment précis pour vérifier le point de contrôle et de profondeur disponible"]}
           ]}
-		  
+
 		]}
       ]}],
       'reportDetail':[
