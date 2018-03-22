@@ -5,7 +5,7 @@ if(!(typeof avaIFaceJS === 'undefined')) {
   avaIFaceJS.acv_func = {
     images:[],
     selected_zone:1,
-	
+    
     init: function() {
 	 $('#replay').hide();
       $('#static_rd').attr('checked','checked');
@@ -60,7 +60,7 @@ if(!(typeof avaIFaceJS === 'undefined')) {
 			return;
 		  } else {
 			$('.spinner').show();
-			return avaIFaceJS.acv_func.update(); 
+			return avaIFaceJS.acv_func.update();
 		  }
 	  });
       $('#replay').click(avaIFaceJS.acv_func.play);
@@ -94,10 +94,10 @@ if(!(typeof avaIFaceJS === 'undefined')) {
     update: function(){
       var flow, getImage, interval;
 	  avaIFaceJS.acv_func.images = [];
-	  
+
 	  // disable submit button
 	  $(this).prop('disabled', true);
-	  
+
 	  // set page title and headers
 	  flow = avadepth.util.getSelectedFlow();
 	  $("#flowRate").val(flow.flowRate);
@@ -108,14 +108,14 @@ if(!(typeof avaIFaceJS === 'undefined')) {
       interval = moment.duration(parseFloat($("#interval").val()),"hours");
 
 	  avaIFaceJS.acv_func.setTitle();
-	  
+
 	  // load page
 	  avaIFaceJS.reportWindow.loadReport();
 	  avaIFaceJS.reportWindow.show();
 	  avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
 	  $('#animated, #animated_legend, #replay, #nodata').hide();
 	  $('#loading').show();
-	  
+
 	  // set loading notification variables
       $('#frames_retrieved').html('0/');
       $('#number_of_frames').html(String((end_time.diff(start_time,"minutes")) / interval.asMinutes() + 1) + ")");
@@ -165,7 +165,7 @@ if(!(typeof avaIFaceJS === 'undefined')) {
 	  }  else {
 		moment.locale('en');
 	  }
-	
+
     var report_title_main = "Fraser River - South Arm" + " for Zone " + (avaIFaceJS.acv_func.selected_zone)
                             + " at " + $('select#interval').find(':selected').text() + " intervals";
     var report_title_2 = "For " + moment($('#date').val()).format("MMM D, YYYY")
@@ -206,14 +206,14 @@ if(!(typeof avaIFaceJS === 'undefined')) {
     },
     play: function(){
       var handle, i;
-	  
+
       avaIFaceJS.reportWindow.loadReport();
-	  
+
 	  pBarToggle();
       $('#animated').attr("src", "images/nodata.jpg");
       $('#animated_legend').hide().attr("src", "images/vectorscale" + ($('input[name=legend_scale]:checked').val()) + ".gif");
 	  $('#replay').prop("disabled", true);
-	
+
       if (avaIFaceJS.acv_func.images.length > 0) {
         $('#replay').show();
         i = 1;
@@ -274,7 +274,7 @@ if(!(typeof avaIFaceJS === 'undefined')) {
       avaMapJS.acv_func.kml.events.on({'loadend':avaMapJS.acv_func.layerLoad,'featureselected':avaMapJS.acv_func.newZoneSelect});
 
       // Set Map Extents
-      avaMapJS.setExtents("VH");
+      avaMapJS.setExtents("POV");
 
       avaMapJS.map.setCenter(new OpenLayers.LonLat(-13687000,6291500),6);
     },
