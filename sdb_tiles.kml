@@ -57,8 +57,8 @@
     </Placemark>
     <Placemark id="kml_5">
       <name>QCI001</name>
-      <waterway>BC_QCI</waterway>
-      <location>Queen Charlotte Islands</location>
+      <waterway>BC_HG</waterway>
+      <location>Haida Gwaii</location>
       <Polygon>
         <outerBoundaryIs>
           <LinearRing>
@@ -95,9 +95,9 @@
 
     <!-- Interior Waterway, BC -->
     <Placemark id="kml_8">
-      <name>SIC01</name>
-      <waterway>BC_INT</waterway>
-      <location>Sicamous</location>
+      <name>BC_Sica</name>
+      <waterway>BC_Sica</waterway>
+      <location>Sicamous, BC</location>
       <Polygon>
         <outerBoundaryIs>
           <LinearRing>
@@ -741,7 +741,7 @@
     <Placemark id="kml_254">
       <name>NA1307</name>
       <waterway>FRNA_SC</waterway>
-      <location>Morey Channel</location>
+      <location>Morey Channel - Middle Arm</location>
       <Polygon>
         <outerBoundaryIs>
           <LinearRing>
@@ -765,7 +765,7 @@
     <Placemark id="kml_256">
       <name>NA1419</name>
       <waterway>FRNA_SC</waterway>
-      <location>Mitchell Island North</location>
+      <location>Mitchell Island North Channel</location>
       <Polygon>
         <outerBoundaryIs>
           <LinearRing>
@@ -777,7 +777,7 @@
     <Placemark id="kml_257">
       <name>NA2529</name>
       <waterway>FRNA_SC</waterway>
-      <location>Tree Island</location>
+      <location>Tree Island Channel</location>
       <Polygon>
         <outerBoundaryIs>
           <LinearRing>
@@ -805,8 +805,8 @@
 
     <!-- Vancouver Harbour, BC -->
     <Placemark id="kml_84">
-      <name>PMV01</name>
-      <waterway>PMV</waterway>
+      <name>POV_1</name>
+      <waterway>POV_BI</waterway>
       <location>Burrard Inlet</location>
       <Polygon>
         <outerBoundaryIs>
