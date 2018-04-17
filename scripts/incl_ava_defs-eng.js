@@ -22,7 +22,7 @@ incl_ava_defs={
   locDefs: {
       "CWC" : {
           "Form" : {
-              "Title" : "Coastal Waterway, BC",
+              "Title" : "Coastal Waterway",
               "Order" : 0
           },
           "Coords" : {
@@ -38,7 +38,7 @@ incl_ava_defs={
           "Sections" : {
               "CB" : {
                   "Form" : {
-                      "Title" : "Campbell River",
+                      "Title" : "Campbell River, BC",
                       "Key" : "CB"
                   },
                   "Names" : "",
@@ -55,7 +55,7 @@ incl_ava_defs={
               },
               "CR" : {
                   "Form" : {
-                      "Title" : "Courtenay River",
+                      "Title" : "Courtenay River, BC",
                       "Key" : "CR"
                   },
                   "Names" : "",
@@ -72,7 +72,7 @@ incl_ava_defs={
               },
               "FC" : {
                   "Form" : {
-                      "Title" : "French Creek",
+                      "Title" : "French Creek, BC",
                       "Key" : "FC"
                   },
                   "Names" : "",
@@ -89,7 +89,7 @@ incl_ava_defs={
               },
               "HG" : {
                   "Form" : {
-                      "Title" : "Haida Gwaii",
+                      "Title" : "Haida Gwaii, BC",
                       "Key" : "HG"
                   },
                   "Names" : "",
@@ -106,7 +106,7 @@ incl_ava_defs={
               },
               "NAN" : {
                   "Form" : {
-                      "Title" : "Nanaimo",
+                      "Title" : "Nanaimo, BC",
                       "Key" : "NAN"
                   },
                   "Names" : "",
@@ -123,7 +123,7 @@ incl_ava_defs={
               },
               "SQ" : {
                   "Form" : {
-                      "Title" : "Squamish",
+                      "Title" : "Squamish, BC",
                       "Key" : "SQ"
                   },
                   "Names" : "",
@@ -140,7 +140,7 @@ incl_ava_defs={
               },
               "TOF" : {
                   "Form" : {
-                      "Title" : "Tofino Harbour",
+                      "Title" : "Tofino Harbour, BC",
                       "Key" : "TOF"
                   },
                   "Names" : "",
@@ -159,7 +159,7 @@ incl_ava_defs={
       },
       "IW" : {
           "Form": {
-              "Title" : "Inland Waterway, BC",
+              "Title" : "Inland Waterway",
               "Order" : 1
           },
           "Coords" : {
