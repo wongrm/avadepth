@@ -32,49 +32,49 @@ incl_ava_defs={
     },*/
 
       "CWC": {
-        'Form':{'Title':'Coastal Waterway, BC', 'Order':0},
+        'Form':{'Title':'Coastal Waterway', 'Order':0},
         'Coords':{'Lat':{'min':6197437,'max':7470050},'Lon':{'min':-15055722,'max':-12980383}},
         'Sections':{
           "CB" : {
-              "Form" : {"Title" : "Campbell River","Key" : "CB"},
+              "Form" : {"Title" : "Campbell River, BC","Key" : "CB"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6448640,"max" : 6459951},"Lon" : {"min" : -13947812,"max" : -13939713}}
           },
           "CR" : {
-              "Form" : {"Title" : "Courtenay River","Key" : "CR"},
+              "Form" : {"Title" : "Courtenay River, BC","Key" : "CR"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6383982,"max" : 6395830},"Lon" : {"min" : -13916202,"max" : -13905364}}
           },
           "FC" : {
-              "Form" : {"Title" : "French Creek","Key" : "FC"},
+              "Form" : {"Title" : "French Creek, BC","Key" : "FC"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6330313,"max" : 6341037},"Lon" : {"min" : -13851357,"max" : -13839841}}
           },
           "HG" : {
-              "Form" : {"Title" : "Haida Gwaii","Key" : "HG"},
+              "Form" : {"Title" : "Haida Gwaii, BC","Key" : "HG"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6993882,"max" : 7030414},
                   "Lon" : {"min" : -14742057,"max" : -14687672}}
           },
           "NAN" : {
-              "Form" : {"Title" : "Nanaimo","Key" : "NAN"},
+              "Form" : {"Title" : "Nanaimo, BC","Key" : "NAN"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6298553,"max" : 6311508},"Lon" : {"min" : -13800874,"max" : -13790918}}
           },
           "SQ" : {
-              "Form" : {"Title" : "Squamish","Key" : "SQ"},
+              "Form" : {"Title" : "Squamish, BC","Key" : "SQ"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6386861,"max" : 6398793},"Lon" : {"min" : -13713592,"max" : -13705832}}
           },
           "TOF" : {
-              "Form" : {"Title" : "Tofino Harbour","Key" : "TOF"},
+              "Form" : {"Title" : "Tofino Harbour, BC","Key" : "TOF"},
               "Names" : [""],
               "Coords" : {"Lat" : {"min" : 6286458,"max" : 6311312},"Lon" : {"min" : -14027881,"max" : -14001452}}
           }
         }
       },
       "IW" : {
-          "Form": {  "Title" : "Inland Waterway, BC",  "Order" : 1  },
+          "Form": {  "Title" : "Inland Waterway",  "Order" : 1  },
           "Coords" : {"Lat":{"min" : 6586478,"max" : 6596334 },"Lon":{"min" : -13249719,"max" : -13242435}},
           // add tile
           "Sections" : {
