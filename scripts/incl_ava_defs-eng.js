@@ -1512,7 +1512,7 @@ var mapStyle = {
     wid1: '7.0',
     wid2: '2.0',
     col1: '#ffff00',
-    col2: '#aaaaaa',
+    col2: '#ffffff',
     sel1: '#00ffff',
     black: '#000000',
     white: '#ffffff',
