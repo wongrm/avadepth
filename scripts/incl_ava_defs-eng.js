@@ -1515,7 +1515,7 @@ var mapStyle = {
     col2: '#ffffff',
     sel1: '#00ffff',
     black: '#000000',
-    white: '#ffffff',
+    white: '#ffffff', 
     op1: 0.2,
     op2: 0.1,
     op_sel: 0.5,
