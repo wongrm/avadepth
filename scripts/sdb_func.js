@@ -182,10 +182,10 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 case "FRUR":
                     $('#sdb_waterway').val("FR");
                     break;
-                case "PMV":
-                    $('#sdb_waterway').val("VH");
+                case "POV_BI":
+                    $('#sdb_waterway').val("POV");
                     avaIFaceJS.sdb_func.fillChannel();
-                    $('#channel').val("PMV");
+                    $('#channel').val("POV_BI");
                     avaIFaceJS.sdb_func.fillLocation();
                     return;
                 case "FSD":

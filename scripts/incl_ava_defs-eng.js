@@ -19,212 +19,452 @@ function getAPI(extURL, intURL){
 var currentDate = new Date();
 
 incl_ava_defs={
-    locDefs: {
-        "CWC" : {
-            "Form" : {
-                "Title" : "Coastal Waterway, BC",
-                "Order" : 0
-            },
-            "Coords" : {
-                "Lat" : {
-                    "min" : 6197437,
-                    "max" : 7470050
-                },
-                "Lon" : {
-                    "min" : -15055722,
-                    "max" : -12980383
-                }
-            },
-            "Sections" : {
-                "BC_CB" : {
-                    "Form" : {
-                        "Title" : "Campbell River",
-                        "Key" : "BC_CB"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6448640,
-                            "max" : 6459951
-                        },
-                        "Lon" : {
-                            "min" : -13947812,
-                            "max" : -13939713
-                        }
-                    }
-                },
-                "BC_CR" : {
-                    "Form" : {
-                        "Title" : "Courtenay River",
-                        "Key" : "BC_CR"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6383982,
-                            "max" : 6395830
-                        },
-                        "Lon" : {
-                            "min" : -13916202,
-                            "max" : -13905364
-                        }
-                    }
-                },
-                "BC_FC" : {
-                    "Form" : {
-                        "Title" : "French Creek",
-                        "Key" : "BC_FC"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6330313,
-                            "max" : 6341037
-                        },
-                        "Lon" : {
-                            "min" : -13851357,
-                            "max" : -13839841
-                        }
-                    }
-                },
-                "BC_NAN" : {
-                    "Form" : {
-                        "Title" : "Nanaimo",
-                        "Key" : "BC_NAN"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6298553,
-                            "max" : 6311508
-                        },
-                        "Lon" : {
-                            "min" : -13800874,
-                            "max" : -13790918
-                        }
-                    }
-                },
-                "BC_QCI" : {
-                    "Form" : {
-                        "Title" : "Queen Charlotte Islands",
-                        "Key" : "BC_QCI"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6993882,
-                            "max" : 7030414
-                        },
-                        "Lon" : {
-                            "min" : -14742057,
-                            "max" : -14687672
-                        }
-                    }
-                },
-                "BC_SQ" : {
-                    "Form" : {
-                        "Title" : "Squamish",
-                        "Key" : "BC_SQ"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6386861,
-                            "max" : 6398793
-                        },
-                        "Lon" : {
-                            "min" : -13713592,
-                            "max" : -13705832
-                        }
-                    }
-                },
-                "BC_TOF" : {
-                    "Form" : {
-                        "Title" : "Tofino Harbour",
-                        "Key" : "BC_TOF"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6286458,
-                            "max" : 6311312
-                        },
-                        "Lon" : {
-                            "min" : -14027881,
-                            "max" : -14001452
-                        }
-                    }
-                }
-            }
-        },
-        "IW" : {
-            "Form": {
-                "Title" : "Interior Waterway, BC",
-                "Order" : 1
-            },
-            "Coords" : {
-                "Lat" : {
-                    "min" : 6586478,
-                    "max" : 6596334
-                },
-                "Lon" : {
-                    "min" : -13249719,
-                    "max" : -13242435
-                }
-            },
-            // add tile
-            "Sections" : {
-                "BC_INT" : {
-                    "Form" : {
-                        "Title" : "Sicamous",
-                        "Key" : "BC_INT"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6586478,
-                            "max" : 6596334
-                        },
-                        "Lon" : {
-                            "min" : -13249719,
-                            "max" : -13242435
-                        }
-                    }
-                }
-            }
-        },
-        "FR" : {
-            "Form" : {
-                "Title" : "Fraser River, BC",
-                "Order" : 2
-            },
-            "Coords" : {
-                "Lat" : {
-                    "min" : 6287000,
-                    "max" : 6352933
-                },
-                "Lon" : {
-                    "min" : -13730400,
-                    "max" : -13510906
-                }
-            },
-            "Sections" : {
-              "FRSA" : {
+  locDefs: {
+      "CWC" : {
+          "Form" : {
+              "Title" : "Coastal Waterway",
+              "Order" : 0
+          },
+          "Coords" : {
+              "Lat" : {
+                  "min" : 6197437,
+                  "max" : 7470050
+              },
+              "Lon" : {
+                  "min" : -15055722,
+                  "max" : -12980383
+              }
+          },
+          "Sections" : {
+              "CB" : {
                   "Form" : {
-                      "Title" : "South Arm",
-                      "Key" : "FRSA"
+                      "Title" : "Campbell River, BC",
+                      "Key" : "CB"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6448640,
+                          "max" : 6459951
+                      },
+                      "Lon" : {
+                          "min" : -13947812,
+                          "max" : -13939713
+                      }
+                  }
+              },
+              "CR" : {
+                  "Form" : {
+                      "Title" : "Courtenay River, BC",
+                      "Key" : "CR"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6383982,
+                          "max" : 6395830
+                      },
+                      "Lon" : {
+                          "min" : -13916202,
+                          "max" : -13905364
+                      }
+                  }
+              },
+              "FC" : {
+                  "Form" : {
+                      "Title" : "French Creek, BC",
+                      "Key" : "FC"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6330313,
+                          "max" : 6341037
+                      },
+                      "Lon" : {
+                          "min" : -13851357,
+                          "max" : -13839841
+                      }
+                  }
+              },
+              "HG" : {
+                  "Form" : {
+                      "Title" : "Haida Gwaii, BC",
+                      "Key" : "HG"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6993882,
+                          "max" : 7030414
+                      },
+                      "Lon" : {
+                          "min" : -14742057,
+                          "max" : -14687672
+                      }
+                  }
+              },
+              "NAN" : {
+                  "Form" : {
+                      "Title" : "Nanaimo, BC",
+                      "Key" : "NAN"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6298553,
+                          "max" : 6311508
+                      },
+                      "Lon" : {
+                          "min" : -13800874,
+                          "max" : -13790918
+                      }
+                  }
+              },
+              "SQ" : {
+                  "Form" : {
+                      "Title" : "Squamish, BC",
+                      "Key" : "SQ"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6386861,
+                          "max" : 6398793
+                      },
+                      "Lon" : {
+                          "min" : -13713592,
+                          "max" : -13705832
+                      }
+                  }
+              },
+              "TOF" : {
+                  "Form" : {
+                      "Title" : "Tofino Harbour, BC",
+                      "Key" : "TOF"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6286458,
+                          "max" : 6311312
+                      },
+                      "Lon" : {
+                          "min" : -14027881,
+                          "max" : -14001452
+                      }
+                  }
+              }
+          }
+      },
+      "IW" : {
+          "Form": {
+              "Title" : "Inland Waterway",
+              "Order" : 1
+          },
+          "Coords" : {
+              "Lat" : {
+                  "min" : 6586478,
+                  "max" : 6596334
+              },
+              "Lon" : {
+                  "min" : -13249719,
+                  "max" : -13242435
+              }
+          },
+          // add tile
+          "Sections" : {
+              "BC_Sica" : {
+                  "Form" : {
+                      "Title" : "Sicamous, BC",
+                      "Key" : "BC_Sica"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6586478,
+                          "max" : 6596334
+                      },
+                      "Lon" : {
+                          "min" : -13249719,
+                          "max" : -13242435
+                      }
+                  }
+              },
+              "MB_Red" : {
+                  "Form" : {
+                      "Title" : "Red River, MB",
+                      "Key" : "MB_Red"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6586478,
+                          "max" : 6596334
+                      },
+                      "Lon" : {
+                          "min" : -13249719,
+                          "max" : -13242435
+                      }
+                  }
+              },
+              "NT_Hay" : {
+                  "Form" : {
+                      "Title" : "Hay River, NT",
+                      "Key" : "NT_Hay"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6586478,
+                          "max" : 6596334
+                      },
+                      "Lon" : {
+                          "min" : -13249719,
+                          "max" : -13242435
+                      }
+                  }
+              },
+              "NT_Mack" : {
+                  "Form" : {
+                      "Title" : "Mackenzie River, NT",
+                      "Key" : "NT_Mack"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6586478,
+                          "max" : 6596334
+                      },
+                      "Lon" : {
+                          "min" : -13249719,
+                          "max" : -13242435
+                      }
+                  }
+              }
+          }
+      },
+      "POV" : {
+          "Form" : {
+              "Title" : "Vancouver Harbour, BC",
+              "Order" : 2
+          },
+          "Coords" : {
+              "Lat" : {
+                  "min" : 6316237,
+                  "max" : 6337717
+              },
+              "Lon" : {
+                  "min" : -13722084,
+                  "max" : -13670754
+              }
+          },
+          // TODO
+          "Sections" : {
+              "POV_BI" : {
+                  "Form" : {
+                      "Title" : "Burrard Inlet",
+                      "Key" : "POV_BI"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6311123,
+                          "max" : 6342847
+                      },
+                      "Lon" : {
+                          "min" : -13725424,
+                          "max" : -13667414
+                      }
+                  }
+              },
+              "POV_PT" : {
+                  "Form" : {
+                      "Title" : "Port Terminal",
+                      "Key" : "POV_PT"
                   },
                   "Names" : [
-                      "Channel Overview",
-                      "Sand Heads Entrance",
-                      "Sand Heads Reach",
-                      "Steveston Bend",
-                      "Steveston Cut",
-                      "Woodward Reach",
-                      "Gravesend Reach",
-                      "City Reach",
-                      "Annieville - New West",
-                      "Fraser Surrey Docks"
+                  "Fraser Surrey Docks",
+                  "Centennial Pier",
+                  "Lynnterm Westgate"
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6311123,
+                          "max" : 6342847
+                      },
+                      "Lon" : {
+                          "min" : -13725424,
+                          "max" : -13667414
+                      }
+                  }
+              },
+              "POV_FC" : {
+              "Form" : {
+                  "Title" : "False Creek",
+                  "Key" : "POV_FC"
+              },
+              "Names" : [""]
+              ,
+              "Coords" : {
+                  "Lat" : {
+                      "min" : 6311123,
+                      "max" : 6342847
+                  },
+                  "Lon" : {
+                      "min" : -13725424,
+                      "max" : -13667414
+                  }
+              }
+          }
+        }
+          },
+
+      "FR" : {
+          "Form" : {
+              "Title" : "Fraser River, BC",
+              "Order" : 3
+          },
+          "Coords" : {
+              "Lat" : {
+                  "min" : 6287000,
+                  "max" : 6352933
+              },
+              "Lon" : {
+                  "min" : -13730400,
+                  "max" : -13510906
+              }
+          },
+          "Sections" : {
+            "FRSA" : {
+                "Form" : {
+                    "Title" : "South Arm",
+                    "Key" : "FRSA"
+                },
+                "Names" : [
+                    "Sand Heads to Fraser Surrey Docks",
+                    "Sand Heads Entrance",
+                    "Sand Heads Reach",
+                    "Steveston Bend",
+                    "Steveston Cut",
+                    "Woodward Reach",
+                    "Gravesend Reach",
+                    "City Reach",
+                    "Annieville - New West",
+                ],
+                "Coords" : {
+                    "Lat" : {
+                        "min" : 6282692,
+                        "max" : 6314133
+                    },
+                    "Lon" : {
+                        "min" : -13730138,
+                        "max" : -13677350
+                    }
+                },
+                "pwl" : {
+                    "key" : "South Arm"
+                },
+            },
+            "POV_FSD" : {
+              "Form" : {
+                  "Title" : "Port Terminal",
+                  "Key" : "POV_FSD"
+              },
+              "Names" : [
+              "Fraser Surrey Docks"
+              ],
+              "Coords" : {
+                  "Lat" : {
+                      "min" : 6311123,
+                      "max" : 6342847
+                  },
+                  "Lon" : {
+                      "min" : -13725424,
+                      "max" : -13667414
+                  }
+              }
+          },
+            "FRNA" : {
+                "Form" : {
+                    "Title" : "North Arm",
+                    "Key" : "FRNA"
+                },
+                "Names" : [
+                    "Point Grey to New Westminster",
+                    "Point Grey",
+                    "Iona",
+                    "Musqueam",
+                    "Sea Island",
+                    "Marpole Basin",
+                    "Mitchell Island",
+                    "Mac-Blo",
+                    "Byrne Road",
+                    "Big Bend - Queens",
+                    "Poplar Island"
+                ],
+                "Coords" : {
+                    "Lat" : {
+                        "min" : 6299514,
+                        "max" : 6324716
+                    },
+                    "Lon" : {
+                        "min" : -13728049,
+                        "max" : -13682776
+                    }
+                },
+                "pwl" : {
+                    "key" : "North Arm"
+                }
+            },
+              "FRMA" : {
+                  "Form" : {
+                      "Title" : "Main Arm",
+                      "Key" : "FRMA"
+                  },
+                  "Names" : [
+                    "New Westminster to Fort Langley",
+                    "Fort Langley to Mission",
+                    "Queens Reach",
+                    "Douglas Island",
+                    "Bishops Reach",
+                    "Derby Reach",
+                    "Russel Reach",
+                    "Russel Reach (Langley Bar)",
+                    "Plumper Reach",
+                    "Matsqui Island"
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6294031,
+                          "max" : 6317201
+                      },
+                      "Lon" : {
+                          "min" : -13683886,
+                          "max" : -13614552
+                      }
+                  },
+                  "pwl" : {
+                      "key" : "Main Arm"
+                  }
+              },
+              "FRSA_SC" : {
+                  "Form" : {
+                      "Title" : "South Arm - Side Channel",
+                      "Key" : "FRSA_SC"
+                  },
+                  "Names" : [
+                      "Ladner Sea Reach Overview",
+                      "Annacis Channel",
+                      "Gundersen Slough",
+                      "Shoal Point - New West",
+                      "Burr Landing Channel",
+                      "Cannery Channel",
+                      "Sea Reach",
+                      "Ladner Reach",
+                      "Canoe Pass",
+                      "Ladner Harbour",
+                      "Deas Slough",
                   ],
                   "Coords" : {
                       "Lat" : {
@@ -235,28 +475,21 @@ incl_ava_defs={
                           "min" : -13730138,
                           "max" : -13677350
                       }
-                  },
-                  "pwl" : {
-                      "key" : "South Arm"
                   }
               },
-              "FRNA" : {
+              "FRNA_SC" : {
                   "Form" : {
-                      "Title" : "North Arm",
-                      "Key" : "FRNA"
+                      "Title" : "North Arm - Side Channel",
+                      "Key" : "FRNA_SC"
                   },
                   "Names" : [
-                      "Channel Overview",
-                      "Point Grey",
-                      "Iona",
-                      "Musqueam",
-                      "Sea Island",
-                      "Marpole Basin",
-                      "Mitchell Island",
-                      "Mac-Blo",
-                      "Byrne Road",
-                      "Big Bend - Queens",
-                      "Poplar Island"
+                      "Morey Channel - Middle Arm",
+                      "Cowards Cove",
+                      "Point Grey Scow Moorage",
+                      "Deering Channel",
+                      "Macdonald Slough",
+                      "Mitchell Island North Channel",
+                      "Tree Island Channel"
                   ],
                   "Coords" : {
                       "Lat" : {
@@ -267,338 +500,206 @@ incl_ava_defs={
                           "min" : -13728049,
                           "max" : -13682776
                       }
-                  },
-                  "pwl" : {
-                      "key" : "North Arm"
                   }
               },
-                "FRMA" : {
-                    "Form" : {
-                        "Title" : "Main Arm",
-                        "Key" : "FRMA"
-                    },
-                    "Names" : [
-                        "Channel Overview",
-                        "Queens Reach",
-                        "Douglas Island",
-                        "Bishops Reach",
-                        "Derby Reach",
-                        "Russel Reach & Langley Bar",
-                        "Plumper Reach",
-                        "Matsqui Island"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6294031,
-                            "max" : 6317201
-                        },
-                        "Lon" : {
-                            "min" : -13683886,
-                            "max" : -13614552
-                        }
-                    },
-                    "pwl" : {
-                        "key" : "Main Arm"
-                    }
-                },
-                "FRSA_SC" : {
-                    "Form" : {
-                        "Title" : "South Arm - Side Channel",
-                        "Key" : "FRSA_SC"
-                    },
-                    "Names" : [
-                        "Shoal Point - New West",
-                        "Annacis Channel",
-                        "Gundersen Slough",
-                        "Burr Landing Channel",
-                        "Cannery Channel",
-                        "Ladner Sea Reach Overview",
-                        "Deas Slough",
-                        "Ladner Reach",
-                        "Ladner Harbour",
-                        "Canoe Pass",
-                        "Sea Reach"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6282692,
-                            "max" : 6314133
-                        },
-                        "Lon" : {
-                            "min" : -13730138,
-                            "max" : -13677350
-                        }
-                    }
-                },
-                "FRNA_SC" : {
-                    "Form" : {
-                        "Title" : "North Arm - Side Channel",
-                        "Key" : "FRNA_SC"
-                    },
-                    "Names" : [
-                        "Cowards Cove",
-                        "Point Grey Scow Moorage",
-                        "Deering Channel",
-                        "MacDonald Slough",
-                        "Morey Channel",
-                        "Swishwash Island South",
-                        "Mitchell Island North",
-                        "Tree Island"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6299514,
-                            "max" : 6324716
-                        },
-                        "Lon" : {
-                            "min" : -13728049,
-                            "max" : -13682776
-                        }
-                    }
-                },
-                "FRMA_SC" : {
-                    "Form" : {
-                        "Title" : "Main Arm - Side Channel",
-                        "Key" : "FRMA_SC"
-                    },
-                    "Names" : [
-                        "Sapperton Channel",
-                        "Essondale Channel",
-                        "Douglas Island North",
-                        "Parsons Channel",
-                        "Bedford Channel",
-                        "Enterprise Channel"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6294031,
-                            "max" : 6317201
-                        },
-                        "Lon" : {
-                            "min" : -13683886,
-                            "max" : -13614552
-                        }
-                    }
-                },
+              "FRMA_SC" : {
+                  "Form" : {
+                      "Title" : "Main Arm - Side Channel",
+                      "Key" : "FRMA_SC"
+                  },
+                  "Names" : [
+                    "Bedford Channel",
+                    "Douglas Island North Channel",
+                    "Essondale Channel",
+                    "Parsons Channel",
+                    "Sapperton Channel",
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6294031,
+                          "max" : 6317201
+                      },
+                      "Lon" : {
+                          "min" : -13683886,
+                          "max" : -13614552
+                      }
+                  }
+              },
+              "FRPR" : {
+                  "Form" : {
+                      "Title" : "Pitt River",
+                      "Key" : "FRPR"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6310322,
+                          "max" : 6348569
+                      },
+                      "Lon" : {
+                          "min" : -13671262,
+                          "max" : -13639325
+                      }
+                  }
+              },
 
-
-                "FRPR" : {
-                    "Form" : {
-                        "Title" : "Pitt River",
-                        "Key" : "FRPR"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6310322,
-                            "max" : 6348569
-                        },
-                        "Lon" : {
-                            "min" : -13671262,
-                            "max" : -13639325
-                        }
-                    }
-                },
-
-
-                "FRUR" : {
-                    "Form" : {
-                        "Title" : "Mission to Hope",
-                        "Key" : "FRUR"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6293247,
-                            "max" : 6349886
-                        },
-                        "Lon" : {
-                            "min" : -13625920,
-                            "max" : -13510906
-                        }
-                    }
-                }
-            }
-        },
-        "VH" : {
-            "Form" : {
-                "Title" : "Vancouver Harbour, BC",
-                "Order" : 3
-            },
-            "Coords" : {
-                "Lat" : {
-                    "min" : 6316237,
-                    "max" : 6337717
-                },
-                "Lon" : {
-                    "min" : -13722084,
-                    "max" : -13670754
-                }
-            },
-            // TODO
-            "Sections" : {
-                "PMV" : {
-                    "Form" : {
-                        "Title" : "Burrard Inlet",
-                        "Key" : "PMV"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6311123,
-                            "max" : 6342847
-                        },
-                        "Lon" : {
-                            "min" : -13725424,
-                            "max" : -13667414
-                        }
-                    }
-                },
-                "PMV-BI" : {
-                    "Form" : {
-                        "Title" : "Burrard Inlet - Terminal",
-                        "Key" : "PMV-BI"
-                    },
-                    "Names" : "",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6311123,
-                            "max" : 6342847
-                        },
-                        "Lon" : {
-                            "min" : -13725424,
-                            "max" : -13667414
-                        }
-                    }
-                }
-            }
-        },
-        "WS" : {
-            "Form" : {
-                "Title" : "Waterway Structure",
-                "Order" : 4
-            },
-            "Coords" : {
-                "Lat" : {
-                    "min" : 6289181,
-                    "max" : 6325119
-                },
-                "Lon" : {
-                    "min" : -13728265,
-                    "max" : -13569386
-                }
-            },
-            "Sections" : {
-                "WS_NA" : {
-                    "Form" : {
-                        "Title" : "Fraser - North Arm",
-                        "Key" : "WS_NA"
-                    },
-                    "Names" : [
-                        "North Arm Breakwater",
-                        "North Arm Jetty"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6309661,
-                            "max" : 6322555
-                        },
-                        "Lon" : {
-                            "min" : -13725650,
-                            "max" : -13714402
-                        }
-                    }
-                },
-                "WS_SA" : {
-                    "Form" : {
-                        "Title" : "Fraser - South Arm",
-                        "Key" : "WS_SA"
-                    },
-                    "Names" : [
-                        "Steveston North Jetty",
-                        "Steveston South Jetty No. 2",
-                        "Albion Dyke No. 2",
-                        "Steveston Island Wingdams No. 2 & 3",
-                        "Steveston Island Shearboom",
-                        "Woodward Island Training Wall",
-                        "Deas & Kirkland Island Bank Protection",
-                        "Trifurcation Phase I Training Wall",
-                        "Trifurcation Phase II Training Wall",
-                        "Trifurcation Phase III Training Wall"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6289181,
-                            "max" : 6312251
-                        },
-                        "Lon" : {
-                            "min" : -13728265,
-                            "max" : -13678949
-                        }
-                    }
-                },
-                "WS_MA" : {
-                    "Form" : {
-                        "Title" : "Fraser - Main Arm",
-                        "Key" : "WS_MA"
-                    },
-                    "Names" : [
-                        "Sapperton Wingdams 2 & 3",
-                        "Sapperton V-Dyke"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6308005,
-                            "max" : 6315807
-                        },
-                        "Lon" : {
-                            "min" : -13681802,
-                            "max" : -13673052
-                        }
-                    }
-                },
-                "WS_MH" : {
-                    "Form" : {
-                        "Title" : "Fraser - Mission to Hope",
-                        "Key" : "WS_MH"
-                    },
-                    "Names" : "Big & Middle Eddy Groyne",
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6295882,
-                            "max" : 6302924
-                        },
-                        "Lon" : {
-                            "min" : -13593487,
-                            "max" : -13588166
-                        }
-                    }
-                },
-                "WS_HR" : {
-                    "Form" : {
-                        "Title" : "Fraser - Harrison River, BC",
-                        "Key" : "WS_HR"
-                    },
-                    "Names" : [
-                        "Harrison Mills (CPR Bridge) Shearboom",
-                        "Harrison River Dykes V, R, W, P",
-                        "Harrison Hwy No.7 Bridge Shearboom",
-                        "Harrison Rapids Shearboom"
-                    ],
-                    "Coords" : {
-                        "Lat" : {
-                            "min" : 6311285,
-                            "max" : 6325119
-                        },
-                        "Lon" : {
-                            "min" : -13579382,
-                            "max" : -13569386
-                        }
-                    }
-                }
-            }
-        }
-    },
+              "FRUR" : {
+                  "Form" : {
+                      "Title" : "Mission to Hope",
+                      "Key" : "FRUR"
+                  },
+                  "Names" : "",
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6293247,
+                          "max" : 6349886
+                      },
+                      "Lon" : {
+                          "min" : -13625920,
+                          "max" : -13510906
+                      }
+                  }
+              }
+          }
+      },
+      "WS" : {
+          "Form" : {
+              "Title" : "Waterway Structure",
+              "Order" : 4
+          },
+          "Coords" : {
+              "Lat" : {
+                  "min" : 6289181,
+                  "max" : 6325119
+              },
+              "Lon" : {
+                  "min" : -13728265,
+                  "max" : -13569386
+              }
+          },
+          "Sections" : {
+              "WS_LFR" : {
+                  "Form" : {
+                      "Title" : "Lower Fraser River",
+                      "Key" : "WS_LFR"
+                  },
+                  "Names" : [
+                      "North Arm Breakwater",
+                      "North Arm Jetty",
+                      "Steveston North Jetty",
+                      "Steveston South Jetty No. 2",
+                      "Albion Training Wall",
+                      "Steveston Wingdams",
+                      "Steveston Island Shearboom",
+                      "Woodward Island Training Wall",
+                      "Kirkland & Deas Island Bank Protection",
+                      "Trifurcation Phase I Training Wall",
+                      "Trifurcation Phase II Training Wall",
+                      "Trifurcation Phase III Training Wall",
+                      "Sapperton Wingdam No. 2 & No. 3",
+                      "Sapperton V_Dyke"
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6309661,
+                          "max" : 6322555
+                      },
+                      "Lon" : {
+                          "min" : -13725650,
+                          "max" : -13714402
+                      }
+                  }
+              },
+              // "WS_SA" : {
+              //     "Form" : {
+              //         "Title" : "Fraser - South Arm",
+              //         "Key" : "WS_SA"
+              //     },
+              //     "Names" : [
+              //         "Steveston North Jetty",
+              //         "Steveston South Jetty No. 2",
+              //         "Albion Dyke No. 2",
+              //         "Steveston Island Wingdams No. 2 & 3",
+              //         "Steveston Island Shearboom",
+              //         "Woodward Island Training Wall",
+              //         "Deas & Kirkland Island Bank Protection",
+              //         "Trifurcation Phase I Training Wall",
+              //         "Trifurcation Phase II Training Wall",
+              //         "Trifurcation Phase III Training Wall"
+              //     ],
+              //     "Coords" : {
+              //         "Lat" : {
+              //             "min" : 6289181,
+              //             "max" : 6312251
+              //         },
+              //         "Lon" : {
+              //             "min" : -13728265,
+              //             "max" : -13678949
+              //         }
+              //     }
+              // },
+              // "WS_MA" : {
+              //     "Form" : {
+              //         "Title" : "Fraser - Main Arm",
+              //         "Key" : "WS_MA"
+              //     },
+              //     "Names" : [
+              //         "Sapperton Wingdams 2 & 3",
+              //         "Sapperton V-Dyke"
+              //     ],
+              //     "Coords" : {
+              //         "Lat" : {
+              //             "min" : 6308005,
+              //             "max" : 6315807
+              //         },
+              //         "Lon" : {
+              //             "min" : -13681802,
+              //             "max" : -13673052
+              //         }
+              //     }
+              // },
+              "WS_M2H" : {
+                  "Form" : {
+                      "Title" : "Mission to Hope",
+                      "Key" : "WS_M2H"
+                  },
+                  "Names" : ["Big & Middle Eddy Rock Groynes"],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6295882,
+                          "max" : 6302924
+                      },
+                      "Lon" : {
+                          "min" : -13593487,
+                          "max" : -13588166
+                      }
+                  }
+              },
+              "WS_HR" : {
+                  "Form" : {
+                      "Title" : "Harrison River",
+                      "Key" : "WS_HR"
+                  },
+                  "Names" : [
+                      "Harrison Mills CPR Bridge Shearboom",
+                      "Harrison River Dykes V R W P",
+                      "Harrison Hwy No.7 Bridge Shearboom",
+                      "Harrison Rapids Shearboom"
+                  ],
+                  "Coords" : {
+                      "Lat" : {
+                          "min" : 6311285,
+                          "max" : 6325119
+                      },
+                      "Lon" : {
+                          "min" : -13579382,
+                          "max" : -13569386
+                      }
+                  }
+              }
+          }
+      }
+  },
 
   avaPages:{
     'acv':{
