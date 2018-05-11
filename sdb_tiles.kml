@@ -75,8 +75,8 @@
         <location>Squamish</location>
         <Polygon>
             <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>-123.1415847161561,49.70264037506705,0 -123.1480198815828,49.70503929088984,0 -123.1579613251813,49.69426316020191,0 -123.1568842401487,49.69386171658229,0 -123.1663133466658,49.68365312003142,0 -123.1712930419633,49.67810070060001,0 -123.1648602931466,49.67570306416391,0 -123.1601323099663,49.68097036890244,0 -123.1501978047422,49.6917481070187,0 -123.1512747880936,49.69214961306253,0 -123.1415847161561,49.70264037506705,0</coordinates>                   
+                <LinearRing>                    
+                    <coordinates>-123.1515270971019,49.69186479135569,0 -123.1415847161561,49.70264037506705,0 -123.1480198815828,49.70503929088984,0 -123.1579613251813,49.69426316020191,0 -123.1712930419633,49.67810070060001,0 -123.1648602931466,49.67570306416391,0 -123.1515270971019,49.69186479135569,0</coordinates>
                 </LinearRing>
             </outerBoundaryIs>
         </Polygon>
@@ -95,10 +95,10 @@
     </Placemark>
     <!-- Coastal Waterway, BC end -->
 
-    <!-- Interior Waterway, BC -->
+    <!-- Inland Waterway, BC -->
     <Placemark id="kml_8">
-        <name>SIC01</name>
-        <waterway>BC_INT</waterway>
+        <name>BC_Sica</name>
+        <waterway>IN_BC</waterway>
         <location>Sicamous</location>
         <Polygon>
             <outerBoundaryIs>
@@ -108,7 +108,33 @@
             </outerBoundaryIs>
         </Polygon>
     </Placemark>
-    <!-- Interior Waterway, BC end -->
+    <Placemark id="ID_00001">
+      <name>MB_Red</name>
+      <waterway>IN_MB</waterway>
+      <location>Red River</location>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates> -96.8329027205595,50.40497545437102,0 -96.89182568489153,50.29229181349491,0 -96.88398980774353,50.17938235778043,0 -96.99710390878833,50.07011582861217,0 -96.92425484017932,50.03913384579393,0 -96.80418658079213,50.16004644146195,0 -96.81241393653529,50.28161429879207,0 -96.74975236224451,50.3970220150069,0 -96.8329027205595,50.40497545437102,0</coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+    </Placemark>
+    <Placemark id="ID_00002">
+      <name>NT_Hay</name>
+      <waterway>IN_NT</waterway>
+      <location>Hay River</location>
+        <Polygon>      
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates> -115.7705064050586,60.84517042037653,0 -115.7584025071078,60.8328264961727,0 -115.7367849802316,60.83654431912708,0 -115.7153926377451,60.8510065180288,0 -115.7199169730097,60.86222679792464,0 -115.7077911293262,60.8972004421681,0 -115.7270092919471,60.8988183702125,0 -115.7444768691724,60.85319968167528,0 -115.7705064050586,60.84517042037653,0</coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+    </Placemark>
+
+
+  <!-- Interior Waterway, BC end -->
 
     <!-- Fraser River, BC -->
     <Placemark id="kml_9">
@@ -805,11 +831,11 @@
         </Polygon>
     </Placemark>
     <!-- Fraser River, BC - Mission to Hope end -->
-
+  
     <!-- Vancouver Harbour, BC -->
     <Placemark id="kml_84">
         <name>PMV01</name>
-        <waterway>PMV</waterway>
+        <waterway>POV</waterway>
         <location>Burrard Inlet</location>
         <Polygon>
             <outerBoundaryIs>
@@ -819,7 +845,39 @@
             </outerBoundaryIs>
         </Polygon>
     </Placemark>
-    <!-- Vancouver Harbour, BC end -->
+    <Placemark id="kml_85">
+      <name>POV_5</name>
+      <waterway>POV</waterway>
+      <location>Lynnterm Westgate</location>
+      <Point> 
+        <coordinates> -123.0478396182566,49.30221537998863,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="kml_86">
+      <name>POV_5</name>
+      <waterway>POV</waterway>
+      <location>Centennial Pier</location>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates> -123.0862741194386,49.28474843804679,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id="kml_87">
+      <name>POV_6</name>
+      <waterway>POV</waterway>
+      <location>False Creek</location>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates> -123.1570651534476,49.28458136635285,0 -123.1569924421881,49.26167412641791,0 -123.0983545936486,49.26173892140785,0 -123.0984001464951,49.28464621341434,0 -123.1570651534476,49.28458136635285,0</coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+    </Placemark>
+
+
+
+  <!-- Vancouver Harbour, BC end -->
 
     <!-- Waterway Structure -->
     <Placemark id="400">
