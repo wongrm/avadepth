@@ -203,7 +203,7 @@ avaIFaceJS = {
                                 child:["Users will need to download an Autodesk DWF viewer to view and display the Reference Plan.\n", {
                                     tag:'a',
                                     attr:{
-                                        href:'http://usa.autodesk.com/design-review/',
+                                        href:'https://www.autodesk.com/products/design-review/download',
                                         target:'_blank'
                                     },
                                     child:['Download Autodesk viewer']
