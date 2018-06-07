@@ -512,18 +512,18 @@ incl_ava_defs={
                 {tag:'hr',attr:{'style':'border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); margin-left:7%; margin-right:7%'}}
           ]},
         {tag:'section',attr:{'style':'padding-left:15%; padding-right:15%'},child:[
-              {tag:'table',attr:{id:'depths',style:"text-align:center"},child:[
-			    {tag:'thead',child:[
-				  {tag:'tr',child:[
-				    {tag:'th',attr:{className:'verify'},child:["Heure (HNP)"]},
-				    {tag:'th',child:["Chaînage (km)"]},
-				    {tag:'th',child:["Profondeur disponible (m)"]},
-				    {tag:'th',child:["Emplacement"]}
-				  ]}
-			    ]},
-                {tag:'tbody'}
-              ]},
-                {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Cliquez sur un moment précis pour vérifier le point de contrôle et de profondeur disponible"]}
+          {tag:'p',attr:{id:'subnote',style:"text-align:center"},child:["Cliquez sur un moment précis pour vérifier le point de contrôle et de profondeur disponible"]},
+            {tag:'table',attr:{id:'depths',style:"text-align:center"},child:[
+			        {tag:'thead',child:[
+				        {tag:'tr',child:[
+				          {tag:'th',attr:{className:'verify'},child:["Heure (HNP)"]},
+				          {tag:'th',child:["Chaînage (km)"]},
+				          {tag:'th',child:["Profondeur disponible (m)"]},
+				          {tag:'th',child:["Emplacement"]}
+				        ]}
+			        ]},
+              {tag:'tbody'}
+            ]}
           ]}
 
 		]}
