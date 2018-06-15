@@ -43,23 +43,9 @@
 
 	<script>
 		$(document).ready(function() {
-			if (opener.document) {
-				var parentElem = window.opener.$("#detail_content").clone();
-				if ((/Trident\/7\./).test(navigator.userAgent) ||
-					(/MSIE/).test(navigator.userAgent)) {
-					var outer = parentElem[0].outerHTML;
-					$('#detail_content_popup')[0].innerHTML = outer;
-				} else {
-					$('#detail_content_popup').html(parentElem);
-				}
-				console.log(parentElem);
-			}
 			$('button[name="print"]').click(function() {
 				window.print()
 			});
-			var closeButton = $('<input type="button" class="button button-accent" value="Close" onClick="window.close()">');
-			$('.print_holder').append(closeButton);
-
 			var url = window.location.href;
 			var name = 'chainage';
 			var name = name.replace(/[\[\]]/g, "\\$&");
@@ -67,8 +53,9 @@
 			if (!results) return null;
 			if (!results[2]) return '';
 			var chainage = decodeURIComponent(results[2].replace(/\+/g, " "));
-
 			$('#print_remove').addClass('align-center')
+			$('input[id="inner_select"]').attr('checked','checked');
+			$('#heading').text("km " + (chainage - 1) + " - " + (chainage));
 
 			$('input[name=channel_select]').change(function() {			
 				if(!($(this).is(':checked'))){return;}
@@ -103,10 +90,86 @@
 					});
 				});
 			});
+
+			$('input[name=channel_select]').change();
 		});
 	</script>
 </head>
 <body>
-	<div id="detail_content_popup"></div>
+<div id="detail_content">
+		<div class="print_holder">
+			<button name="print" class="button button-accent print_button print_hide">Print</button>
+			<input class="button button-accent" onclick="window.close()" type="button" value="Close">
+		</div>
+		<div>
+			<div>
+				<div class="grid-12">
+					<div class="align-center print-align-center print-margin-0">
+						<h3 style="margin: 0px;">Least Soundings and Available Widths</h3>
+						<h3 style="margin: 0px;">
+							<span>for Fraser River - South Arm</span>
+							<span>, </span>
+							<span id="heading"></span>
+						</h3>
+						<h3 style="margin: 0px;">
+							<span class="print_show_inline" id="segment"></span>
+						</h3>
+					</div>
+					<table class="styled align-center" id="survey-header" style="width: 600px; margin-right: auto; margin-left: auto;">
+						<thead>
+							<tr>
+								<td>Note: All soundings / depths are relative to local low water level</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="print_hide">
+								<td>Users will need to download an Autodesk DWF viewer to view and display the Reference Plan.
+									<a
+										href="https://www.autodesk.com/products/design-review/download" target="_blank">Download Autodesk viewer</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="print_hide align-center" id="print_remove">
+						<strong>Channel Select</strong>
+						<br>
+						<input name="channel_select" id="inner_select" style="display: inline;" type="radio" checked="checked"
+							value="1">
+						<label style="display: inline;" for="inner_select">Inner Channel</label>
+						<input name="channel_select" id="outer_select" style="display: inline;" type="radio"
+							value="2">
+						<label style="display: inline;" for="outer_select">Outer Channel</label>
+						<br>
+					</div>
+				</div>
+				<div class="grid-12">
+					<table class="styled align-center" id="surveys" style="width: 600px; margin-right: auto; margin-left: auto;">
+						<thead>
+							<tr>
+								<th rowspan="2">Date of Survey</th>
+								<th rowspan="2">Reference Plan</th>
+								<th style="width: 55px;">Design Grade</th>
+								<th style="width: 55px;">Least Soundings</th>
+								<th colspan="2">Available Width</th>
+							</tr>
+							<tr>
+								<th>(m)</th>
+								<th>(m)</th>
+								<th>(m)</th>
+								<th>(%)</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="page-break"></div>
+		<div class="print_holder">
+			<button name="print" class="button button-accent print_button print_hide">Print</button>
+			<input class="button button-accent" onclick="window.close()" type="button" value="Close">
+		</div>
+	</div>
 </body>
 </html>

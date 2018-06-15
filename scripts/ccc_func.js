@@ -91,6 +91,7 @@ if(!(typeof avaIFaceJS === 'undefined')) {
       avaIFaceJS.ccc_func.chainage = this.id;
       $('input[id="inner_select"]').attr('checked','checked');
       //avaIFaceJS.detailWindow.show();
+      window.open("ccc_detail.html?chainage=" + avaIFaceJS.ccc_func.chainage);
       $('#heading').text("km " + (avaIFaceJS.ccc_func.chainage - 1) + " - " + (avaIFaceJS.ccc_func.chainage));
       $('input[name=channel_select]').change();
     },
@@ -125,7 +126,6 @@ if(!(typeof avaIFaceJS === 'undefined')) {
           }
           return $("#surveys tbody").append(row);
         });
-        window.open("ccc_detail.html?chainage=" + avaIFaceJS.ccc_func.chainage);
       });
     }
   };
