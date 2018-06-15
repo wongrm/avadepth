@@ -68,173 +68,143 @@
 				}
 			};
 
-			function getAPI(extURL, intURL){
-				if(document.URL.split("/")[2].split(":")[0] === "localhost") {
-					return intURL;
-				} else {
-					return extURL;
+			var typCode = getUrlParameter("code");
+			var typValue = getUrlParameter("value");
+			var waterway = getUrlParameter("waterway");
+			var date = getUrlParameter("date");
+			var intervalMin = getUrlParameter("intervalMin");
+			var flowRate = getUrlParameter("flowRate");
+			var flowType = getUrlParameter("flowType");
+			var waterway = getUrlParameter("waterway");
+			var static_arm = "South Arm";
+			var static_interval = "1 Hour";
+			var plotId = "#det_placeholder";
+			var flow = "";
+
+			if (window.location.href.indexOf("fra") > -1) {
+				switch(flowType) {
+				case "Predicted":
+					flow = "Prévu";
+					break;
+				case "Actual":
+					flow = "Réel";
+					break;
+				case "Selected":
+					flow = "Choisi";
+					break;
+				case "UserDefined":
+					flow = "Défini par l'utilisateur";
+					break;
+				default:
+					flow = "N/A"
+					break;
 				}
-			};
-
-			var typCode, typValue, waterway, date, intervalMin, flowRate, flowType, waterway, static_arm, static_interval;
-
-			function setParameters() {
-				typCode = getUrlParameter("code");
-				typValue = getUrlParameter("value");
-				waterway = getUrlParameter("waterway");
-				date = getUrlParameter("date");
-				intervalMin = getUrlParameter("intervalMin");
-				flowRate = getUrlParameter("flowRate");
-				flowType = getUrlParameter("flowType");
-				waterway = getUrlParameter("waterway");
-				static_arm = "South Arm";
-				static_interval = "1 Hour";
+			} else if (flowType === "UserDefined"){
+				flow = "User-defined";
+			} else {
+				flow = flowType;
 			}
+			switch (waterway) {
+				case '0':
+					$('#det_river-section').text("South Arm");
+					break;
+				case '1':
+					$('#det_river-section').text("North Arm");
+					break;
+				case '2':
+					$('#det_river-section').text("Main Arm");
+					break;
+			}
+			$('#det_km_time').text(typValue);
+			$('#det_static-date').text(moment(date).format("MMM D, YYYY"));
+			$('#det_static-interval').text(static_interval);
+			$('#det_static-arm').text(static_arm);
+			$('#det_static-discharge').text(flowRate);
+			$('#det_static-discharge-eval').text(flow);
 
-			function gotoGraph() {
-				setParameters();
-
+			var step = (function() {
+				var t;
 				switch (waterway) {
 					case '0':
-						$('#det_river-section').text("South Arm");
+						t = [(typValue / 2), 2];
 						break;
 					case '1':
-						$('#det_river-section').text("North Arm");
+						t = [(typValue / 2), 2];
 						break;
 					case '2':
-						$('#det_river-section').text("Main Arm");
+						t = [((typValue - 40) / 4), 4];
 						break;
 				}
-				$('#det_km_time').text(typValue);
-				$('#det_static-date').text(moment(date).format("MMM D, YYYY"));
-				$('#det_static-interval').text(static_interval);
-				$('#det_static-arm').text(static_arm);
-				$('#det_static-discharge').text(flowRate);
-				$('#det_static-discharge-eval').text(translate_flow());
+				return t[typCode];
+			})();
 
-				gotoGraph_sub(typCode, typValue, "#det_placeholder"); // create pwl plots for main detail report
-			};
+			$(plotId).css('font-size', 'inherit');
 
-			function translate_flow() {
-				var flow = "";
-				if (window.location.href.indexOf("fra") > -1) {
-					switch(flowType) {
-					case "Predicted":
-						flow = "Prévu";
-						break;
-					case "Actual":
-						flow = "Réel";
-						break;
-					case "Selected":
-						flow = "Choisi";
-						break;
-					case "UserDefined":
-						flow = "Défini par l'utilisateur";
-						break;
-					default:
-						flow = "N/A"
-						break;
-					}
-				} else if (flowType === "UserDefined"){
-					flow = "User-defined";
-				} else {
-					flow = flowType;
-				}
+			if (typCode == 0) {
+				$('#det_km_time-suff').text(' km ');
 
-				return flow;
+				$.getJSON(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", function(data) {
+					var points = [];
+					$.each(data.times, function() {
+						var date;
+						if (this.predictTime !== '24:00') {
+							date = new Date("January 1, 2000 " + this.predictTime);
+						} else {
+							date = new Date("January 2, 2000 00:00");
+						}
+						return points.push([date.getTime(), this.waterLevels[step]]);
+					});
+					console.log("Points processed...");
+					return $.plot($(plotId), [points], {
+						xaxis: {
+							color: 'black',
+							tickColor: '#ddd',
+							mode: 'time',
+							tickSize: [4, "hour"],
+							timezone: "browser",
+							axisLabel: 'Pacific Standard Time (PST)'
+						},
+						yaxis: {
+							color: 'black',
+							tickColor: '#ddd',
+							position: 'left',
+							axisLabel: 'Water Level (metres) relative to LWD'
+						}
+					});
+				});
+			} else {
+				$('#det_km_time-suff').text('');
+
+				$.getJSON(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", function(data) {
+					var points = [];
+					$.each(data.times, function() {
+						var start;
+						if (this.predictTime === typValue) {
+							start = 0;
+							if (step === 4) {
+								start = 40;
+							}
+							return $.each(this.waterLevels, function(i) {
+								return points.push([i * step + start, this]);
+							});
+						}
+					});
+					return $.plot($(plotId), [points], {
+						xaxis: {
+							color: 'black',
+							tickColor: '#ddd',
+							tickSize: step,
+							axisLabel: 'Location (km)'
+						},
+						yaxis: {
+							color: 'black',
+							tickColor: '#ddd',
+							position: 'left',
+							axisLabel: 'Water Level (metres) relative to LWD'
+						}
+					});
+				});
 			}
-
-			function gotoGraph_sub(typCode, typValue, plotId) {
-				var step = (function() {
-					var t;
-					switch (waterway) {
-						case '0':
-							t = [(typValue / 2), 2];
-							break;
-						case '1':
-							t = [(typValue / 2), 2];
-							break;
-						case '2':
-							t = [((typValue - 40) / 4), 4];
-							break;
-					}
-					return t[typCode];
-				})();
-
-
-				// if using IE, make tweaks
-				$(plotId).css('font-size', 'inherit');
-
-				if (typCode == 0) {
-					$('#det_km_time-suff').text(' km ');
-
-					//TODO: Replace following line for production
-					$.getJSON(getAPI(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", "api/depths/waterlevel_kmplot.json"), function(data) {
-						//$.getJSON(("/api/waterlevel?date=" + ($('#pwl_date').val()) + "&") + ("intervalMin=" + ($('#interval').val()) + "&") + ("flowRate=" + ($('#flowRate').val()) + "&") + ("flowType=" + ($('#flowType').val()) + "&") + ("waterway=" + ($('#pwl_waterway').val()) + "&") + "displayType=0", function(data) {
-						//$.getJSON("api/depths/waterlevel_kmplot.json", function (data) {
-						var points = [];
-						$.each(data.times, function() {
-							var date;
-							if (this.predictTime !== '24:00') {
-								date = new Date("January 1, 2000 " + this.predictTime);
-							} else {
-								date = new Date("January 2, 2000 00:00");
-							}
-							return points.push([date.getTime(), this.waterLevels[step]]);
-						});
-						console.log("Points processed...");
-						return $.plot($(plotId), [points], {
-							xaxis: {
-								color: 'black',
-								tickColor: '#ddd',
-								mode: 'time',
-								tickSize: [4, "hour"],
-								timezone: "browser",
-								axisLabel: 'Pacific Standard Time (PST)'
-							},
-							yaxis: {
-								color: 'black',
-								tickColor: '#ddd',
-								position: 'left',
-								axisLabel: 'Water Level (metres) relative to LWD'
-							}
-						});
-					});
-				} else {
-					$('#det_km_time-suff').text('');
-
-					$.getJSON(getAPI(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", "api/depths/waterlevel_timeplot.json"), function(data) {
-						var points = [];
-						$.each(data.times, function() {
-							var start;
-							if (this.predictTime === typValue) {
-								start = 0;
-								if (step === 4) {
-									start = 40;
-								}
-								return $.each(this.waterLevels, function(i) {
-									return points.push([i * step + start, this]);
-								});
-							}
-						});
-						return $.plot($(plotId), [points], {
-							xaxis: {
-								color: 'black',
-								tickColor: '#ddd',
-								tickSize: step,
-								axisLabel: 'Location (km)'
-							},
-							yaxis: {
-								color: 'black',
-								tickColor: '#ddd',
-								position: 'left',
-								axisLabel: 'Water Level (metres) relative to LWD'
-							}
-						});
-					});
-				}
-			};
-			gotoGraph();
 		});
 	</script>
 </head>

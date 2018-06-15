@@ -46,13 +46,21 @@
 			$('button[name="print"]').click(function() {
 				window.print()
 			});
-			var url = window.location.href;
-			var name = 'chainage';
-			var name = name.replace(/[\[\]]/g, "\\$&");
-			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
-			if (!results) return null;
-			if (!results[2]) return '';
-			var chainage = decodeURIComponent(results[2].replace(/\+/g, " "));
+
+			function getUrlParameter(param) {
+				var url = decodeURIComponent(window.location.search.substring(1));
+				var vars = url.split('&');
+				var paramName;
+				for (var i = 0; i < vars.length; i++) {
+					paramName = vars[i].split('=');
+					if (paramName[0] === param) {
+						return paramName[1] === undefined ? true : paramName[1];
+					}
+				}
+			};
+
+			var chainage = getUrlParameter("chainage");
+
 			$('#print_remove').addClass('align-center')
 			$('input[id="inner_select"]').attr('checked','checked');
 			$('#heading').text("km " + (chainage - 1) + " - " + (chainage));
@@ -64,7 +72,6 @@
 				$('#detail_print').find('#segment').text($(this).next().text()); // updates print div with current channel information
 				$('#surveys tbody').html('');
 				
-				//TODO: Replace following line for production
 				return $.getJSON(("/api/History?date=" + moment().format("YYYY-M-D") + "&") +
 					("lane=" + (detailIsInnerChannel ? "1" : "2")) + "&" +
 					("chainage=" + chainage), function(data) {
@@ -89,9 +96,7 @@
 					return $("#surveys tbody").append(row);
 					});
 				});
-			});
-
-			$('input[name=channel_select]').change();
+			}).change();
 		});
 	</script>
 </head>
@@ -106,38 +111,23 @@
 				<div class="grid-12">
 					<div class="align-center print-align-center print-margin-0">
 						<h3 style="margin: 0px;">Least Soundings and Available Widths</h3>
-						<h3 style="margin: 0px;">
-							<span>for Fraser River - South Arm</span>
-							<span>, </span>
-							<span id="heading"></span>
-						</h3>
-						<h3 style="margin: 0px;">
-							<span class="print_show_inline" id="segment"></span>
-						</h3>
+						<h3 style="margin: 0px;"><span>for Fraser River - South Arm, </span><span id="heading"></span></h3>
+						<h3 style="margin: 0px;"><span class="print_show_inline" id="segment"></span></h3>
 					</div>
 					<table class="styled align-center" id="survey-header" style="width: 600px; margin-right: auto; margin-left: auto;">
 						<thead>
-							<tr>
-								<td>Note: All soundings / depths are relative to local low water level</td>
-							</tr>
+							<tr><td>Note: All soundings / depths are relative to local low water level</td></tr>
 						</thead>
 						<tbody>
-							<tr class="print_hide">
-								<td>Users will need to download an Autodesk DWF viewer to view and display the Reference Plan.
-									<a
-										href="https://www.autodesk.com/products/design-review/download" target="_blank">Download Autodesk viewer</a>
-								</td>
-							</tr>
+							<tr class="print_hide"><td>Users will need to download an Autodesk DWF viewer to view and display the Reference Plan. <a href="https://www.autodesk.com/products/design-review/download" target="_blank">Download Autodesk viewer</a></td></tr>
 						</tbody>
 					</table>
 					<div class="print_hide align-center" id="print_remove">
 						<strong>Channel Select</strong>
 						<br>
-						<input name="channel_select" id="inner_select" style="display: inline;" type="radio" checked="checked"
-							value="1">
+						<input name="channel_select" id="inner_select" style="display: inline;" type="radio" checked="checked" value="1">
 						<label style="display: inline;" for="inner_select">Inner Channel</label>
-						<input name="channel_select" id="outer_select" style="display: inline;" type="radio"
-							value="2">
+						<input name="channel_select" id="outer_select" style="display: inline;" type="radio" value="2">
 						<label style="display: inline;" for="outer_select">Outer Channel</label>
 						<br>
 					</div>
