@@ -1052,7 +1052,7 @@ incl_ava_defs={
                 {tag:'span',attr:{id:'segment',className:'print_show_inline'},child:["Inner Channel"]}
               ]}
             ]},
-            {tag:'table',attr:{id:'survey-header',className:'styled align-center',style:'table-layout: fixed; margin-left: auto; margin-right: auto; width: 550px;'},child:[
+            {tag:'table',attr:{id:'survey-header',className:'styled align-center',style:'table-layout: fixed; margin-left: auto; margin-right: auto; width: 600px;'},child:[
               {tag:'thead',child:[
               {tag:'tr',child:[
                 {tag:'td',child:["Note:  All soundings / depths are relative to local low water level"]}
@@ -1077,7 +1077,7 @@ incl_ava_defs={
             ]}
           ]},
           {tag:'div',attr:{className:'grid-12'},child:[
-            {tag:'table',attr:{id:'surveys',className:'styled align-center',style:'margin-left: auto; margin-right: auto; width: 550px'},child:[
+            {tag:'table',attr:{id:'surveys',className:'styled align-center',style:'margin-left: auto; margin-right: auto; width: 600px'},child:[
               {tag:'thead',child:[
                 {tag:'tr',child:[
                   {tag:'th',attr:{rowspan:2},child:["Date of Survey"]},
