@@ -35,6 +35,12 @@
 			height: 26px;
 			margin: auto;
 		}
+
+		#det_placeholder {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	</style>
 
 	<style type="text/css" media="print">
@@ -45,26 +51,10 @@
 
 	<script>
 		$(document).ready(function() {
-			if (opener.document) {
-				var parentElem = window.opener.$("#detail_content").clone();
-				if ((/Trident\/7\./).test(navigator.userAgent) ||
-					(/MSIE/).test(navigator.userAgent)) {
-					var outer = parentElem[0].outerHTML;
-					$('#detail_content_popup')[0].innerHTML = outer;
-				} else {
-					$('#detail_content_popup').html(parentElem);
-				}
-				console.log(parentElem);
-			}
 			$('button[name="print"]').click(function() {
 				window.print()
 			});
-			var closeButton = $('<input type="button" class="button button-accent" value="Close" onClick="window.close()">');
-			$('.print_holder').append(closeButton);
-
 			$('#det_placeholder').empty();
-
-			//TODO: Copy and refactor code from pwl_func.gotoGraph_sub
 
 			function getUrlParameter(param) {
 				var url = decodeURIComponent(window.location.search.substring(1));
@@ -104,7 +94,6 @@
 			function gotoGraph() {
 				setParameters();
 
-				var detkmtime = $('#det_km_time');
 				switch (waterway) {
 					case '0':
 						$('#det_river-section').text("South Arm");
@@ -129,7 +118,7 @@
 			function translate_flow() {
 				var flow = "";
 				if (window.location.href.indexOf("fra") > -1) {
-					switch($("#flowType").val()) {
+					switch(flowType) {
 					case "Predicted":
 						flow = "Prévu";
 						break;
@@ -146,10 +135,10 @@
 						flow = "N/A"
 						break;
 					}
-				} else if ($("#flowType").val() === "UserDefined"){
+				} else if (flowType === "UserDefined"){
 					flow = "User-defined";
 				} else {
-					flow = $("#flowType").val()
+					flow = flowType;
 				}
 
 				return flow;
@@ -214,10 +203,7 @@
 				} else {
 					$('#det_km_time-suff').text('');
 
-					//TODO: Replace following line for production
 					$.getJSON(getAPI(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", "api/depths/waterlevel_timeplot.json"), function(data) {
-						//$.getJSON(("/api/waterlevel?date=" + ($('#pwl_date').val()) + "&") + ("intervalMin=" + ($('#interval').val()) + "&") + ("flowRate=" + ($('#flowRate').val()) + "&") + ("flowType=" + ($('#flowType').val()) + "&") + ("waterway=" + ($('#pwl_waterway').val()) + "&") + "displayType=0", function(data) {
-						//$.getJSON("api/depths/waterlevel_timeplot.json", function (data) {
 						var points = [];
 						$.each(data.times, function() {
 							var start;
@@ -253,14 +239,26 @@
 	</script>
 </head>
 <body>
-	<div id="detail_content_popup">
-		<div class="grid-12">
-            <div class="span-6 align-center">
-			  <h2>Predicted Water Levels<br/>Fraser River - <span id="det_river-section"></span> at <span id="det_km_time-suff"></span><span id="det_km_time"></span></h2>
-              <p><span id="det_static-date"></span> at <span id="det_static-interval"></span> Intervals<br/>River Discharge @ Hope <span id="det_static-discharge"></span>&#179;/s (<span id="det_static-discharge-eval"></span>)</p>
-              <div id="det_placeholder" class="demo-placeholder" style="height:450px;width:800px;"></div>
-            </div>
-          </div>
+	<div id="detail_content">
+		<div class="print_holder">
+			<button name="print" class="button button-accent print_button print_hide">Print</button>
+			<input class="button button-accent" onclick="window.close()" type="button" value="Close">
+		</div>
+		<div>
+			<div class="grid-12">
+				<div class="align-center">
+					<h2>Predicted Water Levels<br/>Fraser River - <span id="det_river-section"></span> at <span id="det_km_time-suff"></span><span id="det_km_time"></span></h2>
+					<p><span id="det_static-date"></span> at <span id="det_static-interval"></span> Intervals<br/>River Discharge @ Hope <span id="det_static-discharge"></span>&#179;/s (<span id="det_static-discharge-eval"></span>)</p>
+					<div id="det_placeholder" class="demo-placeholder" style="height:450px;width:800px;"></div>
+				</div>
+				<div class="page-break"></div>
+				<div class="print_holder">
+					<button name="print" class="button button-accent print_button print_hide">Print</button>
+					<input class="button button-accent" onclick="window.close()" type="button" value="Close">
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
+
