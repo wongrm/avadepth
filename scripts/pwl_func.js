@@ -289,7 +289,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             avaIFaceJS.pwl_func.gotoGraph_sub(typCode, typValue, "#det_placeholder"); // create pwl plots for main detail report
 
             avaIFaceJS.detailWindow.useMap = useMap;
-            avaIFaceJS.detailWindow.show();
+            //avaIFaceJS.detailWindow.show();
             window.open('pwl_detail.html?' +
                             'code=' + (typCode + "&") +
                             'value=' + (typValue + "&") +
