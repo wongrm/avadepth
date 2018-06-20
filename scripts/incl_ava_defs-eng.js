@@ -1613,7 +1613,7 @@ var mapStyle = {
     wid1: '5.0',
     wid2: '2.0',
     col1: '#ffff00',
-    col2: '#ffffff',
+    col2: '#28eafc',
     sel1: '#00ffff',
     black: '#000000',
     white: '#ffffff',
