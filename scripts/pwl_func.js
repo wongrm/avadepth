@@ -289,7 +289,15 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             avaIFaceJS.pwl_func.gotoGraph_sub(typCode, typValue, "#det_placeholder"); // create pwl plots for main detail report
 
             avaIFaceJS.detailWindow.useMap = useMap;
-            avaIFaceJS.detailWindow.show();
+            //avaIFaceJS.detailWindow.show();
+            window.open('pwl_detail.html?' +
+                            'code=' + (typCode + "&") +
+                            'value=' + (typValue + "&") +
+                            'date=' + ($('#pwl_date').val() + "&") +
+                            'intervalMin=' + ($('#interval').val() + "&") + 
+                            'flowRate=' + ($('#flowRate').val() + "&") +
+                            'flowType=' + ($('#flowType').val() + "&") +
+                            'waterway=' + ($('#pwl_waterway').val()))
 
             // once print div is initialized in ava_iface.show(), add pwl canvas chart for printing
             $("#detail_print").find("#det_placeholder").replaceWith('<div class="demo-placeholder" id="det_placeholder_print" style="height: 450px; width: 100%; left:30px; padding: 0px; position: relative;"></div>'); // put width back to 100%
