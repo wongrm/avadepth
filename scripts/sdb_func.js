@@ -2,7 +2,7 @@
  * Created by wsiddall on 26/08/2014.
  * Maintained by seor since 02/10/2015.
  */
-var debug = false;
+var debug = true;
 var locException = [];
 
 /*** Interface functions ***/
@@ -18,10 +18,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             /** Event Handlers **/
             // Load and fill channel drop down
-            $('#sdb_waterway').change(avaIFaceJS.sdb_func.fillChannel);
+            $('#sdb_waterway').change(function(){
+                avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Open);
+                avaIFaceJS.sdb_func.fillChannel();
+            });
 
             // Load and fill location drop down
-            $('#channel').change(avaIFaceJS.sdb_func.fillLocation);
+            // $('#channel').change(avaIFaceJS.sdb_func.fillLocation);
 
             // Colour and resize map extents when waterway field changes
             $('#sdb_waterway').change(function() {
@@ -29,11 +32,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 return $('#map').css("min-height", "400px");
             });
 
-            // Colour and resize map when channel field changes
+            // Colour and resize map, and fill location drop down when channel field changes
             $('#channel').change(function() {
                 avaIFaceJS.mapJS.sdb_func.refreshLocation("");
                 // console.profile("channel change event");
                 avaIFaceJS.mapJS.sdb_func.setChannelExtents($('#sdb_waterway').val(), $(this).val()); // Broken?
+                avaIFaceJS.sdb_func.fillLocation();
                 // console.profileEnd();
                 return $('#map').css("min-height", "400px");
             });
@@ -43,9 +47,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 return avaIFaceJS.mapJS.sdb_func.refreshLocation($(this).val());
             });
 
+            $('#type').change(function() {
+                avaIFaceJS.sdb_func.update();
+            });
+
             // Submit form
             $("#submit").click(function() {
-                $('.spinner').show();
                 return avaIFaceJS.sdb_func.update();
             });
         },
@@ -62,8 +69,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // Load and fill location drop down
         fillLocation: function() {
-          if($('#sdb_waterway').val() !== 'WS')
-          {
             locationDropdownFilled = true;
             $('#location option').remove();
             $('#location').append('<option></option>');
@@ -73,103 +78,110 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             }
             try {
                 return $.each(incl_ava_defs.locDefs[$('#sdb_waterway').val()]['Sections'][$('#channel').val()]['Names'], function() {
-                    return $('#location').append("<option>" + this + "</option>");
+                    return $('#location').append("<option value='" + this["Location Name"] + "'>" + this["Location Name"] + "</option>");
                 });
             } catch (err) {
                 if (debug) console.log("void fillLocation(): No location defined for channel " + $('#channel').val());
                 return;
             }
-          }
         },
 
         // process report content and update window
-        update: function() {
-            var header, wat, chann, location;
+        update: function(tileName) {
+            if(debug) console.log("void update(tileName = " + tileName + ")");
 
-            // set report title
-            if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
-                header = "Enquêtes Résultats de la recherche";
-            } else {
-                header = "Surveys Search Results";
-            }
 
-            wat = $('#sdb_waterway').find('option:selected').text();
-            chann = $('#channel').find('option:selected').text();
-            location = $('#location').find('option:selected').text();
+            var header, wat, chann, location, type;
+            wat = $('#sdb_waterway :selected').text();
+            chann = $('#channel :selected').text();
+            location = $('#location :selected').text();
+            type = $('#type :selected').text(); 
 
-            if (location != "") {
-                location = "At " + location;
-            }
+            if(wat != "" && chann != "")
+            {
+                $('.spinner').show();
+                // set report title
+                if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
+                    header = "Enquêtes Résultats de la recherche";
+                } else {
+                    header = "Surveys Search Results";
+                }
 
-            avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
+                if (location != "") {
+                    location = "At " + location;
+                }
 
-            // (Param)      (Column Name)
-            // river:       RiverCode
-            // drawingType: Type
-            // channel:     NA - not used in the search
-            // location:    Location
-            // channelType: NA - not used in the search
-            var apiBase = "api/surveys/getsurveys?";
-            var apiParams = [];
-            var apiURL = "";
-            apiParams.push("river=", $("#channel").val(), "&");
-            apiParams.push("location=", $("#location").val(), "&");
-            apiParams.push("drawingType=", $("#type").val(), "&");
-            apiParams.push("channel=", "", "&");
-            apiParams.push("channelType=", "");
+                avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
 
-            // DB Exceptions handled in front end -> dangerous, probably
-            // should be moved to backend for production
-            var chosenLoc = $("#location").val();
-            for (var i = 0; i < locException.length; i++) {
-                var code = locException[i].riverCode;
-                if (locException[i].re.test(chosenLoc)) {
-                    exceptionAPI = true;
-                    if (code.match("FSD")) {
-                        apiParams[1] = locException[i].riverCode;
-                        apiParams[4] = "";
+                var riverVal = $('#sdb_waterway').val();
+                var channelVal = $('#channel').val();
+                var locationVal = $('#location :selected').text();
+                var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
+                var tile;
+                if(tileName != undefined) tile = tileName;
+                //if the channel has it's own tile, grab the tile
+                else if(channelStruct["Form"].hasOwnProperty("Tile")) tile = channelStruct["Form"]["Tile"];
+                else{
+                    //find the location object, and store its tile
+                    for(var i = 0; i < channelStruct["Names"].length; i++)
+                    {
+                        var curLoc = channelStruct["Names"][i];
+                        if(curLoc["Location Name"] == locationVal)
+                        {
+                            tile = curLoc["Tile"];
+                            break;
+                        }
                     }
                 }
+                if (debug) console.log("update() with tile: " + tile);
+
+                //get the survey drawings and fill the table
+                var apiURL = "api2/SurveyDrawings?Tile_A=" + tile;
+                if(type != "") apiURL += "&Type=" + type;
+
+                if (debug) console.log("update() is calling: " + apiURL);
+
+                //if we found a tile that matches the parameter menu, or if a tile has been clicked, fill out the drawings table
+                if(tile != undefined) return $.getJSON(getAPI(apiURL, ""), function(data) {
+                        avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
+                            bPaginate: false,
+                            bInfo: false,
+                            bSort: false,
+                            bFilter: false
+                        }));
+                        avaIFaceJS.sdb_func.tableReport.clear();
+                        $('#report_tbl tbody tr').remove();
+                        $.each(data, function() {
+                            avaIFaceJS.sdb_func.tableReport.row.add(
+                                [this.yyyy_mm_dd,
+                                (this.Svy_Filename.indexOf('pdf') > -1 || this.Type.indexOf('pdf') > -1) ?
+                                "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".pdf' target='_blank'>" + this.Svy_Filename + "</a>":
+                                "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".dwf?' target='_blank'>" + this.Filename + "</a>",
+                                    this.Location,
+                                    this.Type,
+                                    this.KMstart,
+                                    this.KMend
+                                ]);
+                        });
+                        avaIFaceJS.sdb_func.tableReport.draw();
+                        $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
+                            $(this).css('text-align', 'right');
+                        });
+                        avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
+                        avaIFaceJS.reportWindow.show();
+                    }).done(function() {
+                        $('.spinner').hide();
+                        pBarToggle();
+                        });
+                else $('.spinner').hide();
             }
 
-            if (debug) console.log("void update(): " + apiParams);
-            apiURL = apiBase + apiParams.join("");
-
-            return $.getJSON(getAPI(apiURL, ""), function(data) {
-                avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
-                    bPaginate: false,
-                    bInfo: false,
-                    bSort: false,
-                    bFilter: false
-                }));
-                avaIFaceJS.sdb_func.tableReport.clear();
-                $('#report_tbl tbody tr').remove();
-                $.each(data, function() {
-                    avaIFaceJS.sdb_func.tableReport.row.add(
-                        [this.date.split("T")[0],
-                        (this.drawType.indexOf('pdf') > -1) ?
-                        "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".pdf' target='_blank'>" + this.fileNumber + "</a>":
-                        "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".dwf?' target='_blank'>" + this.fileNumber + "</a>",
-                            this.location,
-                            this.drawType,
-                            this.kmStart,
-                            this.kmEnd
-                        ]);
-                });
-                avaIFaceJS.sdb_func.tableReport.draw();
-                $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
-                    $(this).css('text-align', 'right');
-                });
-                avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
-                avaIFaceJS.reportWindow.show();
-            }).done(function() {
-                $('.spinner').hide();
-                pBarToggle();
-            });
         },
 
         // update parameter bar from map selected channel
         updateParameters: (function(jsonData) {
+            if(debug) console.log("void updateParameters: \n");
+            console.log(jsonData);
             var data = jsonData.data
             switch (data.waterway) {
                 case "FRMA":
@@ -182,7 +194,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 case "FRUR":
                     $('#sdb_waterway').val("FR");
                     break;
-                case "POV_BI":
+                case "POV":
                     $('#sdb_waterway').val("POV");
                     avaIFaceJS.sdb_func.fillChannel();
                     $('#channel').val("POV_BI");
@@ -199,10 +211,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#sdb_waterway').val("CWC");
             }
             if ((/WS*/).test(data.waterway)) $('#sdb_waterway').val("WS");
+            if ((/IN*/).test(data.waterway)) $('#sdb_waterway').val("IW");
 
             avaIFaceJS.sdb_func.fillChannel();
             $('#channel').val(data.waterway);
             avaIFaceJS.sdb_func.fillLocation();
+            // $('#location').text(data.location);
             $('#location').val(data.location);
         }),
     };
@@ -278,6 +292,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             var obj = incl_ava_defs.locDefs[waterway]['Sections'][channel].Coords;
             if (debug) {
                 console.log("void setChannelExtents(): minLat=" + obj.Lat.min);
+                console.log("void setChannelExtents(): maxLat=" + obj.Lat.max);
+                console.log("void setChannelExtents(): minLon=" + obj.Lon.min);
+                console.log("void setChannelExtents(): maxLon=" + obj.Lon.max);
                 console.log("void setChannelExtents(): channel=" + channel);
             }
 
@@ -335,16 +352,18 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             }
             if (tileName.indexOf('/') >= 0) {
                 parent.window.open("http://www2.pac.dfo-mpo.gc.ca" + tileName, '_blank');
+                parent.avaIFaceJS.sdb_func.update(); // refresh page from updated parameters
             } else {
                 parent.avaIFaceJS.sdb_func.updateParameters({
                     "data": tile.feature.data
                 });
-                parent.avaIFaceJS.sdb_func.update(); // refresh page from updated parameters
+                parent.avaIFaceJS.sdb_func.update(tileName); // refresh page from updated parameters
             }
         },
 
         // refreshTiles: function to refresh the draw of the tile layer using the new selected form settings
         refreshTiles: function(channel, location) {
+            if(debug) console.log("void refreshTiles()");
             avaMapJS.sdb_func.curWaterway = channel;
             avaMapJS.sdb_func.curLocation = location;
             if (location == "") {
@@ -359,10 +378,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
          * @return {[void]}
          */
         refreshLocation : function(location) {
+            if(debug) console.log("refreshLocation(" + location + ")");
             this.checkRemainingFeaturesOnLayer();
             if (location.length != "") {
                 var featureToSelect = this.getFeaturesByLocation(location);
                 if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
+                else parent.avaIFaceJS.sdb_func.update();
             }
             avaMapJS.sdb_func.kml.redraw();
         },
@@ -373,6 +394,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
          * @return {[Object]}          [feature object]
          */
         getFeaturesByLocation : function(location) {
+            if(debug) console.log("getFeaturesByLocation(" + location + ")");
             var features = this.kml.features;
             for (var i = 0; i < features.length; i++) {
                 var data = features[i].data.location;
@@ -389,6 +411,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
          * @return {[Boolean]}          [return true if the function executes successfully]
          */
         checkRemainingFeaturesOnLayer : function() {
+            if(debug) console.log("checkRemainingFeaturesOnLayer()\n");
             var selectedFeatures = this.getSelectedFeatures();
             if (selectedFeatures.length == 0) {
                 return true;
