@@ -9,6 +9,7 @@
 	<script src="/scripts/flot/jquery.flot.js"></script>
 	<script src="/scripts/flot/jquery.flot.time.js"></script>
 	<script src="/scripts/flot/jquery.flot.axislabels.js"></script>
+	<script src="/scripts/avadepth_util.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="/wet-boew/dist/js/css/pe-ap-min.css">
 	<link rel="stylesheet" type="text/css" href="/wet-boew/dist/grids/css/util-min.css">
@@ -56,26 +57,14 @@
 			});
 			$('#det_placeholder').empty();
 
-			function getUrlParameter(param) {
-				var url = decodeURIComponent(window.location.search.substring(1));
-				var vars = url.split('&');
-				var paramName;
-				for (var i = 0; i < vars.length; i++) {
-					paramName = vars[i].split('=');
-					if (paramName[0] === param) {
-						return paramName[1] === undefined ? true : paramName[1];
-					}
-				}
-			};
-
-			var typCode = getUrlParameter("code");
-			var typValue = getUrlParameter("value");
-			var waterway = getUrlParameter("waterway");
-			var date = getUrlParameter("date");
-			var intervalMin = getUrlParameter("intervalMin");
-			var flowRate = getUrlParameter("flowRate");
-			var flowType = getUrlParameter("flowType");
-			var waterway = getUrlParameter("waterway");
+			var typCode = avadepth.util.getUrlParameter("code");
+			var typValue = avadepth.util.getUrlParameter("value");
+			var waterway = avadepth.util.getUrlParameter("waterway");
+			var date = avadepth.util.getUrlParameter("date");
+			var intervalMin = avadepth.util.getUrlParameter("intervalMin");
+			var flowRate = avadepth.util.getUrlParameter("flowRate");
+			var flowType = avadepth.util.getUrlParameter("flowType");
+			var waterway = avadepth.util.getUrlParameter("waterway");
 			var static_arm = "South Arm";
 			var static_interval = "1 Hour";
 			var plotId = "#det_placeholder";
@@ -143,7 +132,12 @@
 			if (typCode == 0) {
 				$('#det_km_time-suff').text(' km ');
 
-				$.getJSON(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", function(data) {
+				$.getJSON(("/api/waterlevel?date=" + (date) + "&") +
+						("intervalMin=" + (intervalMin) + "&") +
+						("flowRate=" + (flowRate) + "&") +
+						("flowType=" + (flowType) + "&") +
+						("waterway=" + (waterway) + "&") +
+						"displayType=0", function(data) {
 					var points = [];
 					$.each(data.times, function() {
 						var date;
@@ -175,7 +169,12 @@
 			} else {
 				$('#det_km_time-suff').text('');
 
-				$.getJSON(("/api/waterlevel?date=" + (date) + "&") + ("intervalMin=" + (intervalMin) + "&") + ("flowRate=" + (flowRate) + "&") + ("flowType=" + (flowType) + "&") + ("waterway=" + (waterway) + "&") + "displayType=0", function(data) {
+				$.getJSON(("/api/waterlevel?date=" + (date) + "&") +
+						("intervalMin=" + (intervalMin) + "&") +
+						("flowRate=" + (flowRate) + "&") +
+						("flowType=" + (flowType) + "&") +
+						("waterway=" + (waterway) + "&") +
+						"displayType=0", function(data) {
 					var points = [];
 					$.each(data.times, function() {
 						var start;

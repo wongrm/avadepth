@@ -54,5 +54,16 @@ avadepth.util = {
          flow.flowType = "UserDefined"
         }
         return flow;
+    },
+    getUrlParameter: function (param) {
+        var url = decodeURIComponent(window.location.search.substring(1));
+        var vars = url.split('&');
+        var paramName;
+        for (var i = 0; i < vars.length; i++) {
+            paramName = vars[i].split('=');
+            if (paramName[0] === param) {
+                return paramName[1] === undefined ? true : paramName[1];
+            }
+        }
     }
 }
