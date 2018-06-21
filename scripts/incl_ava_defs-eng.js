@@ -20,6 +20,9 @@ var currentDate = new Date();
 
 incl_ava_defs={
     locDefs: {
+
+incl_ava_defs={
+    locDefs: {
         "CWC" : {
             "Form" : {
                 "Title" : "Coastal Waterway",
@@ -36,10 +39,11 @@ incl_ava_defs={
                 }
             },
             "Sections" : {
-                "CB" : {
+                "BC_CB" : {
                     "Form" : {
                         "Title" : "Campbell River, BC",
-                        "Key" : "CB"
+                        "Key" : "BC_CB",
+                        "Tile": "BR4650"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -53,10 +57,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "CR" : {
+                "BC_CR" : {
                     "Form" : {
                         "Title" : "Courtenay River, BC",
-                        "Key" : "CR"
+                        "Key" : "BC_CR",
+                        "Tile": "CR0107"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -70,10 +75,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "FC" : {
+                "BC_FC" : {
                     "Form" : {
                         "Title" : "French Creek, BC",
-                        "Key" : "FC"
+                        "Key" : "BC_FC",
+                        "Tile": "FCR01"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -87,10 +93,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "HG" : {
+                "BC_HG" : {
                     "Form" : {
                         "Title" : "Haida Gwaii, BC",
-                        "Key" : "HG"
+                        "Key" : "BC_HG",
+                        "Tile" : "HG_SG"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -104,10 +111,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "NAN" : {
+                "BC_NAN" : {
                     "Form" : {
                         "Title" : "Nanaimo, BC",
-                        "Key" : "NAN"
+                        "Key" : "BC_NAN",
+                        "Tile": "NAN01"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -121,10 +129,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "SQ" : {
+                "BC_SQ" : {
                     "Form" : {
                         "Title" : "Squamish, BC",
-                        "Key" : "SQ"
+                        "Key" : "BC_SQ",
+                        "Tile": "SQ0105"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -138,10 +147,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "TOF" : {
+                "BC_TOF" : {
                     "Form" : {
                         "Title" : "Tofino Harbour, BC",
-                        "Key" : "TOF"
+                        "Key" : "BC_TOF",
+                        "Tile" : "TOF01"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -159,7 +169,7 @@ incl_ava_defs={
         },
         "IW" : {
             "Form": {
-                "Title" : "Inland Waterway",
+                "Title" : "Interior Waterway",
                 "Order" : 1
             },
             "Coords" : {
@@ -174,10 +184,11 @@ incl_ava_defs={
             },
             // add tile
             "Sections" : {
-                "BC_Sica" : {
+                "IN_BC" : {
                     "Form" : {
                         "Title" : "Sicamous, BC",
-                        "Key" : "BC_Sica"
+                        "Key" : "IN_BC", 
+                        "Tile" : "BC_Sica"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -191,10 +202,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "MB_Red" : {
+                "IN_MB" : {
                     "Form" : {
                         "Title" : "Red River, MB",
-                        "Key" : "MB_Red"
+                        "Key" : "IN_MB",
+                        "Tile" : "MB_Red"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -208,10 +220,11 @@ incl_ava_defs={
                         }
                     }
                 },
-                "NT_Hay" : {
+                "IN_NT" : {
                     "Form" : {
                         "Title" : "Hay River, NT",
-                        "Key" : "NT_Hay"
+                        "Key" : "IN_NT",
+                        "Tile": "NT_Hay"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -228,7 +241,8 @@ incl_ava_defs={
                 "NT_Mack" : {
                     "Form" : {
                         "Title" : "Mackenzie River, NT",
-                        "Key" : "NT_Mack"
+                        "Key" : "NT_Mack",
+                        "Tile" : "NT_Mack"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -266,7 +280,11 @@ incl_ava_defs={
                         "Title" : "Burrard Inlet",
                         "Key" : "POV_BI"
                     },
-                    "Names" : "",
+                    "Names" : [
+                                {"Location Name": "1st Narrows", "Tile": "POV_1"},
+                                {"Location Name": "2nd Narrows", "Tile": "POV_2"},
+                                {"Location Name": "Port Moody", "Tile": "POV_3"},
+                              ],
                     "Coords" : {
                         "Lat" : {
                             "min" : 6311123,
@@ -284,10 +302,10 @@ incl_ava_defs={
                         "Key" : "POV_PT"
                     },
                     "Names" : [
-                    "Fraser Surrey Docks",
-                    "Centennial Pier",
-                    "Lynnterm Westgate"
-                    ],
+                                {"Location Name": "Fraser Surrey Docks", "Tile": "POV_4"},
+                                {"Location Name": "Centennial Pier", "Tile": "POV_5"},
+                                {"Location Name": "Lynnterm Westgate", "Tile": "POV_5"}
+                              ],
                     "Coords" : {
                         "Lat" : {
                             "min" : 6311123,
@@ -302,9 +320,10 @@ incl_ava_defs={
                 "POV_FC" : {
                 "Form" : {
                     "Title" : "False Creek",
-                    "Key" : "POV_FC"
+                    "Key" : "POV_FC",
+                    "Tile": "POV_6"
                 },
-                "Names" : [""]
+                "Names" : ""
                 ,
                 "Coords" : {
                     "Lat" : {
@@ -342,15 +361,17 @@ incl_ava_defs={
                       "Key" : "FRSA"
                   },
                   "Names" : [
-                      "Sand Heads to Fraser Surrey Docks",
-                      "Sand Heads Entrance",
-                      "Sand Heads Reach",
-                      "Steveston Bend",
-                      "Steveston Cut",
-                      "Woodward Reach",
-                      "Gravesend Reach",
-                      "City Reach",
-                      "Annieville - New West",
+                      {"Location Name": "Sand Heads to Fraser Surrey Docks", "Tile": "SA0035"},
+                      {"Location Name": "Sand Heads Entrance", "Tile": "SA_101"},
+                      {"Location Name": "Sand Heads Reach", "Tile": "SA0105"},
+                      {"Location Name": "Steveston Bend", "Tile": "SA0507"},
+                      {"Location Name": "Steveston Cut", "Tile": "SA0711"},
+                      {"Location Name": "Woodward Reach", "Tile": "SA1119"},
+                      {"Location Name": "Gravesend Reach", "Tile": "SA1927"},
+                      {"Location Name": "City Reach", "Tile": "SA2731"},
+                      {"Location Name": "Annieville - New West", "Tile": "SA3136"},
+                      //ADDED
+                      {"Location Name": "South Arm - Side Channels", "Tile": "FRSA_SC"}
                   ],
                   "Coords" : {
                       "Lat" : {
@@ -372,7 +393,7 @@ incl_ava_defs={
                     "Key" : "POV_FSD"
                 },
                 "Names" : [
-                "Fraser Surrey Docks"
+                {"Location Name": "Fraser Surrey Docks", "Tile": "POV_4"}
                 ],
                 "Coords" : {
                     "Lat" : {
@@ -391,17 +412,18 @@ incl_ava_defs={
                       "Key" : "FRNA"
                   },
                   "Names" : [
-                      "Point Grey to New Westminster",
-                      "Point Grey",
-                      "Iona",
-                      "Musqueam",
-                      "Sea Island",
-                      "Marpole Basin",
-                      "Mitchell Island",
-                      "Mac-Blo",
-                      "Byrne Road",
-                      "Big Bend - Queens",
-                      "Poplar Island"
+                      {"Location Name" : "Point Grey to New Westminster", "Tile": "NA0031"},
+                      {"Location Name" : "Point Grey", "Tile": "NA_103"},
+                      {"Location Name" : "Iona","Tile":  "NA0307"},
+                      {"Location Name" : "Musqueam", "Tile": "NA0709"},
+                      {"Location Name" : "Sea Island", "Tile": "NA0913"},
+                      {"Location Name" : "Marpole Basin", "Tile": "NA1314"},
+                      {"Location Name" : "Mitchell Island", "Tile": "NA1419"},
+                      {"Location Name" : "Mac-Blo", "Tile": "NA1921"},
+                      {"Location Name" : "Byrne Road", "Tile": "NA2125"},
+                      {"Location Name" : "Big Bend - Queens", "Tile": "NA2529"},
+                      {"Location Name" : "Poplar Island", "Tile": "NA2931"},
+                      {"Location Name" : "North Arm - Side Channels", "Tile": "FRNA_SC"}
                   ],
                   "Coords" : {
                       "Lat" : {
@@ -423,16 +445,18 @@ incl_ava_defs={
                         "Key" : "FRMA"
                     },
                     "Names" : [
-                      "New Westminster to Fort Langley",
-                      "Fort Langley to Mission",
-                      "Queens Reach",
-                      "Douglas Island",
-                      "Bishops Reach",
-                      "Derby Reach",
-                      "Russel Reach",
-                      "Russel Reach (Langley Bar)",
-                      "Plumper Reach",
-                      "Matsqui Island"
+                      {"Location Name": "New Westminster to Fort Langley", "Tile": "MA3561"},
+                      {"Location Name": "Fort Langley to Mission", "Tile": "MA6085"},
+                      {"Location Name": "Queens Reach", "Tile": "MA3644"},
+                      {"Location Name": "Douglas Island", "Tile": "MA4447"},
+                      {"Location Name": "Bishops Reach", "Tile": "MA4754"},
+                      {"Location Name": "Derby Reach", "Tile": "MA5460"},
+                      {"Location Name": "Russel Reach", "Tile": "MA6069"},
+                      {"Location Name": "Russel Reach (Langley Bar)", "Tile": "MA6069"},
+                      {"Location Name": "Plumper Reach", "Tile": "MA6978"},
+                      {"Location Name": "Matsqui Island", "Tile": "MA7884"},
+                      //ADDED
+                      {"Location Name": "Main Arm - Side Channels", "Tile": "FRMA_SC"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -454,17 +478,17 @@ incl_ava_defs={
                         "Key" : "FRSA_SC"
                     },
                     "Names" : [
-                        "Ladner Sea Reach Overview",
-                        "Annacis Channel",
-                        "Gundersen Slough",
-                        "Shoal Point - New West",
-                        "Burr Landing Channel",
-                        "Cannery Channel",
-                        "Sea Reach",
-                        "Ladner Reach",
-                        "Canoe Pass",
-                        "Ladner Harbour",
-                        "Deas Slough",
+                        {"Location Name": "Ladner Sea Reach Overview", "Tile": "SA_LSR"},
+                        {"Location Name": "Annacis Channel", "Tile": "SA_AC"},
+                        {"Location Name": "Gundersen Slough", "Tile": "SA_GS"},
+                        {"Location Name": "Shoal Point - New West", "Tile": "SA_SP"},
+                        {"Location Name": "Burr Landing Channel", "Tile": "SA_BLC"},
+                        {"Location Name": "Cannery Channel", "Tile": "SA_CC"},
+                        {"Location Name": "Sea Reach", "Tile": "SA_SR"},
+                        {"Location Name": "Ladner Reach", "Tile": "SA_LR"},
+                        {"Location Name": "Canoe Pass", "Tile": "SA_CP"},
+                        {"Location Name": "Ladner Harbour", "Tile": "SA_LH"},
+                        {"Location Name": "Deas Slough", "Tile": "SA_DS"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -483,13 +507,13 @@ incl_ava_defs={
                         "Key" : "FRNA_SC"
                     },
                     "Names" : [
-                        "Morey Channel - Middle Arm",
-                        "Cowards Cove",
-                        "Point Grey Scow Moorage",
-                        "Deering Channel",
-                        "Macdonald Slough",
-                        "Mitchell Island North Channel",
-                        "Tree Island Channel"
+                        {"Location Name": "Morey Channel - Middle Arm", "Tile": "NA_MC"},
+                        {"Location Name": "Cowards Cove", "Tile": "NA_CC"},
+                        {"Location Name": "Point Grey Scow Moorage", "Tile": "NA_SM"},
+                        {"Location Name": "Deering Channel", "Tile": "NA_DC"},
+                        {"Location Name": "Macdonald Slough", "Tile": "NA_MS"},
+                        {"Location Name": "Mitchell Island North Channel", "Tile": "NA_MIN"},
+                        {"Location Name": "Tree Island Channel", "Tile": "NA_TIC"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -508,11 +532,11 @@ incl_ava_defs={
                         "Key" : "FRMA_SC"
                     },
                     "Names" : [
-                      "Bedford Channel",
-                      "Douglas Island North Channel",
-                      "Essondale Channel",
-                      "Parsons Channel",
-                      "Sapperton Channel",
+                      {"Location Name": "Bedford Channel", "Tile": "MA_BC"},
+                      {"Location Name": "Douglas Island North Channel", "Tile": "MA_DIN"},
+                      {"Location Name": "Essondale Channel", "Tile": "MA_EC"},
+                      {"Location Name": "Parsons Channel", "Tile": "MA_PC"},
+                      {"Location Name": "Sapperton Channel", "Tile": "MA_SAP"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -528,7 +552,8 @@ incl_ava_defs={
                 "FRPR" : {
                     "Form" : {
                         "Title" : "Pitt River",
-                        "Key" : "FRPR"
+                        "Key" : "FRPR",
+                        "Tile": "FR_PR"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -546,7 +571,8 @@ incl_ava_defs={
                 "FRUR" : {
                     "Form" : {
                         "Title" : "Mission to Hope",
-                        "Key" : "FRUR"
+                        "Key" : "FRUR",
+                        "Tile": "UR000"
                     },
                     "Names" : "",
                     "Coords" : {
@@ -584,20 +610,20 @@ incl_ava_defs={
                         "Key" : "WS_LFR"
                     },
                     "Names" : [
-                        "North Arm Breakwater",
-                        "North Arm Jetty",
-                        "Steveston North Jetty",
-                        "Steveston South Jetty No. 2",
-                        "Albion Training Wall",
-                        "Steveston Wingdams",
-                        "Steveston Island Shearboom",
-                        "Woodward Island Training Wall",
-                        "Kirkland & Deas Island Bank Protection",
-                        "Trifurcation Phase I Training Wall",
-                        "Trifurcation Phase II Training Wall",
-                        "Trifurcation Phase III Training Wall",
-                        "Sapperton Wingdam No. 2 & No. 3",
-                        "Sapperton V_Dyke"
+                        {"Location Name": "North Arm Breakwater", "Tile": "WS_P01"},
+                        {"Location Name": "North Arm Jetty", "Tile": "WS_P02"},
+                        {"Location Name": "Steveston North Jetty", "Tile": "WS_P03"},
+                        {"Location Name": "Steveston South Jetty No. 2", "Tile": "WS_P04"},
+                        {"Location Name": "Albion Training Wall", "Tile": "WS_P05"},
+                        {"Location Name": "Steveston Wingdams", "Tile": "WS_P06"},
+                        {"Location Name": "Steveston Island Shearboom", "Tile": "WS_P07"},
+                        {"Location Name": "Woodward Island Training Wall", "Tile": "WS_P08"},
+                        {"Location Name": "Kirkland & Deas Island Bank Protection", "Tile": "WS_P09"},
+                        {"Location Name": "Trifurcation Phase I Training Wall", "Tile": "WS_P10"},
+                        {"Location Name": "Trifurcation Phase II Training Wall", "Tile": "WS_P11"},
+                        {"Location Name": "Trifurcation Phase III Training Wall", "Tile": "WS_P12"},
+                        {"Location Name": "Sapperton Wingdam No. 2 & No. 3", "Tile": "WS_P13"},
+                        {"Location Name": "Sapperton V_Dyke", "Tile": "WS_P14"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -663,7 +689,7 @@ incl_ava_defs={
                         "Title" : "Mission to Hope",
                         "Key" : "WS_M2H"
                     },
-                    "Names" : ["Big & Middle Eddy Rock Groynes"],
+                    "Names" : [{"Location Name": "Big & Middle Eddy Rock Groynes", "Tile": "WS_P15"}],
                     "Coords" : {
                         "Lat" : {
                             "min" : 6295882,
@@ -681,10 +707,10 @@ incl_ava_defs={
                         "Key" : "WS_HR"
                     },
                     "Names" : [
-                        "Harrison Mills CPR Bridge Shearboom",
-                        "Harrison River Dykes V R W P",
-                        "Harrison Hwy No.7 Bridge Shearboom",
-                        "Harrison Rapids Shearboom"
+                        {"Location Name": "Harrison Mills CPR Bridge Shearboom", "Tile": "WS_P16"},
+                        {"Location Name": "Harrison River Dykes V R W P", "Tile": "WS_P17"},
+                        {"Location Name": "Harrison Hwy No.7 Bridge Shearboom", "Tile": "WS_P18"},
+                        {"Location Name": "Harrison Rapids Shearboom", "Tile": "WS_P19"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -699,6 +725,7 @@ incl_ava_defs={
                 }
             }
         }
+    },
     },
   
   avaPages:{
