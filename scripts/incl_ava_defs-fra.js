@@ -166,7 +166,7 @@ incl_ava_defs={
         },
         "IW" : {
             "Form": {
-                "Title" : "Interior Waterway",
+                "Title" : "Inland Waterway",
                 "Order" : 1
             },
             "Coords" : {
@@ -722,7 +722,6 @@ incl_ava_defs={
                 }
             }
         }
-
   },
 
   avaPages:{

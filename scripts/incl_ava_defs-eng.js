@@ -20,9 +20,6 @@ var currentDate = new Date();
 
 incl_ava_defs={
     locDefs: {
-
-incl_ava_defs={
-    locDefs: {
         "CWC" : {
             "Form" : {
                 "Title" : "Coastal Waterway",
@@ -169,7 +166,7 @@ incl_ava_defs={
         },
         "IW" : {
             "Form": {
-                "Title" : "Interior Waterway",
+                "Title" : "Inland Waterway",
                 "Order" : 1
             },
             "Coords" : {
@@ -725,7 +722,6 @@ incl_ava_defs={
                 }
             }
         }
-    },
     },
   
   avaPages:{

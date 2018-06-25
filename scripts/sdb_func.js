@@ -11,6 +11,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
     avaIFaceJS.sdb_func = {
         init: function() {
 
+            $('#report_body').css({marginTop: '+=30px'});
             locException.push({ riverCode: "FSD",
                                 re: /Fraser\sSurrey\sDocks/});
 
@@ -21,6 +22,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             $('#sdb_waterway').change(function(){
                 avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Open);
                 avaIFaceJS.sdb_func.fillChannel();
+                // avaIFaceJS.sdb_func.update();
             });
 
             // Load and fill location drop down
@@ -55,6 +57,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             $("#submit").click(function() {
                 return avaIFaceJS.sdb_func.update();
             });
+
         },
 
         // Load and fill channel drop down
@@ -88,8 +91,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // process report content and update window
         update: function(tileName) {
+            $('.spinner').show();
             if(debug) console.log("void update(tileName = " + tileName + ")");
-
 
             var header, wat, chann, location, type;
             wat = $('#sdb_waterway :selected').text();
@@ -97,32 +100,42 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             location = $('#location :selected').text();
             type = $('#type :selected').text(); 
 
-            if(wat != "" && chann != "")
+            var apiBase = "api2/SurveyDrawings?";
+            var apiParams = [];
+
+            //if tile has been clicked on map, query all drawings under clicked tile
+            if(tileName != undefined)
             {
-                $('.spinner').show();
-                // set report title
-                if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
-                    header = "Enquêtes Résultats de la recherche";
-                } else {
-                    header = "Surveys Search Results";
-                }
-
-                if (location != "") {
-                    location = "At " + location;
-                }
-
-                avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
-
+                apiParams.push("Tile_A=", tileName);
+            }
+            // if no channel selected, query all drawings under selected waterway
+            else if(chann == "")
+            {
+                apiParams.push("River=", wat);
+            }
+            // a channel has been selected
+            else
+            {
                 var riverVal = $('#sdb_waterway').val();
                 var channelVal = $('#channel').val();
-                var locationVal = $('#location :selected').text();
-                var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
+                var locationVal = $('#location').val();
                 var tile;
-                if(tileName != undefined) tile = tileName;
-                //if the channel has it's own tile, grab the tile
-                else if(channelStruct["Form"].hasOwnProperty("Tile")) tile = channelStruct["Form"]["Tile"];
-                else{
-                    //find the location object, and store its tile
+                var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
+
+                //if a location hasn't been selected... 
+                if(location == "")
+                {
+                    //if the channel has its own tile, query for drawings under that tile
+                    if(channelStruct["Form"].hasOwnProperty("Tile"))
+                    {
+                        tile = channelStruct["Form"]["Tile"];
+                        apiParams.push("Tile_A=", tile);
+                    }
+                    //else, query for all drawings under channel 
+                    else apiParams.push("River=", wat, "&Channel=", chann);
+                }
+                else if(channelStruct["Names"] != "")
+                {
                     for(var i = 0; i < channelStruct["Names"].length; i++)
                     {
                         var curLoc = channelStruct["Names"][i];
@@ -132,50 +145,64 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                             break;
                         }
                     }
+                    apiParams.push("Tile_A=", tile);
                 }
-                if (debug) console.log("update() with tile: " + tile);
-
-                //get the survey drawings and fill the table
-                var apiURL = "api2/SurveyDrawings?Tile_A=" + tile;
-                if(type != "") apiURL += "&Type=" + type;
-
-                if (debug) console.log("update() is calling: " + apiURL);
-
-                //if we found a tile that matches the parameter menu, or if a tile has been clicked, fill out the drawings table
-                if(tile != undefined) return $.getJSON(getAPI(apiURL, ""), function(data) {
-                        avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
-                            bPaginate: false,
-                            bInfo: false,
-                            bSort: false,
-                            bFilter: false
-                        }));
-                        avaIFaceJS.sdb_func.tableReport.clear();
-                        $('#report_tbl tbody tr').remove();
-                        $.each(data, function() {
-                            avaIFaceJS.sdb_func.tableReport.row.add(
-                                [this.yyyy_mm_dd,
-                                (this.Svy_Filename.indexOf('pdf') > -1 || this.Type.indexOf('pdf') > -1) ?
-                                "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".pdf' target='_blank'>" + this.Svy_Filename + "</a>":
-                                "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".dwf?' target='_blank'>" + this.Filename + "</a>",
-                                    this.Location,
-                                    this.Type,
-                                    this.KMstart,
-                                    this.KMend
-                                ]);
-                        });
-                        avaIFaceJS.sdb_func.tableReport.draw();
-                        $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
-                            $(this).css('text-align', 'right');
-                        });
-                        avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
-                        avaIFaceJS.reportWindow.show();
-                    }).done(function() {
-                        $('.spinner').hide();
-                        pBarToggle();
-                        });
-                else $('.spinner').hide();
             }
+            if(type != "") apiParams.push("&Type=", type);
 
+
+            if(apiParams.length != 0) 
+            {
+                apiURL = apiBase + apiParams.join("");
+                if (debug) console.log("update() is calling: " + apiURL);
+                $('#spinner').show();
+
+                return $.getJSON(getAPI(apiURL, ""), function(data) {
+                    // set report title
+                    if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
+                        header = "Enquêtes Résultats de la recherche";
+                    } else {
+                        header = "Surveys Search Results";
+                    }
+
+                    var title = (chann == "")? (wat) : (wat + " - " + chann); 
+                    if(location != "") location = "At " + location;
+
+                    avaIFaceJS.reportWindow.addTitle(header, title, location);
+
+                    avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
+                        bPaginate: false,
+                        bInfo: false,
+                        bSort: false,
+                        bFilter: false
+                    }));
+                    avaIFaceJS.sdb_func.tableReport.clear();
+                    $('#report_tbl tbody tr').remove();
+                    $.each(data, function() {
+                        avaIFaceJS.sdb_func.tableReport.row.add(
+                            [this.yyyy_mm_dd,
+                            (this.Svy_Filename.indexOf('pdf') > -1 || this.Type.indexOf('pdf') > -1) ?
+                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".pdf' target='_blank'>" + this.Svy_Filename + "</a>":
+                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".dwf?' target='_blank'>" + this.Filename + "</a>",
+                                this.Location,
+                                this.Type,
+                                this.KMstart,
+                                this.KMend
+                            ]);
+                    });
+                    avaIFaceJS.sdb_func.tableReport.draw();
+                    $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
+                        $(this).css('text-align', 'right');
+                    });
+                    if(debug) console.log("Closing map");
+                    avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
+                    avaIFaceJS.reportWindow.show();
+                }).done(function() {
+                    $('.spinner').hide();
+                    // pBarToggle();
+                    });
+            }
+            else $('.spinner').hide();
         },
 
         // update parameter bar from map selected channel
@@ -380,11 +407,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         refreshLocation : function(location) {
             if(debug) console.log("refreshLocation(" + location + ")");
             this.checkRemainingFeaturesOnLayer();
-            if (location.length != "") {
+            if (location != "") {
                 var featureToSelect = this.getFeaturesByLocation(location);
                 if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
                 else parent.avaIFaceJS.sdb_func.update();
             }
+            else parent.avaIFaceJS.sdb_func.update();
             avaMapJS.sdb_func.kml.redraw();
         },
 
