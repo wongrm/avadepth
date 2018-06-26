@@ -1,3 +1,4 @@
+
 /**
  * Created by wsiddall on 26/08/2014.
  * Maintained by seor since 02/10/2015.
@@ -100,7 +101,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             location = $('#location :selected').text();
             type = $('#type :selected').text(); 
 
-            var apiBase = "api2/SurveyDrawings?";
+            var apiBase = "http://whistler:82/api2/SurveyDrawings?";
             var apiParams = [];
 
             //if tile has been clicked on map, query all drawings under clicked tile
@@ -113,7 +114,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             {
                 apiParams.push("River=", wat);
             }
-            // a channel has been selected
+            // else, a channel has been selected
             else
             {
                 var riverVal = $('#sdb_waterway').val();
@@ -122,7 +123,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 var tile;
                 var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
 
-                //if a location hasn't been selected... 
+                //if a location hasn't been selected, get all drawings listed under channel 
                 if(location == "")
                 {
                     //if the channel has its own tile, query for drawings under that tile
@@ -131,11 +132,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                         tile = channelStruct["Form"]["Tile"];
                         apiParams.push("Tile_A=", tile);
                     }
-                    //else, query for all drawings under channel 
+                    //else, query for all drawings under selected river-channel 
                     else apiParams.push("River=", wat, "&Channel=", chann);
                 }
+                //else, if a location has been selected and the channel contains locations in the local definition...
                 else if(channelStruct["Names"] != "")
                 {
+                    //find the location's tile and query drawings under that tile
                     for(var i = 0; i < channelStruct["Names"].length; i++)
                     {
                         var curLoc = channelStruct["Names"][i];
@@ -149,7 +152,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 }
             }
             if(type != "") apiParams.push("&Type=", type);
-
 
             if(apiParams.length != 0) 
             {
