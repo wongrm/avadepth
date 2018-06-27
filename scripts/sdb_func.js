@@ -1,4 +1,3 @@
-
 /**
  * Created by wsiddall on 26/08/2014.
  * Maintained by seor since 02/10/2015.
@@ -37,7 +36,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             // Colour and resize map, and fill location drop down when channel field changes
             $('#channel').change(function() {
-                avaIFaceJS.mapJS.sdb_func.refreshLocation("");
+                // avaIFaceJS.mapJS.sdb_func.refreshLocation("");
+                avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
                 // console.profile("channel change event");
                 avaIFaceJS.mapJS.sdb_func.setChannelExtents($('#sdb_waterway').val(), $(this).val()); // Broken?
                 avaIFaceJS.sdb_func.fillLocation();
@@ -196,7 +196,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
                         $(this).css('text-align', 'right');
                     });
-                    if(debug) console.log("Closing map");
                     avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
                     avaIFaceJS.reportWindow.show();
                 }).done(function() {
@@ -209,7 +208,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // update parameter bar from map selected channel
         updateParameters: (function(jsonData) {
-            if(debug) console.log("void updateParameters: \n");
+            if(debug) console.log("void updateParameters: ");
             console.log(jsonData);
             var data = jsonData.data
             switch (data.waterway) {
@@ -223,12 +222,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 case "FRUR":
                     $('#sdb_waterway').val("FR");
                     break;
-                case "POV":
-                    $('#sdb_waterway').val("POV");
-                    avaIFaceJS.sdb_func.fillChannel();
-                    $('#channel').val("POV_BI");
-                    avaIFaceJS.sdb_func.fillLocation();
-                    return;
                 case "FSD":
                     $('#sdb_waterway').val("FR");
                     avaIFaceJS.sdb_func.fillChannel();
@@ -241,6 +234,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             }
             if ((/WS*/).test(data.waterway)) $('#sdb_waterway').val("WS");
             if ((/IN*/).test(data.waterway)) $('#sdb_waterway').val("IW");
+            if ((/POV*/).test(data.waterway)) $('#sdb_waterway').val("POV");
 
             avaIFaceJS.sdb_func.fillChannel();
             $('#channel').val(data.waterway);
@@ -319,13 +313,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             }
 
             var obj = incl_ava_defs.locDefs[waterway]['Sections'][channel].Coords;
-            if (debug) {
-                console.log("void setChannelExtents(): minLat=" + obj.Lat.min);
-                console.log("void setChannelExtents(): maxLat=" + obj.Lat.max);
-                console.log("void setChannelExtents(): minLon=" + obj.Lon.min);
-                console.log("void setChannelExtents(): maxLon=" + obj.Lon.max);
-                console.log("void setChannelExtents(): channel=" + channel);
-            }
+            // if (debug) {
+                // console.log("void setChannelExtents(): minLat=" + obj.Lat.min);
+                // console.log("void setChannelExtents(): maxLat=" + obj.Lat.max);
+                // console.log("void setChannelExtents(): minLon=" + obj.Lon.min);
+                // console.log("void setChannelExtents(): maxLon=" + obj.Lon.max);
+                // console.log("void setChannelExtents(): channel=" + channel);
+            // }
 
             try {
                 avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(obj.Lon.min, obj.Lat.min, obj.Lon.max, obj.Lat.max));
@@ -365,6 +359,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         },
 
         tileUnselect: function(tile) {
+            if(debug) console.log("tileUnselect(" + tile.feature.data.location + ")");
+            if(debug) console.log(avaMapJS.sdb_func.curLocation == tile.feature.data.location);
             if (tile.feature.data.location == avaMapJS.sdb_func.curLocation) {
                 avaMapJS.sdb_func.curLocation = "";
                 avaMapJS.sdb_func.curWaterway = "";
@@ -374,9 +370,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         // tileSelect: callBack function for tile selection from the map interface
         tileSelect: function(tile) {
             var tileName = tile.feature.data.name;
+            if(debug) console.log("tileSelect(" + tile.feature.data.location + ")");
             if (debug) {
                 console.log("void tileSelect(): " + tileName);
-                console.log("void tileSelect(): " + tile.feature.data);
                 console.log(tile.feature.data);
             }
             if (tileName.indexOf('/') >= 0) {
@@ -419,19 +415,52 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         },
 
         /**
-         * [getFeaturesByLocation return an array of features that contain passed location]
+         * [refreshChannel refresh the layer with new selected feature]
+         * @param  {[String]} channel [the string value of channel to highlight]
+         * @return {[void]}
+         */
+        refreshChannel : function(channel) {
+            if(debug) console.log("refreshLocation(" + channel + ")");
+            this.checkRemainingFeaturesOnLayer();
+            if (channel != "") {
+                var featureToSelect = this.getFeaturesByChannel(channel);
+                if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
+                else parent.avaIFaceJS.sdb_func.update();
+            }
+            else parent.avaIFaceJS.sdb_func.update();
+            avaMapJS.sdb_func.kml.redraw();
+        },
+
+        /**
+         * [getFeaturesByLocation return tile that contains passed location]
          * @param  {[String]} location [a location to search inside the vector]
-         * @return {[Object]}          [feature object]
+         * @return {[Object]}          [tile object]
          */
         getFeaturesByLocation : function(location) {
             if(debug) console.log("getFeaturesByLocation(" + location + ")");
             var features = this.kml.features;
             for (var i = 0; i < features.length; i++) {
                 var data = features[i].data.location;
-                var regEx = new RegExp(location);
-                var start = /^/;
-                regEx = (start.source + regEx.source);
-                if (data.search(regEx) > -1) return features[i];
+                if(location == data) return features[i];
+                // var regEx = new RegExp(location);
+                // var start = /^/;
+                // regEx = (start.source + regEx.source);
+                // if (data.search(regEx) > -1) return features[i];
+            }
+            return -1;
+        },
+
+        /**
+         * [getFeaturesByChannel return tile that contains passed location]
+         * @param  {[String]} channel [a location to search inside the vector]
+         * @return {[Object]}          [tile object]
+         */
+        getFeaturesByChannel : function(channel) {
+            if(debug) console.log("getFeaturesByChannel(" + channel + ")");
+            var features = this.kml.features;
+            for (var i = 0; i < features.length; i++) {
+                var data = features[i].data.location;
+                if(channel == data) return features[i];
             }
             return -1;
         },
