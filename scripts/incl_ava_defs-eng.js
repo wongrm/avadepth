@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by wsiddall on 14/07/2014.
  */
 
@@ -1739,4 +1739,3 @@ var padZero = function(num){
   };
   
   //# sourceURL=incl_ava_defs-eng.js
-  
