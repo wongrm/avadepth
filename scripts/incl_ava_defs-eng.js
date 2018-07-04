@@ -42,7 +42,7 @@ var padZero = function(num){
                           "Key" : "BC_CB",
                           "Tile": "BR4650"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6448640,
@@ -60,7 +60,7 @@ var padZero = function(num){
                           "Key" : "BC_CR",
                           "Tile": "CR0107"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6383982,
@@ -78,7 +78,7 @@ var padZero = function(num){
                           "Key" : "BC_FC",
                           "Tile": "FCR01"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6330313,
@@ -96,7 +96,7 @@ var padZero = function(num){
                           "Key" : "BC_HG",
                           "Tile" : "HG_SG"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6993882,
@@ -114,7 +114,7 @@ var padZero = function(num){
                           "Key" : "BC_NAN",
                           "Tile": "NAN01"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6298553,
@@ -132,7 +132,7 @@ var padZero = function(num){
                           "Key" : "BC_SQ",
                           "Tile": "SQ0105"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6386861,
@@ -150,7 +150,7 @@ var padZero = function(num){
                           "Key" : "BC_TOF",
                           "Tile" : "TOF01"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6286458,
@@ -187,7 +187,7 @@ var padZero = function(num){
                           "Key" : "IN_BC", 
                           "Tile" : "BC_Sica"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6586478,
@@ -205,7 +205,7 @@ var padZero = function(num){
                           "Key" : "IN_MB",
                           "Tile" : "MB_Red"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6586478,
@@ -223,7 +223,7 @@ var padZero = function(num){
                           "Key" : "IN_NT",
                           "Tile": "NT_Hay"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6586478,
@@ -241,7 +241,7 @@ var padZero = function(num){
                           "Key" : "NT_Mack",
                           "Tile" : "NT_Mack"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6586478,
@@ -277,10 +277,10 @@ var padZero = function(num){
                           "Title" : "Burrard Inlet",
                           "Key" : "POV_BI"
                       },
-                      "Names" : [
-                                  {"Location Name": "1st Narrows", "Tile": "POV_1"},
-                                  {"Location Name": "2nd Narrows", "Tile": "POV_2"},
-                                  {"Location Name": "Port Moody", "Tile": "POV_3"},
+                      "Locations" : [
+                                  {"Name": "1st Narrows", "Tile": "POV_1"},
+                                  {"Name": "2nd Narrows", "Tile": "POV_2"},
+                                  {"Name": "Port Moody", "Tile": "POV_3"},
                                 ],
                       "Coords" : {
                           "Lat" : {
@@ -298,10 +298,10 @@ var padZero = function(num){
                           "Title" : "Port Terminal",
                           "Key" : "POV_PT"
                       },
-                      "Names" : [
-                                  {"Location Name": "Fraser Surrey Docks", "Tile": "POV_4"},
-                                  {"Location Name": "Centennial Pier", "Tile": "POV_5"},
-                                  {"Location Name": "Lynnterm Westgate", "Tile": "POV_5"}
+                      "Locations" : [
+                                  {"Name": "Fraser Surrey Docks", "Tile": "POV_4"},
+                                  {"Name": "Centennial Pier", "Tile": "POV_5"},
+                                  {"Name": "Lynnterm Westgate", "Tile": "POV_5"}
                                 ],
                       "Coords" : {
                           "Lat" : {
@@ -320,7 +320,7 @@ var padZero = function(num){
                       "Key" : "POV_FC",
                       "Tile": "POV_6"
                   },
-                  "Names" : ""
+                  "Locations" : ""
                   ,
                   "Coords" : {
                       "Lat" : {
@@ -357,18 +357,18 @@ var padZero = function(num){
                         "Title" : "South Arm",
                         "Key" : "FRSA"
                     },
-                    "Names" : [
-                        {"Location Name": "Sand Heads to Fraser Surrey Docks", "Tile": "SA0035"},
-                        {"Location Name": "Sand Heads Entrance", "Tile": "SA_101"},
-                        {"Location Name": "Sand Heads Reach", "Tile": "SA0105"},
-                        {"Location Name": "Steveston Bend", "Tile": "SA0507"},
-                        {"Location Name": "Steveston Cut", "Tile": "SA0711"},
-                        {"Location Name": "Woodward Reach", "Tile": "SA1119"},
-                        {"Location Name": "Gravesend Reach", "Tile": "SA1927"},
-                        {"Location Name": "City Reach", "Tile": "SA2731"},
-                        {"Location Name": "Annieville - New West", "Tile": "SA3136"},
+                    "Locations" : [
+                        {"Name": "Sand Heads to Fraser Surrey Docks", "Tile": "SA0035"},
+                        {"Name": "Sand Heads Entrance", "Tile": "SA_101"},
+                        {"Name": "Sand Heads Reach", "Tile": "SA0105"},
+                        {"Name": "Steveston Bend", "Tile": "SA0507"},
+                        {"Name": "Steveston Cut", "Tile": "SA0711"},
+                        {"Name": "Woodward Reach", "Tile": "SA1119"},
+                        {"Name": "Gravesend Reach", "Tile": "SA1927"},
+                        {"Name": "City Reach", "Tile": "SA2731"},
+                        {"Name": "Annieville - New West", "Tile": "SA3136"},
                         //ADDED
-                        {"Location Name": "South Arm - Side Channels", "Tile": "FRSA_SC"}
+                        {"Name": "South Arm - Side Channels", "Tile": "FRSA_SC"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -389,8 +389,8 @@ var padZero = function(num){
                       "Title" : "Port Terminal",
                       "Key" : "POV_FSD"
                   },
-                  "Names" : [
-                  {"Location Name": "Fraser Surrey Docks", "Tile": "POV_4"}
+                  "Locations" : [
+                  {"Name": "Fraser Surrey Docks", "Tile": "POV_4"}
                   ],
                   "Coords" : {
                       "Lat" : {
@@ -408,19 +408,19 @@ var padZero = function(num){
                         "Title" : "North Arm",
                         "Key" : "FRNA"
                     },
-                    "Names" : [
-                        {"Location Name" : "Point Grey to New Westminster", "Tile": "NA0031"},
-                        {"Location Name" : "Point Grey", "Tile": "NA_103"},
-                        {"Location Name" : "Iona","Tile":  "NA0307"},
-                        {"Location Name" : "Musqueam", "Tile": "NA0709"},
-                        {"Location Name" : "Sea Island", "Tile": "NA0913"},
-                        {"Location Name" : "Marpole Basin", "Tile": "NA1314"},
-                        {"Location Name" : "Mitchell Island", "Tile": "NA1419"},
-                        {"Location Name" : "Mac-Blo", "Tile": "NA1921"},
-                        {"Location Name" : "Byrne Road", "Tile": "NA2125"},
-                        {"Location Name" : "Big Bend - Queens", "Tile": "NA2529"},
-                        {"Location Name" : "Poplar Island", "Tile": "NA2931"},
-                        {"Location Name" : "North Arm - Side Channels", "Tile": "FRNA_SC"}
+                    "Locations" : [
+                        {"Name" : "Point Grey to New Westminster", "Tile": "NA0031"},
+                        {"Name" : "Point Grey", "Tile": "NA_103"},
+                        {"Name" : "Iona","Tile":  "NA0307"},
+                        {"Name" : "Musqueam", "Tile": "NA0709"},
+                        {"Name" : "Sea Island", "Tile": "NA0913"},
+                        {"Name" : "Marpole Basin", "Tile": "NA1314"},
+                        {"Name" : "Mitchell Island", "Tile": "NA1419"},
+                        {"Name" : "Mac-Blo", "Tile": "NA1921"},
+                        {"Name" : "Byrne Road", "Tile": "NA2125"},
+                        {"Name" : "Big Bend - Queens", "Tile": "NA2529"},
+                        {"Name" : "Poplar Island", "Tile": "NA2931"},
+                        {"Name" : "North Arm - Side Channels", "Tile": "FRNA_SC"}
                     ],
                     "Coords" : {
                         "Lat" : {
@@ -441,19 +441,19 @@ var padZero = function(num){
                           "Title" : "Main Arm",
                           "Key" : "FRMA"
                       },
-                      "Names" : [
-                        {"Location Name": "New Westminster to Fort Langley", "Tile": "MA3561"},
-                        {"Location Name": "Fort Langley to Mission", "Tile": "MA6085"},
-                        {"Location Name": "Queens Reach", "Tile": "MA3644"},
-                        {"Location Name": "Douglas Island", "Tile": "MA4447"},
-                        {"Location Name": "Bishops Reach", "Tile": "MA4754"},
-                        {"Location Name": "Derby Reach", "Tile": "MA5460"},
-                        {"Location Name": "Russel Reach", "Tile": "MA6069"},
-                        {"Location Name": "Russel Reach (Langley Bar)", "Tile": "MA6069"},
-                        {"Location Name": "Plumper Reach", "Tile": "MA6978"},
-                        {"Location Name": "Matsqui Island", "Tile": "MA7884"},
+                      "Locations" : [
+                        {"Name": "New Westminster to Fort Langley", "Tile": "MA3561"},
+                        {"Name": "Fort Langley to Mission", "Tile": "MA6085"},
+                        {"Name": "Queens Reach", "Tile": "MA3644"},
+                        {"Name": "Douglas Island", "Tile": "MA4447"},
+                        {"Name": "Bishops Reach", "Tile": "MA4754"},
+                        {"Name": "Derby Reach", "Tile": "MA5460"},
+                        {"Name": "Russel Reach", "Tile": "MA6069"},
+                        {"Name": "Russel Reach (Langley Bar)", "Tile": "MA6069"},
+                        {"Name": "Plumper Reach", "Tile": "MA6978"},
+                        {"Name": "Matsqui Island", "Tile": "MA7884"},
                         //ADDED
-                        {"Location Name": "Main Arm - Side Channels", "Tile": "FRMA_SC"}
+                        {"Name": "Main Arm - Side Channels", "Tile": "FRMA_SC"}
                       ],
                       "Coords" : {
                           "Lat" : {
@@ -474,18 +474,18 @@ var padZero = function(num){
                           "Title" : "South Arm - Side Channel",
                           "Key" : "FRSA_SC"
                       },
-                      "Names" : [
-                          {"Location Name": "Ladner Sea Reach Overview", "Tile": "SA_LSR"},
-                          {"Location Name": "Annacis Channel", "Tile": "SA_AC"},
-                          {"Location Name": "Gundersen Slough", "Tile": "SA_GS"},
-                          {"Location Name": "Shoal Point - New West", "Tile": "SA_SP"},
-                          {"Location Name": "Burr Landing Channel", "Tile": "SA_BLC"},
-                          {"Location Name": "Cannery Channel", "Tile": "SA_CC"},
-                          {"Location Name": "Sea Reach", "Tile": "SA_SR"},
-                          {"Location Name": "Ladner Reach", "Tile": "SA_LR"},
-                          {"Location Name": "Canoe Pass", "Tile": "SA_CP"},
-                          {"Location Name": "Ladner Harbour", "Tile": "SA_LH"},
-                          {"Location Name": "Deas Slough", "Tile": "SA_DS"}
+                      "Locations" : [
+                          {"Name": "Ladner Sea Reach Overview", "Tile": "SA_LSR"},
+                          {"Name": "Annacis Channel", "Tile": "SA_AC"},
+                          {"Name": "Gundersen Slough", "Tile": "SA_GS"},
+                          {"Name": "Shoal Point - New West", "Tile": "SA_SP"},
+                          {"Name": "Burr Landing Channel", "Tile": "SA_BLC"},
+                          {"Name": "Cannery Channel", "Tile": "SA_CC"},
+                          {"Name": "Sea Reach", "Tile": "SA_SR"},
+                          {"Name": "Ladner Reach", "Tile": "SA_LR"},
+                          {"Name": "Canoe Pass", "Tile": "SA_CP"},
+                          {"Name": "Ladner Harbour", "Tile": "SA_LH"},
+                          {"Name": "Deas Slough", "Tile": "SA_DS"}
                       ],
                       "Coords" : {
                           "Lat" : {
@@ -503,14 +503,14 @@ var padZero = function(num){
                           "Title" : "North Arm - Side Channel",
                           "Key" : "FRNA_SC"
                       },
-                      "Names" : [
-                          {"Location Name": "Morey Channel - Middle Arm", "Tile": "NA_MC"},
-                          {"Location Name": "Cowards Cove", "Tile": "NA_CC"},
-                          {"Location Name": "Point Grey Scow Moorage", "Tile": "NA_SM"},
-                          {"Location Name": "Deering Channel", "Tile": "NA_DC"},
-                          {"Location Name": "Macdonald Slough", "Tile": "NA_MS"},
-                          {"Location Name": "Mitchell Island North Channel", "Tile": "NA_MIN"},
-                          {"Location Name": "Tree Island Channel", "Tile": "NA_TIC"}
+                      "Locations" : [
+                          {"Name": "Morey Channel - Middle Arm", "Tile": "NA_MC"},
+                          {"Name": "Cowards Cove", "Tile": "NA_CC"},
+                          {"Name": "Point Grey Scow Moorage", "Tile": "NA_SM"},
+                          {"Name": "Deering Channel", "Tile": "NA_DC"},
+                          {"Name": "Macdonald Slough", "Tile": "NA_MS"},
+                          {"Name": "Mitchell Island North Channel", "Tile": "NA_MIN"},
+                          {"Name": "Tree Island Channel", "Tile": "NA_TIC"}
                       ],
                       "Coords" : {
                           "Lat" : {
@@ -528,12 +528,12 @@ var padZero = function(num){
                           "Title" : "Main Arm - Side Channel",
                           "Key" : "FRMA_SC"
                       },
-                      "Names" : [
-                        {"Location Name": "Bedford Channel", "Tile": "MA_BC"},
-                        {"Location Name": "Douglas Island North Channel", "Tile": "MA_DIN"},
-                        {"Location Name": "Essondale Channel", "Tile": "MA_EC"},
-                        {"Location Name": "Parsons Channel", "Tile": "MA_PC"},
-                        {"Location Name": "Sapperton Channel", "Tile": "MA_SAP"}
+                      "Locations" : [
+                        {"Name": "Bedford Channel", "Tile": "MA_BC"},
+                        {"Name": "Douglas Island North Channel", "Tile": "MA_DIN"},
+                        {"Name": "Essondale Channel", "Tile": "MA_EC"},
+                        {"Name": "Parsons Channel", "Tile": "MA_PC"},
+                        {"Name": "Sapperton Channel", "Tile": "MA_SAP"}
                       ],
                       "Coords" : {
                           "Lat" : {
@@ -552,7 +552,7 @@ var padZero = function(num){
                           "Key" : "FRPR",
                           "Tile": "FR_PR"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6310322,
@@ -571,7 +571,7 @@ var padZero = function(num){
                           "Key" : "FRUR",
                           "Tile": "UR000"
                       },
-                      "Names" : "",
+                      "Locations" : "",
                       "Coords" : {
                           "Lat" : {
                               "min" : 6293247,
@@ -606,21 +606,21 @@ var padZero = function(num){
                           "Title" : "Lower Fraser River",
                           "Key" : "WS_LFR"
                       },
-                      "Names" : [
-                          {"Location Name": "North Arm Breakwater", "Tile": "WS_P01"},
-                          {"Location Name": "North Arm Jetty", "Tile": "WS_P02"},
-                          {"Location Name": "Steveston North Jetty", "Tile": "WS_P03"},
-                          {"Location Name": "Steveston South Jetty No. 2", "Tile": "WS_P04"},
-                          {"Location Name": "Albion Training Wall", "Tile": "WS_P05"},
-                          {"Location Name": "Steveston Wingdams", "Tile": "WS_P06"},
-                          {"Location Name": "Steveston Island Shearboom", "Tile": "WS_P07"},
-                          {"Location Name": "Woodward Island Training Wall", "Tile": "WS_P08"},
-                          {"Location Name": "Kirkland & Deas Island Bank Protection", "Tile": "WS_P09"},
-                          {"Location Name": "Trifurcation Phase I Training Wall", "Tile": "WS_P10"},
-                          {"Location Name": "Trifurcation Phase II Training Wall", "Tile": "WS_P11"},
-                          {"Location Name": "Trifurcation Phase III Training Wall", "Tile": "WS_P12"},
-                          {"Location Name": "Sapperton Wingdam No. 2 & No. 3", "Tile": "WS_P13"},
-                          {"Location Name": "Sapperton V_Dyke", "Tile": "WS_P14"}
+                      "Locations" : [
+                          {"Name": "North Arm Breakwater", "Tile": "WS_P01"},
+                          {"Name": "North Arm Jetty", "Tile": "WS_P02"},
+                          {"Name": "Steveston North Jetty", "Tile": "WS_P03"},
+                          {"Name": "Steveston South Jetty No. 2", "Tile": "WS_P04"},
+                          {"Name": "Albion Training Wall", "Tile": "WS_P05"},
+                          {"Name": "Steveston Wingdams", "Tile": "WS_P06"},
+                          {"Name": "Steveston Island Shearboom", "Tile": "WS_P07"},
+                          {"Name": "Woodward Island Training Wall", "Tile": "WS_P08"},
+                          {"Name": "Kirkland & Deas Island Bank Protection", "Tile": "WS_P09"},
+                          {"Name": "Trifurcation Phase I Training Wall", "Tile": "WS_P10"},
+                          {"Name": "Trifurcation Phase II Training Wall", "Tile": "WS_P11"},
+                          {"Name": "Trifurcation Phase III Training Wall", "Tile": "WS_P12"},
+                          {"Name": "Sapperton Wingdam No. 2 & No. 3", "Tile": "WS_P13"},
+                          {"Name": "Sapperton V_Dyke", "Tile": "WS_P14"}
                       ],
                       "Coords" : {
                           "Lat" : {
@@ -686,7 +686,7 @@ var padZero = function(num){
                           "Title" : "Mission to Hope",
                           "Key" : "WS_M2H"
                       },
-                      "Names" : [{"Location Name": "Big & Middle Eddy Rock Groynes", "Tile": "WS_P15"}],
+                      "Locations" : [{"Name": "Big & Middle Eddy Rock Groynes", "Tile": "WS_P15"}],
                       "Coords" : {
                           "Lat" : {
                               "min" : 6295882,
@@ -703,11 +703,11 @@ var padZero = function(num){
                           "Title" : "Harrison River",
                           "Key" : "WS_HR"
                       },
-                      "Names" : [
-                          {"Location Name": "Harrison Mills CPR Bridge Shearboom", "Tile": "WS_P16"},
-                          {"Location Name": "Harrison River Dykes V R W P", "Tile": "WS_P17"},
-                          {"Location Name": "Harrison Hwy No.7 Bridge Shearboom", "Tile": "WS_P18"},
-                          {"Location Name": "Harrison Rapids Shearboom", "Tile": "WS_P19"}
+                      "Locations" : [
+                          {"Name": "Harrison Mills CPR Bridge Shearboom", "Tile": "WS_P16"},
+                          {"Name": "Harrison River Dykes V R W P", "Tile": "WS_P17"},
+                          {"Name": "Harrison Hwy No.7 Bridge Shearboom", "Tile": "WS_P18"},
+                          {"Name": "Harrison Rapids Shearboom", "Tile": "WS_P19"}
                       ],
                       "Coords" : {
                           "Lat" : {

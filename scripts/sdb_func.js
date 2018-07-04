@@ -81,8 +81,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 console.log("void fillLocation(): channel=" + $('#channel').val());
             }
             try {
-                return $.each(incl_ava_defs.locDefs[$('#sdb_waterway').val()]['Sections'][$('#channel').val()]['Names'], function() {
-                    return $('#location').append("<option value='" + this["Location Name"] + "'>" + this["Location Name"] + "</option>");
+                return $.each(incl_ava_defs.locDefs[$('#sdb_waterway').val()]['Sections'][$('#channel').val()]['Locations'], function() {
+                    return $('#location').append("<option value='" + this["Name"] + "'>" + this["Name"] + "</option>");
                 });
             } catch (err) {
                 if (debug) console.log("void fillLocation(): No location defined for channel " + $('#channel').val());
@@ -136,18 +136,17 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     else apiParams.push("River=", wat, "&Channel=", chann);
                 }
                 //else, if a location has been selected and the channel contains locations in the local definition...
-                else if(channelStruct["Names"] != "")
+                else if(channelStruct["Locations"] != "")
                 {
                     //find the location's tile and query drawings under that tile
-                    for(var i = 0; i < channelStruct["Names"].length; i++)
-                    {
-                        var curLoc = channelStruct["Names"][i];
-                        if(curLoc["Location Name"] == locationVal)
+                    $.each(channelStruct["Locations"], function(index, location){
+                        if(location.Name == locationVal)
                         {
-                            tile = curLoc["Tile"];
-                            break;
+                            tile = location.Tile;
+                            return false;
                         }
-                    }
+                    });
+                    
                     apiParams.push("Tile_A=", tile);
                 }
             }
