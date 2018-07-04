@@ -101,7 +101,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             location = $('#location :selected').text();
             type = $('#type :selected').text(); 
 
-            var apiBase = "http://whistler:82/api2/SurveyDrawings?";
+            var apiBase = "/api2/SurveyDrawings?";
             var apiParams = [];
 
             //if tile has been clicked on map, query all drawings under clicked tile
@@ -543,3 +543,4 @@ function assert(condition, message) {
         throw message;
     }
 }
+//# sourceURL=sdb_func.js
