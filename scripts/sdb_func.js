@@ -2,7 +2,7 @@
  * Created by wsiddall on 26/08/2014.
  * Maintained by seor since 02/10/2015.
  */
-var debug = false;
+var debug = true;
 var locException = [];
 
 /*** Interface functions ***/
@@ -11,6 +11,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
     avaIFaceJS.sdb_func = {
         init: function() {
 
+            $('#report_body').css({marginTop: '+=30px'});
             locException.push({ riverCode: "FSD",
                                 re: /Fraser\sSurrey\sDocks/});
 
@@ -18,10 +19,14 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             /** Event Handlers **/
             // Load and fill channel drop down
-            $('#sdb_waterway').change(avaIFaceJS.sdb_func.fillChannel);
+            $('#sdb_waterway').change(function(){
+                avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Open);
+                avaIFaceJS.sdb_func.fillChannel();
+                // avaIFaceJS.sdb_func.update();
+            });
 
             // Load and fill location drop down
-            $('#channel').change(avaIFaceJS.sdb_func.fillLocation);
+            // $('#channel').change(avaIFaceJS.sdb_func.fillLocation);
 
             // Colour and resize map extents when waterway field changes
             $('#sdb_waterway').change(function() {
@@ -29,11 +34,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 return $('#map').css("min-height", "400px");
             });
 
-            // Colour and resize map when channel field changes
+            // Colour and resize map, and fill location drop down when channel field changes
             $('#channel').change(function() {
-                avaIFaceJS.mapJS.sdb_func.refreshLocation("");
+                // avaIFaceJS.mapJS.sdb_func.refreshLocation("");
+                avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
                 // console.profile("channel change event");
                 avaIFaceJS.mapJS.sdb_func.setChannelExtents($('#sdb_waterway').val(), $(this).val()); // Broken?
+                avaIFaceJS.sdb_func.fillLocation();
                 // console.profileEnd();
                 return $('#map').css("min-height", "400px");
             });
@@ -43,11 +50,15 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 return avaIFaceJS.mapJS.sdb_func.refreshLocation($(this).val());
             });
 
+            $('#type').change(function() {
+                avaIFaceJS.sdb_func.update();
+            });
+
             // Submit form
             $("#submit").click(function() {
-                $('.spinner').show();
                 return avaIFaceJS.sdb_func.update();
             });
+
         },
 
         // Load and fill channel drop down
@@ -62,8 +73,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // Load and fill location drop down
         fillLocation: function() {
-          if($('#sdb_waterway').val() !== 'WS')
-          {
             locationDropdownFilled = true;
             $('#location option').remove();
             $('#location').append('<option></option>');
@@ -72,104 +81,134 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 console.log("void fillLocation(): channel=" + $('#channel').val());
             }
             try {
-                return $.each(incl_ava_defs.locDefs[$('#sdb_waterway').val()]['Sections'][$('#channel').val()]['Names'], function() {
-                    return $('#location').append("<option>" + this + "</option>");
+                return $.each(incl_ava_defs.locDefs[$('#sdb_waterway').val()]['Sections'][$('#channel').val()]['Locations'], function() {
+                    return $('#location').append("<option value='" + this["Name"] + "'>" + this["Name"] + "</option>");
                 });
             } catch (err) {
                 if (debug) console.log("void fillLocation(): No location defined for channel " + $('#channel').val());
                 return;
             }
-          }
         },
 
         // process report content and update window
-        update: function() {
-            var header, wat, chann, location;
+        update: function(tileName) {
+            $('.spinner').show();
+            if(debug) console.log("void update(tileName = " + tileName + ")");
 
-            // set report title
-            if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
-                header = "Enquêtes Résultats de la recherche";
-            } else {
-                header = "Surveys Search Results";
-            }
+            var header, wat, chann, location, type;
+            wat = $('#sdb_waterway :selected').text();
+            chann = $('#channel :selected').text();
+            location = $('#location :selected').text();
+            type = $('#type :selected').text(); 
 
-            wat = $('#sdb_waterway').find('option:selected').text();
-            chann = $('#channel').find('option:selected').text();
-            location = $('#location').find('option:selected').text();
-
-            if (location != "") {
-                location = "At " + location;
-            }
-
-            avaIFaceJS.reportWindow.addTitle(header, wat + " - " + chann, location);
-
-            // (Param)      (Column Name)
-            // river:       RiverCode
-            // drawingType: Type
-            // channel:     NA - not used in the search
-            // location:    Location
-            // channelType: NA - not used in the search
-            var apiBase = "api/surveys/getsurveys?";
+            var apiBase = "/api2/SurveyDrawings?";
             var apiParams = [];
-            var apiURL = "";
-            apiParams.push("river=", $("#channel").val(), "&");
-            apiParams.push("location=", $("#location").val(), "&");
-            apiParams.push("drawingType=", $("#type").val(), "&");
-            apiParams.push("channel=", "", "&");
-            apiParams.push("channelType=", "");
 
-            // DB Exceptions handled in front end -> dangerous, probably
-            // should be moved to backend for production
-            var chosenLoc = $("#location").val();
-            for (var i = 0; i < locException.length; i++) {
-                var code = locException[i].riverCode;
-                if (locException[i].re.test(chosenLoc)) {
-                    exceptionAPI = true;
-                    if (code.match("FSD")) {
-                        apiParams[1] = locException[i].riverCode;
-                        apiParams[4] = "";
+            //if tile has been clicked on map, query all drawings under clicked tile
+            if(tileName != undefined)
+            {
+                apiParams.push("Tile_A=", tileName);
+            }
+            // if no channel selected, query all drawings under selected waterway
+            else if(chann == "")
+            {
+                apiParams.push("River=", wat);
+            }
+            // else, a channel has been selected
+            else
+            {
+                var riverVal = $('#sdb_waterway').val();
+                var channelVal = $('#channel').val();
+                var locationVal = $('#location').val();
+                var tile;
+                var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
+
+                //if a location hasn't been selected, get all drawings listed under channel 
+                if(location == "")
+                {
+                    //if the channel has its own tile, query for drawings under that tile
+                    if(channelStruct["Form"].hasOwnProperty("Tile"))
+                    {
+                        tile = channelStruct["Form"]["Tile"];
+                        apiParams.push("Tile_A=", tile);
                     }
+                    //else, query for all drawings under selected river-channel 
+                    else apiParams.push("River=", wat, "&Channel=", chann);
+                }
+                //else, if a location has been selected and the channel contains locations in the local definition...
+                else if(channelStruct["Locations"] != "")
+                {
+                    //find the location's tile and query drawings under that tile
+                    $.each(channelStruct["Locations"], function(index, location){
+                        if(location.Name == locationVal)
+                        {
+                            tile = location.Tile;
+                            return false;
+                        }
+                    });
+                    
+                    apiParams.push("Tile_A=", tile);
                 }
             }
+            if(type != "") apiParams.push("&Type=", type);
 
-            if (debug) console.log("void update(): " + apiParams);
-            apiURL = apiBase + apiParams.join("");
+            if(apiParams.length != 0) 
+            {
+                apiURL = apiBase + apiParams.join("");
+                if (debug) console.log("update() is calling: " + apiURL);
+                $('#spinner').show();
 
-            return $.getJSON(getAPI(apiURL, ""), function(data) {
-                avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
-                    bPaginate: false,
-                    bInfo: false,
-                    bSort: false,
-                    bFilter: false
-                }));
-                avaIFaceJS.sdb_func.tableReport.clear();
-                $('#report_tbl tbody tr').remove();
-                $.each(data, function() {
-                    avaIFaceJS.sdb_func.tableReport.row.add(
-                        [this.date.split("T")[0],
-                        (this.drawType.indexOf('pdf') > -1) ?
-                        "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".pdf' target='_blank'>" + this.fileNumber + "</a>":
-                        "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.fileNumber + ".dwf?' target='_blank'>" + this.fileNumber + "</a>",
-                            this.location,
-                            this.drawType,
-                            this.kmStart,
-                            this.kmEnd
-                        ]);
-                });
-                avaIFaceJS.sdb_func.tableReport.draw();
-                $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
-                    $(this).css('text-align', 'right');
-                });
-                avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
-                avaIFaceJS.reportWindow.show();
-            }).done(function() {
-                $('.spinner').hide();
-                pBarToggle();
-            });
+                return $.getJSON(getAPI(apiURL, ""), function(data) {
+                    // set report title
+                    if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
+                        header = "Enquêtes Résultats de la recherche";
+                    } else {
+                        header = "Surveys Search Results";
+                    }
+
+                    var title = (chann == "")? (wat) : (wat + " - " + chann); 
+                    if(location != "") location = "At " + location;
+
+                    avaIFaceJS.reportWindow.addTitle(header, title, location);
+
+                    avaIFaceJS.sdb_func.tableReport || (avaIFaceJS.sdb_func.tableReport = $('#report_tbl').DataTable({
+                        bPaginate: false,
+                        bInfo: false,
+                        bSort: false,
+                        bFilter: false
+                    }));
+                    avaIFaceJS.sdb_func.tableReport.clear();
+                    $('#report_tbl tbody tr').remove();
+                    $.each(data, function() {
+                        avaIFaceJS.sdb_func.tableReport.row.add(
+                            [this.yyyy_mm_dd,
+                            (this.Svy_Filename.indexOf('pdf') > -1 || this.Type.indexOf('pdf') > -1) ?
+                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".pdf' target='_blank'>" + this.Svy_Filename + "</a>":
+                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".dwf?' target='_blank'>" + this.Filename + "</a>",
+                                this.Location,
+                                this.Type,
+                                this.KMstart,
+                                this.KMend
+                            ]);
+                    });
+                    avaIFaceJS.sdb_func.tableReport.draw();
+                    $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
+                        $(this).css('text-align', 'right');
+                    });
+                    avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
+                    avaIFaceJS.reportWindow.show();
+                }).done(function() {
+                    $('.spinner').hide();
+                    // pBarToggle();
+                    });
+            }
+            else $('.spinner').hide();
         },
 
         // update parameter bar from map selected channel
         updateParameters: (function(jsonData) {
+            if(debug) console.log("void updateParameters: ");
+            console.log(jsonData);
             var data = jsonData.data
             switch (data.waterway) {
                 case "FRMA":
@@ -182,12 +221,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 case "FRUR":
                     $('#sdb_waterway').val("FR");
                     break;
-                case "POV_BI":
-                    $('#sdb_waterway').val("POV");
-                    avaIFaceJS.sdb_func.fillChannel();
-                    $('#channel').val("POV_BI");
-                    avaIFaceJS.sdb_func.fillLocation();
-                    return;
                 case "FSD":
                     $('#sdb_waterway').val("FR");
                     avaIFaceJS.sdb_func.fillChannel();
@@ -199,10 +232,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#sdb_waterway').val("CWC");
             }
             if ((/WS*/).test(data.waterway)) $('#sdb_waterway').val("WS");
+            if ((/IN*/).test(data.waterway)) $('#sdb_waterway').val("IW");
+            if ((/POV*/).test(data.waterway)) $('#sdb_waterway').val("POV");
 
             avaIFaceJS.sdb_func.fillChannel();
             $('#channel').val(data.waterway);
             avaIFaceJS.sdb_func.fillLocation();
+            // $('#location').text(data.location);
             $('#location').val(data.location);
         }),
     };
@@ -276,10 +312,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             }
 
             var obj = incl_ava_defs.locDefs[waterway]['Sections'][channel].Coords;
-            if (debug) {
-                console.log("void setChannelExtents(): minLat=" + obj.Lat.min);
-                console.log("void setChannelExtents(): channel=" + channel);
-            }
+            // if (debug) {
+                // console.log("void setChannelExtents(): minLat=" + obj.Lat.min);
+                // console.log("void setChannelExtents(): maxLat=" + obj.Lat.max);
+                // console.log("void setChannelExtents(): minLon=" + obj.Lon.min);
+                // console.log("void setChannelExtents(): maxLon=" + obj.Lon.max);
+                // console.log("void setChannelExtents(): channel=" + channel);
+            // }
 
             try {
                 avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(obj.Lon.min, obj.Lat.min, obj.Lon.max, obj.Lat.max));
@@ -319,6 +358,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         },
 
         tileUnselect: function(tile) {
+            if(debug) console.log("tileUnselect(" + tile.feature.data.location + ")");
+            if(debug) console.log(avaMapJS.sdb_func.curLocation == tile.feature.data.location);
             if (tile.feature.data.location == avaMapJS.sdb_func.curLocation) {
                 avaMapJS.sdb_func.curLocation = "";
                 avaMapJS.sdb_func.curWaterway = "";
@@ -328,23 +369,25 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         // tileSelect: callBack function for tile selection from the map interface
         tileSelect: function(tile) {
             var tileName = tile.feature.data.name;
+            if(debug) console.log("tileSelect(" + tile.feature.data.location + ")");
             if (debug) {
                 console.log("void tileSelect(): " + tileName);
-                console.log("void tileSelect(): " + tile.feature.data);
                 console.log(tile.feature.data);
             }
             if (tileName.indexOf('/') >= 0) {
                 parent.window.open("http://www2.pac.dfo-mpo.gc.ca" + tileName, '_blank');
+                parent.avaIFaceJS.sdb_func.update(); // refresh page from updated parameters
             } else {
                 parent.avaIFaceJS.sdb_func.updateParameters({
                     "data": tile.feature.data
                 });
-                parent.avaIFaceJS.sdb_func.update(); // refresh page from updated parameters
+                parent.avaIFaceJS.sdb_func.update(tileName); // refresh page from updated parameters
             }
         },
 
         // refreshTiles: function to refresh the draw of the tile layer using the new selected form settings
         refreshTiles: function(channel, location) {
+            if(debug) console.log("void refreshTiles()");
             avaMapJS.sdb_func.curWaterway = channel;
             avaMapJS.sdb_func.curLocation = location;
             if (location == "") {
@@ -359,27 +402,64 @@ if (!(typeof avaIFaceJS === 'undefined')) {
          * @return {[void]}
          */
         refreshLocation : function(location) {
+            if(debug) console.log("refreshLocation(" + location + ")");
             this.checkRemainingFeaturesOnLayer();
-            if (location.length != "") {
+            if (location != "") {
                 var featureToSelect = this.getFeaturesByLocation(location);
                 if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
+                else parent.avaIFaceJS.sdb_func.update();
             }
+            else parent.avaIFaceJS.sdb_func.update();
             avaMapJS.sdb_func.kml.redraw();
         },
 
         /**
-         * [getFeaturesByLocation return an array of features that contain passed location]
+         * [refreshChannel refresh the layer with new selected feature]
+         * @param  {[String]} channel [the string value of channel to highlight]
+         * @return {[void]}
+         */
+        refreshChannel : function(channel) {
+            if(debug) console.log("refreshLocation(" + channel + ")");
+            this.checkRemainingFeaturesOnLayer();
+            if (channel != "") {
+                var featureToSelect = this.getFeaturesByChannel(channel);
+                if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
+                else parent.avaIFaceJS.sdb_func.update();
+            }
+            else parent.avaIFaceJS.sdb_func.update();
+            avaMapJS.sdb_func.kml.redraw();
+        },
+
+        /**
+         * [getFeaturesByLocation return tile that contains passed location]
          * @param  {[String]} location [a location to search inside the vector]
-         * @return {[Object]}          [feature object]
+         * @return {[Object]}          [tile object]
          */
         getFeaturesByLocation : function(location) {
+            if(debug) console.log("getFeaturesByLocation(" + location + ")");
             var features = this.kml.features;
             for (var i = 0; i < features.length; i++) {
                 var data = features[i].data.location;
-                var regEx = new RegExp(location);
-                var start = /^/;
-                regEx = (start.source + regEx.source);
-                if (data.search(regEx) > -1) return features[i];
+                if(location == data) return features[i];
+                // var regEx = new RegExp(location);
+                // var start = /^/;
+                // regEx = (start.source + regEx.source);
+                // if (data.search(regEx) > -1) return features[i];
+            }
+            return -1;
+        },
+
+        /**
+         * [getFeaturesByChannel return tile that contains passed location]
+         * @param  {[String]} channel [a location to search inside the vector]
+         * @return {[Object]}          [tile object]
+         */
+        getFeaturesByChannel : function(channel) {
+            if(debug) console.log("getFeaturesByChannel(" + channel + ")");
+            var features = this.kml.features;
+            for (var i = 0; i < features.length; i++) {
+                var data = features[i].data.location;
+                if(channel == data) return features[i];
             }
             return -1;
         },
@@ -389,6 +469,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
          * @return {[Boolean]}          [return true if the function executes successfully]
          */
         checkRemainingFeaturesOnLayer : function() {
+            if(debug) console.log("checkRemainingFeaturesOnLayer()\n");
             var selectedFeatures = this.getSelectedFeatures();
             if (selectedFeatures.length == 0) {
                 return true;
@@ -461,3 +542,4 @@ function assert(condition, message) {
         throw message;
     }
 }
+//# sourceURL=sdb_func.js
