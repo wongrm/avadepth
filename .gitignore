@@ -7,3 +7,4 @@ web.config
 scripts/*local.js
 avafiles/*
 avadepth.bundle
+Admin/*
