@@ -182,13 +182,15 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $.each(data, function() {
                         avaIFaceJS.sdb_func.tableReport.row.add(
                             [this.yyyy_mm_dd,
-                            (this.Svy_Filename.indexOf('pdf') > -1 || this.Type.indexOf('pdf') > -1) ?
-                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".pdf' target='_blank'>" + this.Svy_Filename + "</a>":
-                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Filename + ".dwf?' target='_blank'>" + this.Filename + "</a>",
-                                this.Location,
-                                this.Type,
-                                this.KMstart,
-                                this.KMend
+                            "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/"
+                                + this.Svy_Filename + "." +
+                                this.FileType +
+                                "' target='_blank'>"
+                                + this.Svy_Filename + "</a>",
+                            this.Location,
+                            this.Type,
+                            this.KMstart,
+                            this.KMend
                             ]);
                     });
                     avaIFaceJS.sdb_func.tableReport.draw();
