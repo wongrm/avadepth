@@ -6,5 +6,5 @@ web.config
 *local.html
 scripts/*local.js
 avafiles/*
-avadepth.bundle
+*.bundle
 Admin/*
