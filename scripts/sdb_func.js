@@ -181,16 +181,16 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#report_tbl tbody tr').remove();
                     $.each(data, function() {
                         avaIFaceJS.sdb_func.tableReport.row.add(
-                            [this.yyyy_mm_dd,
+                            [this.Date,
                             "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/"
-                                + this.Svy_Filename + "." +
+                                + this.Filename + "." +
                                 this.FileType +
                                 "' target='_blank'>"
-                                + this.Svy_Filename + "</a>",
+                                + this.Filename + "</a>",
                             this.Location,
                             this.Type,
-                            this.KMstart,
-                            this.KMend
+                            this.KMStart,
+                            this.KMEnd
                             ]);
                     });
                     avaIFaceJS.sdb_func.tableReport.draw();
