@@ -211,3 +211,7 @@ div#reportTitle2 {
 #gcwu-title-in{
 	display:none;
 }
+
+#soundings a[href]:after {
+    content: "";
+}
