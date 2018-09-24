@@ -161,7 +161,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 return $.getJSON(getAPI(apiURL, ""), function(data) {
                     // set report title
                     var old_date_format = "DD/MM/YYYY HH:mm:ss A";
-                    var new_date_format = "YYYY-MM-DD";
+                    var new_date_format = "DD/MM/YYYY";
                     if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
                         header = "Enquêtes Résultats de la recherche";
                     } else {
