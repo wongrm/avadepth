@@ -558,7 +558,7 @@ div#report_body table tr td {
     cursor: pointer;
 }
 
-@media only screen and (min-width: 1081px){
+@media only screen and (min-width: 1750px){
     /* Display as a side-navigation bar for wide-screen devices*/
     #side_nav {
         margin-top: 25px;
