@@ -199,8 +199,29 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#report_tbl tbody tr td:nth-last-child(2), #report_tbl tbody tr td:nth-last-child(1)').each(function() {
                         $(this).css('text-align', 'right');
                     });
-                    avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
+
+                    // (3) Add a button that allows the user to jump back to the map (a href=`${window.href.location} + #map`); - Last Update 2018-09-28
+                    avaIFaceJS.sideNavPanel.reset();
+                    
+                    var refMapString = (window.location.href.indexOf("fra") > -1) ? "Carte Physique" : "Reference Map";
+                    var repHeaderString = (window.location.href.indexOf("fra") > -1) ? "Top of Report" : "Top of Report";
+                    var sideNavTitleString = (window.location.href.indexOf("fra") > -1) ? "Navigate To" : "Navigate To";
+
+                    avaIFaceJS.sideNavPanel.addTitle(sideNavTitleString);
+                    avaIFaceJS.sideNavPanel.addLink(refMapString,"#ava_map_ttl");
+                    avaIFaceJS.sideNavPanel.addLink(repHeaderString,"#reportTitleDiv");
+                    avaIFaceJS.sideNavPanel.display();
+
+                    //avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close); // (2) Keep map open after opening survey results as per client request - Last Updated 2018-09-28 
+                    
                     avaIFaceJS.reportWindow.show();
+
+                    if (avaIFaceJS.sdb_func.tableReport){
+                        // (1) Place user page in the survey search results, as per client request - Last Updated 2018-09-28  
+                        var elemLocation = $("#reportTitleDiv").offset();
+                        window.scrollTo(elemLocation.left,elemLocation.top);
+                    }
+
                 }).done(function() {
                     $('.spinner').hide();
                     // pBarToggle();
