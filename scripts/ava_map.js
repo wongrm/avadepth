@@ -41,10 +41,11 @@ avaMapJS={
     // Loads Google Satellite map, or Google Street map for <IE9
     var gmap;
     if ( document.addEventListener ){
-      gmap = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
+      //gmap = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
+      gmap = new OpenLayers.Layer.Bing({name: "My layer", type: "Aerial", key: "AhhTZlFJFraMHcXXq1xICQHtHTybrHNbWTe5pmg98caj8GnENyRjxHd5qzAilU0f"});
     } else {
-      gmap = new OpenLayers.Layer.Google("Google", {});
-      //gmap = new OpenLayers.Layer.OSM("Street Map", {});
+      //gmap = new OpenLayers.Layer.Google("Google", {});
+      gmap = new OpenLayers.Layer.OSM("Street Map", {});
     }
 
     var navControl = avaMapJS.map.getControlsByClass('OpenLayers.Control.Navigation');
