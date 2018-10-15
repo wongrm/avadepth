@@ -8,3 +8,5 @@ scripts/*local.js
 avafiles/*
 *.bundle
 Admin/*
+includes/piwik.html
+.vscode
