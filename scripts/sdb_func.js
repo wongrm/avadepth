@@ -130,7 +130,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     if(channelStruct["Form"].hasOwnProperty("Tile"))
                     {
                         tile = channelStruct["Form"]["Tile"];
-                        apiParams.push("Tile_A=", tile);
+                        apiParams.push("Tile=", tile);
                     }
                     //else, query for all drawings under selected river-channel 
                     else apiParams.push("River=", wat, "&Channel=", chann);
@@ -147,7 +147,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                         }
                     });
                     
-                    apiParams.push("Tile_A=", tile);
+                    apiParams.push("Tile=", tile);
                 }
             }
             if(type != "") apiParams.push("&Type=", type);
