@@ -152,6 +152,7 @@ avaIFaceJS = {
         title2: "",
         subTitle1: "",
         subTitle2: "",
+        reportCount: "",
         repBodyElem: $('#report_body'),
         repWrapper: $('#report_panels'),
         repContent: "",
@@ -182,6 +183,7 @@ avaIFaceJS = {
             avaIFaceJS.reportWindow.title2 = "";
             avaIFaceJS.reportWindow.subTitle1 = "";
             avaIFaceJS.reportWindow.subTitle2 = "";
+            avaIFaceJS.reportWindow.reportCount = "";
         },
 
         addAutoDeskDisclaimer: function() {
@@ -278,6 +280,15 @@ avaIFaceJS = {
                             tag: 'span',
                             attr: {
                                 id: 'reportSubT2'
+                            }
+                        },{
+                            tag: 'br'
+                        }, {
+                            tag: 'span',
+                            attr: {
+                                id: 'reportCount',
+                                class: 'text-info',
+                                style: 'display:block; text-align:right; padding-right: 10px;'
                             }
                         }]
                     },

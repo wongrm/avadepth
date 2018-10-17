@@ -221,6 +221,10 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                         var elemLocation = $("#reportTitleDiv").offset();
                         window.scrollTo(elemLocation.left,elemLocation.top);
                     }
+                    
+                    // (4) Display the number of results on the page.
+                    $("#reportCount").empty();
+                    $("#reportCount").text("Number of Results: " + data.length)
 
                 }).done(function() {
                     $('.spinner').hide();
