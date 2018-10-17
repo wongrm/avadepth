@@ -723,7 +723,7 @@ var padZero = function(num){
               }
           }
       },
-    
+      
     avaPages:{
       'acv':{
         'title_e': "Animated Currents and Velocities for Fraser River South Arm",
