@@ -107,7 +107,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             //if tile has been clicked on map, query all drawings under clicked tile
             if(tileName != undefined)
             {
-                apiParams.push("Tile_A=", tileName);
+                apiParams.push("Tile=", tileName);
             }
             // if no channel selected, query all drawings under selected waterway
             else if(chann == "")
@@ -130,7 +130,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     if(channelStruct["Form"].hasOwnProperty("Tile"))
                     {
                         tile = channelStruct["Form"]["Tile"];
-                        apiParams.push("Tile_A=", tile);
+                        apiParams.push("Tile=", tile);
                     }
                     //else, query for all drawings under selected river-channel 
                     else apiParams.push("River=", wat, "&Channel=", chann);
@@ -147,7 +147,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                         }
                     });
                     
-                    apiParams.push("Tile_A=", tile);
+                    apiParams.push("Tile=", tile);
                 }
             }
             if(type != "") apiParams.push("&Type=", type);
@@ -160,6 +160,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
                 return $.getJSON(getAPI(apiURL, ""), function(data) {
                     // set report title
+                    var old_date_format = "YYYY-MM-DD\THH:mm:ss";
+                    var new_date_format = "DD/MM/YYYY";
                     if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use
                         header = "Enquêtes Résultats de la recherche";
                     } else {
@@ -181,16 +183,16 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $('#report_tbl tbody tr').remove();
                     $.each(data, function() {
                         avaIFaceJS.sdb_func.tableReport.row.add(
-                            [this.yyyy_mm_dd,
+                            [moment(this.Date, old_date_format).format(new_date_format),
                             "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/"
-                                + this.Svy_Filename + "." +
+                                + this.Filename + "." +
                                 this.FileType +
                                 "' target='_blank'>"
-                                + this.Svy_Filename + "</a>",
+                                + this.Filename + "</a>",
                             this.Location,
                             this.Type,
-                            this.KMstart,
-                            this.KMend
+                            this.KMStart,
+                            this.KMEnd
                             ]);
                     });
                     avaIFaceJS.sdb_func.tableReport.draw();
