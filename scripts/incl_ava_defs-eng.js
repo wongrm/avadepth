@@ -923,34 +923,9 @@ var padZero = function(num){
         }
       }
   };
-  setLocDefsObject();
+  setLocDefsObject(); // builds and sets incl_ava_defs.locDefs (see below)
 
-  function setLocDefsObject(){
-        jQuery.ajax({
-          url: "/api2/SurveyParameters",
-          method: "GET",
-          async: false,
-          success: function(data){
-            var params = new Object();
-            data.forEach(function(waterway){
-                params[waterway.Key] = {};
-                params[waterway.Key]["Form"] = waterway.Form;
-                params[waterway.Key]["Coords"] = waterway.Coords;
-                params[waterway.Key]["Sections"] = {};
-                waterway.Sections.forEach(function(sec){
-                    params[waterway.Key]["Sections"][sec.Form.Key] = {};
-                    params[waterway.Key]["Sections"][sec.Form.Key]["Form"] = sec.Form;
-                    params[waterway.Key]["Sections"][sec.Form.Key]["Coords"] = sec.Coords;
-                    params[waterway.Key]["Sections"][sec.Form.Key]["Locations"] = sec.Locations;
-                    if (sec.pwl){
-                        params[waterway.Key]["Sections"][sec.Form.Key]["pwl"] = sec.pwl;
-                    }
-                });
-            });
-            incl_ava_defs["locDefs"] = params;
-          }
-      });
-  }
+
   var mapStyle = {
   
       // Default Styles and map constants
@@ -1059,4 +1034,33 @@ var padZero = function(num){
       }
   };
   
+  /*  
+   *  uses an AJAX API call to the AvaDepth Survey Parameters manager to get the parameter objects from the site.
+   *  then, it uses that information to build and store the parameters into incl_ava_defs["locDefs"]
+   */
+  function setLocDefsObject(){
+    jQuery.ajax({
+      url: "/api2/SurveyParameters",
+      method: "GET",
+      success: function(data){
+        var params = new Object();
+        data.forEach(function(waterway){
+            params[waterway.Key] = {};
+            params[waterway.Key]["Form"] = waterway.Form;
+            params[waterway.Key]["Coords"] = waterway.Coords;
+            params[waterway.Key]["Sections"] = {};
+            waterway.Sections.forEach(function(sec){
+                params[waterway.Key]["Sections"][sec.Form.Key] = {};
+                params[waterway.Key]["Sections"][sec.Form.Key]["Form"] = sec.Form;
+                params[waterway.Key]["Sections"][sec.Form.Key]["Coords"] = sec.Coords;
+                params[waterway.Key]["Sections"][sec.Form.Key]["Locations"] = sec.Locations;
+                if (sec.pwl){
+                    params[waterway.Key]["Sections"][sec.Form.Key]["pwl"] = sec.pwl;
+                }
+            });
+        });
+        incl_ava_defs["locDefs"] = params;
+      }
+  });
+}
   //# sourceURL=incl_ava_defs-eng.js
