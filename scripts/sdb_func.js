@@ -122,7 +122,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 var locationVal = $('#location').val();
                 var tile;
                 var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
-                console.log(channelStruct);
                 //if a location hasn't been selected, get all drawings listed under channel 
                 if(location == "")
                 {
