@@ -19,7 +19,7 @@ var padZero = function(num){
   var currentDate = new Date();
 
   
-  var incl_ava_defs={
+  incl_ava_defs={
     "avaPages" : {
         'acv':{
           'title_e': "Animated Currents and Velocities for Fraser River South Arm",
@@ -1035,15 +1035,14 @@ var padZero = function(num){
   };
   
   /*  
-   *  uses an AJAX API call to the AvaDepth Survey Parameters manager to get the parameter objects from the site.
-   *  then, it uses that information to build and store the parameters into incl_ava_defs["locDefs"]
+   *  uses AJAX call to build and store the parameters object into incl_ava_defs.locDefs
    */
-  function setLocDefsObject(){
+  function setLocDefsObject(params){
     jQuery.ajax({
       url: "/api2/SurveyParameters",
       method: "GET",
       success: function(data){
-        var params = new Object();
+        params = new Object();
         data.forEach(function(waterway){
             params[waterway.Key] = {};
             params[waterway.Key]["Form"] = waterway.Form;
@@ -1059,6 +1058,7 @@ var padZero = function(num){
                 }
             });
         });
+        //Change when modifying code
         incl_ava_defs["locDefs"] = params;
       }
   });
