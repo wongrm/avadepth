@@ -1038,7 +1038,7 @@ var padZero = function(num){
    * [buildParametersObject gets Survey Parameters and sets it on incl_ava_defs.locDefs via API call]
    * @return {[void]} - incl_ava_defs.locDefs becomes modified to have Survey Parameters
    */
-  function buildParameterObject(){
+  function buildParametersObject(){
     jQuery.ajax({
       url: "/api2/SurveyParameters",
       method: "GET",
