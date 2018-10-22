@@ -122,12 +122,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 var locationVal = $('#location').val();
                 var tile;
                 var channelStruct = incl_ava_defs.locDefs[riverVal]["Sections"][channelVal];
-
+                console.log(channelStruct);
                 //if a location hasn't been selected, get all drawings listed under channel 
                 if(location == "")
                 {
                     //if the channel has its own tile, query for drawings under that tile
-                    if(channelStruct["Form"].hasOwnProperty("Tile"))
+                    if(channelStruct["Form"].hasOwnProperty("Tile") && channelStruct["Form"]["Tile"] != null)
                     {
                         tile = channelStruct["Form"]["Tile"];
                         apiParams.push("Tile=", tile);
