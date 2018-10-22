@@ -923,7 +923,7 @@ var padZero = function(num){
         }
       }
   };
-  setLocDefsObject(); // builds and sets incl_ava_defs.locDefs (see below)
+  buildParametersObject(); 
 
 
   var mapStyle = {
@@ -1034,10 +1034,11 @@ var padZero = function(num){
       }
   };
   
-  /*  
-   *  uses AJAX call to build and store the parameters object into incl_ava_defs.locDefs
+  /**
+   * [buildParametersObject gets Survey Parameters and sets it on incl_ava_defs.locDefs via API call]
+   * @return {[void]} - incl_ava_defs.locDefs becomes modified to have Survey Parameters
    */
-  function setLocDefsObject(params){
+  function buildParameterObject(){
     jQuery.ajax({
       url: "/api2/SurveyParameters",
       method: "GET",
@@ -1058,9 +1059,10 @@ var padZero = function(num){
                 }
             });
         });
-        //Change when modifying code
+
         incl_ava_defs["locDefs"] = params;
+      
       }
   });
-}
+  }
   //# sourceURL=incl_ava_defs-eng.js
