@@ -927,7 +927,7 @@ var padZero = function(num){
       }
     }
   };
-  setLocDefsObject();
+  buildParametersObject();
 
   var mapStyle = {
   
@@ -1037,33 +1037,35 @@ var padZero = function(num){
       }
   };
   
-  function setLocDefsObject(){
+  function buildParametersObject(){
     jQuery.ajax({
       url: "/api2/SurveyParameters",
       method: "GET",
+      async: false,
       success: function(data){
         var params = new Object();
         data.forEach(function(waterway){
-            params[waterway.Key] = {};
-            params[waterway.Key]["Form"] = waterway.Form;
-            params[waterway.Key]["Coords"] = waterway.Coords;
+            params[waterway.Key] = waterway;
+            var Sections = waterway.Sections;
             params[waterway.Key]["Sections"] = {};
-            waterway.Sections.forEach(function(sec){
-                params[waterway.Key]["Sections"][sec.Form.Key] = {};
-                params[waterway.Key]["Sections"][sec.Form.Key]["Form"] = sec.Form;
-                params[waterway.Key]["Sections"][sec.Form.Key]["Coords"] = sec.Coords;
+            Sections.forEach(function(sec){
+                params[waterway.Key]["Sections"][sec.Form.Key] = sec;
                 params[waterway.Key]["Sections"][sec.Form.Key]["Names"] = [];
                 sec.Locations.forEach(function(loc){
                     params[waterway.Key]["Sections"][sec.Form.Key]["Names"].push({ "Location Name": loc.Name, "Tile": loc.Tile});
                 });
 
+                delete params[waterway.Key]["Sections"][sec.Form.Key]["Locations"];
+                
                 if (sec.pwl){
                     params[waterway.Key]["Sections"][sec.Form.Key]["pwl"] = sec.pwl;
                 }
             });
+            delete params[waterway.Key].Key;
         });
         //Change when modifying code
         incl_ava_defs["locDefs"] = params;
       }
   });
+
 }
