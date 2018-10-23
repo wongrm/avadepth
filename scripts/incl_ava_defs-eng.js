@@ -1049,19 +1049,19 @@ var padZero = function(num){
             params[waterway.Key]["Form"] = waterway.Form;
             params[waterway.Key]["Coords"] = waterway.Coords;
             params[waterway.Key]["Sections"] = {};
-            waterway.Sections.forEach(function(sec){
-                params[waterway.Key]["Sections"][sec.Form.Key] = {};
-                params[waterway.Key]["Sections"][sec.Form.Key]["Form"] = sec.Form;
-                params[waterway.Key]["Sections"][sec.Form.Key]["Coords"] = sec.Coords;
-                params[waterway.Key]["Sections"][sec.Form.Key]["Locations"] = sec.Locations;
-                if (sec.pwl){
-                    params[waterway.Key]["Sections"][sec.Form.Key]["pwl"] = sec.pwl;
+            waterway.Sections.forEach(function(section){
+                params[waterway.Key]["Sections"][section.Form.Key] = {};
+                params[waterway.Key]["Sections"][section.Form.Key]["Form"] = section.Form;
+                params[waterway.Key]["Sections"][section.Form.Key]["Coords"] = section.Coords;
+                params[waterway.Key]["Sections"][section.Form.Key]["Locations"] = section.Locations;
+                if (section.pwl){
+                    params[waterway.Key]["Sections"][section.Form.Key]["pwl"] = section.pwl;
                 }
             });
         });
 
         incl_ava_defs["locDefs"] = params;
-      
+
       }
   });
   }
