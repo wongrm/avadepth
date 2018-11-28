@@ -152,6 +152,7 @@ avaIFaceJS = {
         title2: "",
         subTitle1: "",
         subTitle2: "",
+        reportCount: "",
         repBodyElem: $('#report_body'),
         repWrapper: $('#report_panels'),
         repContent: "",
@@ -182,6 +183,7 @@ avaIFaceJS = {
             avaIFaceJS.reportWindow.title2 = "";
             avaIFaceJS.reportWindow.subTitle1 = "";
             avaIFaceJS.reportWindow.subTitle2 = "";
+            avaIFaceJS.reportWindow.reportCount = "";
         },
 
         addAutoDeskDisclaimer: function() {
@@ -278,6 +280,15 @@ avaIFaceJS = {
                             tag: 'span',
                             attr: {
                                 id: 'reportSubT2'
+                            }
+                        },{
+                            tag: 'br'
+                        }, {
+                            tag: 'span',
+                            attr: {
+                                id: 'reportCount',
+                                class: 'text-info',
+                                style: 'display:block; text-align:right; padding-right: 10px;'
                             }
                         }]
                     },
@@ -557,12 +568,67 @@ avaIFaceJS = {
         }
     },
 
+    // side navigation panel for results
+    sideNavPanel: {
+        navTitle: $("#side_nav .panel-heading .panel-title"),
+        navBody: $("#side_nav .panel-body"),
+        Title: "",
+        Links: [],  // { Name: "", ElementId: ""}
+    
+        init: function() {
+            navTitle = $("#side_nav .panel-heading .panel-title");
+            navBody = $("#side_nav .panel-body");
+            navTitle.empty();
+            navBody.empty();
+        },
+    
+        hide: function() {
+            $("#side_nav").hide();
+        },
+    
+        show: function() {
+            $("#side_nav").show();
+        },
+    
+        addLink: function(name,elemId){
+            avaIFaceJS.sideNavPanel.Links.push({Name: name, ElementId: elemId});
+        },
+    
+        addTitle: function(title) {
+            avaIFaceJS.sideNavPanel.Title = title;
+        },
+    
+        display: function(){
+
+
+            navTitle.text(avaIFaceJS.sideNavPanel.Title);
+            var $navBodyList = $("<ul></ul>");
+
+            avaIFaceJS.sideNavPanel.Links.forEach(function(link){
+                $tempLink = $("<a></a>").text(link.Name).attr("onclick","NavigateTo(\"" + link.ElementId + "\")");
+                $tempListItem = $("<li></li>").html($tempLink);
+                $navBodyList.append($tempListItem); 
+            });
+            navBody.append($navBodyList);
+            this.show();
+        },
+
+        reset: function(){
+            avaIFaceJS.sideNavPanel.Links = [];
+            avaIFaceJS.Title = "";
+            navTitle.empty();
+            navBody.empty();
+            this.hide();
+        }
+    },
+
     // Initiate avaIFaceJS Object/add Event Triggers and load page elements
     init: function() {
         // console.clear();
         // Clear and nullify objects
         avaIFaceJS.mapJS = null;
         avaIFaceJS.detailWindow.map = null;
+        avaIFaceJS.sideNavPanel.init();
         avaIFaceJS.paramWindow.useParam(false);
         if (!avaIFaceJS.mapJS) {
             avaIFaceJS.mapJS = $('#embed_map')[0].contentWindow.avaMapJS;
@@ -775,4 +841,10 @@ function pBarToggle() {
         //document.getElementById('pBarContainer').style.filter = 'Alpha(opacity=100)';
         document.getElementById('pBarButton').innerText = "-"
     }
+};
+
+// takes the user to specified selector
+function NavigateTo(selector){
+    var elemLocation = $(selector).offset();
+    window.scrollTo(elemLocation.left,elemLocation.top);
 };
