@@ -21,7 +21,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             // Load and fill channel drop down
             $('#sdb_waterway').change(function(){
                 avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Open);
-                avaIFaceJS.sdb_func.fillChannel();
+                //avaIFaceJS.sdb_func.fillChannel();
                 // avaIFaceJS.sdb_func.update();
             });
 
@@ -31,6 +31,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             // Colour and resize map extents when waterway field changes
             $('#sdb_waterway').change(function() {
                 avaIFaceJS.mapJS.sdb_func.setExtents($(this).val());
+                avaIFaceJS.sdb_func.fillChannel();
+                avaIFaceJS.sdb_func.fillLocation();
                 return $('#map').css("min-height", "400px");
             });
 
@@ -50,10 +52,10 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 }
             });
 
-            // Colour Tiles when location field changes
-            $('#location').change(function() {
-                return avaIFaceJS.mapJS.sdb_func.refreshLocation($(this).val());
-            });
+            // Colour Tiles when location field changes - Removed to prevent automatic query (listener logic moved to submit)
+            // $('#location').change(function() {
+            //     return avaIFaceJS.mapJS.sdb_func.refreshLocation($(this).val());
+            // });
 
             $('#type').change(function() {
                 avaIFaceJS.sdb_func.update();
@@ -61,6 +63,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             // Submit form
             $("#submit").click(function() {
+                avaIFaceJS.mapJS.sdb_func.refreshLocation($('#location').val());   // Colour map tile of location selected.
                 return avaIFaceJS.sdb_func.update();
             });
 
@@ -444,9 +447,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             if (location != "") {
                 var featureToSelect = this.getFeaturesByLocation(location);
                 if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
-                // else parent.avaIFaceJS.sdb_func.update();
+               // else parent.avaIFaceJS.sdb_func.update();
             }
-            // else parent.avaIFaceJS.sdb_func.update();
+            // else parent.avaIFaceJS.sdb_func.update(); 
             avaMapJS.sdb_func.kml.redraw();
         },
 
@@ -460,9 +463,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             this.checkRemainingFeaturesOnLayer();
             if (channel != "") {
                 var featureToSelect = this.getFeaturesByChannel(channel);
-                if (featureToSelect != -1){
-                    this.HLFeat.select(featureToSelect)  
-                } 
+                 if (featureToSelect != -1) this.HLFeat.select(featureToSelect)
                 // else parent.avaIFaceJS.sdb_func.update();
             }
             // else parent.avaIFaceJS.sdb_func.update();
