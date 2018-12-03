@@ -36,13 +36,18 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             // Colour and resize map, and fill location drop down when channel field changes
             $('#channel').change(function() {
-                // avaIFaceJS.mapJS.sdb_func.refreshLocation("");
-                avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
-                // console.profile("channel change event");
-                avaIFaceJS.mapJS.sdb_func.setChannelExtents($('#sdb_waterway').val(), $(this).val()); // Broken?
-                avaIFaceJS.sdb_func.fillLocation();
-                // console.profileEnd();
-                return $('#map').css("min-height", "400px");
+                if ($(this).val() !== "GLOBAL"){
+                    avaIFaceJS.mapJS.sdb_func.refreshLocation("");
+                    avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
+                    // console.profile("channel change event");
+                    avaIFaceJS.mapJS.sdb_func.setChannelExtents($('#sdb_waterway').val(), $(this).val()); // Broken?
+                    avaIFaceJS.sdb_func.fillLocation();
+                    // console.profileEnd();
+                    return $('#map').css("min-height", "400px");
+                } else {
+                    avaIFaceJS.mapJS.sdb_func.setExtents($("#sdb_waterway").val());
+                    return $('#map').css("min-height", "400px");
+                }
             });
 
             // Colour Tiles when location field changes
@@ -65,7 +70,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         fillChannel: function() {
             $('#location option').remove();
             $('#channel option').remove();
-            $('#channel').append('<option></option>');
+            //$('#channel').append('<option></option>');
             return $.each(incl_ava_defs.locDefs[$('#sdb_waterway').val()]['Sections'], function() {
                 return $('#channel').append("<option value='" + this.Form.Key + "'>" + this.Form.Title + "</option>");
             });
@@ -75,7 +80,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         fillLocation: function() {
             locationDropdownFilled = true;
             $('#location option').remove();
-            $('#location').append('<option></option>');
+            //$('#location').append('<option></option>');
             if (debug) {
                 console.log("void fillLocation(): sdb_waterway=" + $('#sdb_waterway').val());
                 console.log("void fillLocation(): channel=" + $('#channel').val());
@@ -113,8 +118,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             else if(chann == "")
             {
                 apiParams.push("River=", wat);
+            } 
+            // if the channel selected was a global channel, query all drawings under the waterway
+            else if ($('#channel :selected').val() == "GLOBAL"){
+                apiParams.push("River=", wat);
             }
-            // else, a channel has been selected
+            // else, a regular channel has been selected
             else
             {
                 var riverVal = $('#sdb_waterway').val();
@@ -421,7 +430,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             if (location == "") {
                 avaMapJS.sdb_func.kml.redraw();
             }
-            parent.avaIFaceJS.sdb_func.update();
+            //parent.avaIFaceJS.sdb_func.update();
         },
 
         /**
@@ -435,9 +444,9 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             if (location != "") {
                 var featureToSelect = this.getFeaturesByLocation(location);
                 if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
-                else parent.avaIFaceJS.sdb_func.update();
+                // else parent.avaIFaceJS.sdb_func.update();
             }
-            else parent.avaIFaceJS.sdb_func.update();
+            // else parent.avaIFaceJS.sdb_func.update();
             avaMapJS.sdb_func.kml.redraw();
         },
 
@@ -451,10 +460,12 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             this.checkRemainingFeaturesOnLayer();
             if (channel != "") {
                 var featureToSelect = this.getFeaturesByChannel(channel);
-                if (featureToSelect != -1) this.HLFeat.select(featureToSelect);
-                else parent.avaIFaceJS.sdb_func.update();
+                if (featureToSelect != -1){
+                    this.HLFeat.select(featureToSelect)  
+                } 
+                // else parent.avaIFaceJS.sdb_func.update();
             }
-            else parent.avaIFaceJS.sdb_func.update();
+            // else parent.avaIFaceJS.sdb_func.update();
             avaMapJS.sdb_func.kml.redraw();
         },
 
