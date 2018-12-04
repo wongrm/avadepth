@@ -33,6 +33,8 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 avaIFaceJS.mapJS.sdb_func.setExtents($(this).val());
                 avaIFaceJS.sdb_func.fillChannel();
                 avaIFaceJS.sdb_func.fillLocation();
+                if ($('#channel').val() !== "GLOBAL")
+                    avaIFaceJS.mapJS.sdb_func.setChannelExtents($(this).val(), $('#channel').val());
                 return $('#map').css("min-height", "400px");
             });
 
@@ -480,7 +482,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             var features = this.kml.features;
             for (var i = 0; i < features.length; i++) {
                 var data = features[i].data.location;
-                if(location == data) return features[i];
+                if(location == data) return features[i]; 
                 // var regEx = new RegExp(location);
                 // var start = /^/;
                 // regEx = (start.source + regEx.source);
@@ -499,7 +501,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             var features = this.kml.features;
             for (var i = 0; i < features.length; i++) {
                 var data = features[i].data.location;
-                if(channel == data) return features[i];
+                if(channel == data) return features[i]; 
             }
             return -1;
         },
