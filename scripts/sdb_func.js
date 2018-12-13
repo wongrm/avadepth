@@ -42,7 +42,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             $('#channel').change(function() {
                 if ($(this).val() !== "GLOBAL"){
                     avaIFaceJS.mapJS.sdb_func.refreshLocation("");
-                    avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
+                    //avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
                     // console.profile("channel change event");
                     avaIFaceJS.mapJS.sdb_func.setChannelExtents($('#sdb_waterway').val(), $(this).val()); // Broken?
                     avaIFaceJS.sdb_func.fillLocation();
