@@ -33,8 +33,10 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 avaIFaceJS.mapJS.sdb_func.setExtents($(this).val());
                 avaIFaceJS.sdb_func.fillChannel();
                 avaIFaceJS.sdb_func.fillLocation();
-                if ($('#channel').val() !== "GLOBAL")
+                if ($('#channel').val() !== "GLOBAL") 
                     avaIFaceJS.mapJS.sdb_func.setChannelExtents($(this).val(), $('#channel').val());
+                else
+                    avaIFaceJS.mapJS.sdb_func.setExtents($(this).val());
                 return $('#map').css("min-height", "400px");
             });
 
