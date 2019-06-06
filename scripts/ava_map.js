@@ -33,7 +33,9 @@ avaMapJS={
 
     // allow testing of specific renderers via "?renderer=Canvas", etc
     avaMapJS.renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-    avaMapJS.renderer = (avaMapJS.renderer) ? [avaMapJS.renderer] : OpenLayers.Layer.Vector.prototype.renderers;
+    avaMapJS.renderer = (avaMapJS.renderer)
+      ? [avaMapJS.renderer]
+      : OpenLayers.Layer.Vector.prototype.renderers;
 
 		avaMapJS.map = new oscar.Map('ava_map_ref',options);
     avaMapJS.map.getControlsByClass("OpenLayers.Control.SelectFeature")[0].handlers.feature.stopDown=false;
@@ -42,10 +44,14 @@ avaMapJS={
     var gmap;
     if ( document.addEventListener ){
       //gmap = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
-      gmap = new OpenLayers.Layer.Bing({name: "My layer", type: "Aerial", key: "AptDfQo9QmK9LCVmDIVMyaqe75u-fzTzFuNinm4V7KLbbL8mvI3BdbGOD8gpjjSw"});
+      gmap = new OpenLayers.Layer.Bing({
+          name: "My layer",
+          type: "Aerial",
+          key: "AptDfQo9QmK9LCVmDIVMyaqe75u-fzTzFuNinm4V7KLbbL8mvI3BdbGOD8gpjjSw"
+        });
     } else {
       //gmap = new OpenLayers.Layer.Google("Google", {});
-      gmap = new OpenLayers.Layer.OSM("Street Map", {});
+      gmap = new OpenLayers.Layer.Bing("Bing", {});
     }
 
     var navControl = avaMapJS.map.getControlsByClass('OpenLayers.Control.Navigation');
