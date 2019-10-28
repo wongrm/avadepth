@@ -106,7 +106,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     avaIFaceJS.dd_func.tableReport.row.add(
                         ['<a href="javascript:void(0)">' + this.period + "</a>",
                             this.chainage,
-                            this.depth,
+                            this.depth.toFixed(1),
                             this.location,
                             this.chainage.split('-')[0]
                         ]);
@@ -212,11 +212,11 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     }
                     return avaIFaceJS.dd_func.tableDetail.row.add([
                         this.location,
-                        this.designGrade,
-                        this.sounding,
+                        this.designGrade.toFixed(1),
+                        this.sounding.toFixed(1),
                         this.width,
                         this.percent,
-                        this.tidalAid,
+                        this.tidalAid.toFixed(1),
                         depth,
                         index
                     ]).draw();
