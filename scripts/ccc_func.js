@@ -40,11 +40,11 @@ if(!(typeof avaIFaceJS === 'undefined')) {
               this.SoundingDate,
               "<a href='http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Plan + ".dwf'>" + this.Plan + "</a>",
               this.Dredge,
-              this.Sounding,
+              this.Sounding.toFixed(1),
               this.Width,
               this.WidthPerc,
               this.Dredge2,
-              this.Sounding2,
+              this.Sounding2.toFixed(1),
               this.Width2,
               this.WidthPerc2]);
           if (this.IsHigh) {

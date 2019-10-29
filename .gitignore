@@ -10,3 +10,4 @@ avafiles/*
 Admin/*
 includes/piwik.html
 .vscode
+.vs/*
