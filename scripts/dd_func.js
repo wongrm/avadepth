@@ -10,16 +10,33 @@ if (!(typeof avaIFaceJS === 'undefined')) {
         tableReport: null,
         tableDetail: null,
         limit_text: "",
+        dateFormat: null,
+        $date: null,
+        $chainage: null,
+        $flowRate: null,
+        $flowType: null,
+        $width: null,
+        $spinner: null,
 
         init: function() {
             avaIFaceJS.detailWindow.loadLayout();
+            $date = $('#date');
+            $chainage = $('#chainage');
+            $flowRate = $('#flowRate');
+            $flowType = $('#flowType');
+            $width = $('#width');
+            $spinner = $('.spinner');
+            dateFormat = {
+                eng: "MMMM D, YYYY",
+                fra: "D MMMM YYYY"
+            }
 
             // Style Elements
             $(".yaxislabel").css("color", "black");
 
             /** Event Handlers **/
             // Retrieve content on Date change
-            $('#date').change(function() {
+            $date.change(function() {
                 avadepth.util.getFlow({
                     date: $(this).val(),
                     selected: $("#selected_discharge"),
@@ -36,7 +53,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
             });
 
             // default Current Soundings
-            $("#date").datepicker("option", "minDate", 0);
+            $date.datepicker("option", "minDate", 0);
             // $('input[type=radio][name=condition]').change(function() {
             //     if (this.value == '0') {
             //         $("#date").datepicker("option", "minDate", 0);
@@ -53,12 +70,13 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     $("#error_message").html("Place select one of the options for the field \"River Discharge @ Hope\"");
                     return $("#report_body").hide();
 
-                } else if (avadepth.util.getSelectedFlow().flowRate === "" && avadepth.util.getSelectedFlow().flowType === 'UserDefined') {
+                } else if (avadepth.util.getSelectedFlow().flowRate === ""
+                        && avadepth.util.getSelectedFlow().flowType === 'UserDefined') {
                     // user has left user-defined m^3/s value blank
                     $('#defined_discharge').focus();
                     return;
                 } else {
-                    $('.spinner').show();
+                    $spinner.show();
                     $("#error_message").hide();
                     $("#report_body").show();
 
@@ -73,19 +91,26 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // Process Report content and update Report Window
         update: function() {
-            var channel, flow, title1, title2, subT1, subT2;
+            var self = this;
+            var flow, title1, title2, subT1, subT2;
 
-            channel = $('input[name="channel"]:checked').val();
+            var channel = $('input[name="channel"]:checked').val();
+            var $condition = $('input[name="condition"]:checked');
 
             // define report type values
             flow = avadepth.util.getSelectedFlow();
-            $("#flowRate").val(flow.flowRate);
-            $('#flowType').val(flow.flowType);
+            $flowRate.val(flow.flowRate);
+            $flowType.val(flow.flowType);
 
             //TODO: Replace bottom line for production
-            return $.getJSON(getAPI(("/api/depths/calculate?date=" + ($('#date').val()) + "&") + ("chainage=" + ($('#chainage').val()) + "&") + ("flowRate=" + ($('#flowRate').val()) + "&") + ("flowType=" + ($('#flowType').val()) + "&") + ("width=" + ($('#width').val()) + "&") + ("sounding=" + ($('input[name=condition]:checked').val())), "api/depths/calculate.json"), function(data) {
+            return $.getJSON(getAPI(("/api/depths/calculate?date=" + ($date.val()) + "&")
+                    + ("chainage=" + $chainage.val() + "&")
+                    + ("flowRate=" + $flowRate.val() + "&")
+                    + ("flowType=" + $flowType.val() + "&")
+                    + ("width=" + $width.val() + "&")
+                    + ("sounding=" + $condition.val()), "api/depths/calculate.json"), function(data) {
                 var points = [];
-                avaIFaceJS.dd_func.tableReport || (avaIFaceJS.dd_func.tableReport = $('#depths').DataTable({
+                self.tableReport || (self.tableReport = $('#depths').DataTable({
                     "paging": false,
                     "ordering": false,
                     "searching": false,
@@ -99,11 +124,11 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                         "visible": false
                     }]
                 }));
-                avaIFaceJS.dd_func.tableReport.clear();
+                self.tableReport.clear();
                 $("#depths th").css("cursor", "default")
                 $('#depths tbody tr').remove();
                 $.each(data.items[channel].items, function() {
-                    avaIFaceJS.dd_func.tableReport.row.add(
+                    self.tableReport.row.add(
                         ['<a href="javascript:void(0)">' + this.period + "</a>",
                             this.chainage,
                             this.depth.toFixed(1),
@@ -113,11 +138,11 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     return points.push([this.period, this.depth]);
                 });
 
-                avaIFaceJS.dd_func.tableReport.draw();
+                self.tableReport.draw();
                 $('#depths tbody tr td:first-child a').click(function() {
-                    avaIFaceJS.dd_func.showDetail($(this).text());
+                    self.showDetail($(this).text());
                 });
-                avaIFaceJS.dd_func.limit_text = (function() {
+                limit_text = (function() {
                     switch (false) {
                         case channel !== '0':
                             if (window.location.href.indexOf("eng") > -1) {
@@ -140,26 +165,30 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
                 if (window.location.href.indexOf("fra") > -1) { //If url contains 'fra' use 
                     moment.locale('fr');
-                    title1 = "Rapport sur les profondeurs disponibles pour " + moment($('#date').val()).format("D MMMM YYYY");
-                    title2 = "Fleuve Fraser – Bras Sud, " + avaIFaceJS.dd_func.limit_text;
-                    subT1 = $('input[name="condition"]:checked').next().text() + " pour KM 1-" + $('#chainage').val() + " à " + $('#width').val() + "% Largeur disponible";
-                    subT2 = "Débit fluvial à Hope, " + $('#flowRate').val() + " m\u00B3/s (" + translate_flow() + ")";
+                    title1 = "Rapport sur les profondeurs disponibles pour " + moment($date.val()).format(dateFormat.fra);
+                    title2 = "Fleuve Fraser – Bras Sud, " + limit_text;
+                    subT1 = $condition.next().text()
+                        + " pour KM 1-" + $chainage.val()
+                        + " à " + $width.val() + "% Largeur disponible";
+                    subT2 = "Débit fluvial à Hope, " + $flowRate.val() + " m\u00B3/s (" + translate_flow() + ")";
                 } else { //If url does not contain 'fra' use
                     moment.locale('en');
-                    title1 = "Available Depth Report for " + moment($('#date').val()).format("MMMM D, YYYY");
-                    title2 = "Fraser River – South Arm, " + avaIFaceJS.dd_func.limit_text;
-                    subT1 = $('input[name="condition"]:checked').next().text() + " for KM 1 to " + $('#chainage').val() + " at " + $('#width').val() + "% Available Width";
-                    subT2 = "River Discharge @ Hope, " + $('#flowRate').val() + " m\u00B3/s (" + translate_flow() + ")";
+                    title1 = "Available Depth Report for " + moment($date.val()).format(dateFormat.eng);
+                    title2 = "Fraser River – South Arm, " + limit_text;
+                    subT1 = $condition.next().text()
+                        + " for KM 1 to " + $chainage.val()
+                        + " at " + $width.val() + "% Available Width";
+                    subT2 = "River Discharge @ Hope, " + $flowRate.val() + " m\u00B3/s (" + translate_flow() + ")";
                 }
                 avaIFaceJS.reportWindow.addTitle(title1, title2, subT1, subT2);
                 avaIFaceJS.reportWindow.show();
                 avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
-                avaIFaceJS.dd_func.createGraph(points);
+                self.createGraph(points);
             }).success(function() {
                 pBarToggle();
-                return $('.spinner').hide();
+                return $spinner.hide();
             }).error(function() {
-                $('.spinner').hide();
+                $spinner.hide();
                 avaIFaceJS.reportWindow.show();
                 avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Close);
                 return avaIFaceJS.reportWindow.showError('An error occured while retrieving your results');
@@ -168,21 +197,31 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
         // Update values and apply to Detail Window
         showDetail: function(period) {
+            var self = this;
+            var $condition = $('input[name="condition"]:checked');
+
             //avaIFaceJS.detailWindow.show();
             $('#static-time').text(period);
-            $('#date-display').text(moment($('#date').val()).format("MMMM D, YYYY"));
-            $('#static-limit').text(avaIFaceJS.dd_func.limit_text);
-            $('#static-type').text($('input[name="condition"]:checked').next().text());
-            $('#static-chainage').text($('#chainage').val());
-            $('#static-width').text($('#width').val());
-            $('#static-discharge').text($('#flowRate').val());
+            $('#date-display').text(moment($date.val()).format(dateFormat.eng));
+            $('#static-limit').text(limit_text);
+            $('#static-type').text($condition.next().text());
+            $('#static-chainage').text($chainage.val());
+            $('#static-width').text($width.val());
+            $('#static-discharge').text($flowRate.val());
             $('#static-discharge-eval').text(translate_flow());
             //TODO: Replace line for production:
             
-            var dataURL = getAPI(("/api/depths/verify?date=" + ($('#date').val()) + "&") + ("chainage=" + ($('#chainage').val()) + "&") + ("flowRate=" + ($('#flowRate').val()) + "&") + ("flowType=1&") + ("sounding=" + $('input[name="condition"]:checked').val() + "&") + ("width=" + ($('#width').val()) + "&") + ("lane=" + (parseInt($('input[name="channel"]:checked').val()) + 1) + "&") + ("period=" + (parseInt(period.substring(0, 2)) / 2 + 1)), "api/depths/verify.json");
+            var dataURL = getAPI(("/api/depths/verify?date=" + $date.val()+ "&")
+                + ("chainage=" + $chainage.val() + "&")
+                + ("flowRate=" + $flowRate.val() + "&")
+                + ("flowType=1&")
+                + ("sounding=" + $condition.val() + "&")
+                + ("width=" + $width.val() + "&")
+                + ("lane=" + (parseInt($('input[name="channel"]:checked').val()) + 1) + "&")
+                + ("period=" + (parseInt(period.substring(0, 2)) / 2 + 1)), "api/depths/verify.json");
             $.getJSON(dataURL, function(data) {
                 var least_depth;
-                avaIFaceJS.dd_func.tableDetail || (avaIFaceJS.dd_func.tableDetail = $('#verify').DataTable({
+                self.tableDetail || (self.tableDetail = $('#verify').DataTable({
                     "paging": false,
                     "ordering": false,
                     "searching": false,
@@ -197,7 +236,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     }]
                 }));
 
-                avaIFaceJS.dd_func.tableDetail.clear();
+                self.tableDetail.clear();
                 $('#verify tbody tr').remove();
                 least_depth = 10000;
                 $.each(data.items, function(index) {
@@ -210,7 +249,7 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                     } else {
                         depth = fixed_depth;
                     }
-                    return avaIFaceJS.dd_func.tableDetail.row.add([
+                    return self.tableDetail.row.add([
                         this.location,
                         this.designGrade.toFixed(1),
                         this.sounding.toFixed(1),
@@ -223,7 +262,10 @@ if (!(typeof avaIFaceJS === 'undefined')) {
                 });
 
                 window.open("dd_detail.html");
-                return $('#verify td').find('.low_depth').closest('tr').addClass('least-depth');
+                return $('#verify td')
+                    .find('.low_depth')
+                    .closest('tr')
+                    .addClass('least-depth');
             });
 
         },
