@@ -233,7 +233,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
                 if (!(avaIFaceJS.pwl_func.detailValue == "")) {
                     if (avaIFaceJS.pwl_func.detailIsKM) {
-                        avaIFaceJS.detailWindow.mapJS.pwl_func.setMarkerExtent(avaIFaceJS.pwl_func.detailValue, avaIFaceJS.detailWindow.mapColorKey);
                         avaIFaceJS.pwl_func.gotoGraph(0, avaIFaceJS.pwl_func.detailValue, true);
                     } else {
                         avaIFaceJS.pwl_func.gotoGraph(1, avaIFaceJS.pwl_func.detailValue, false);
@@ -288,8 +287,6 @@ if (!(typeof avaIFaceJS === 'undefined')) {
 
             avaIFaceJS.pwl_func.gotoGraph_sub(typCode, typValue, "#det_placeholder"); // create pwl plots for main detail report
 
-            avaIFaceJS.detailWindow.useMap = useMap;
-            //avaIFaceJS.detailWindow.show();
             window.open('pwl_detail.html?' +
                             'code=' + (typCode + "&") +
                             'value=' + (typValue + "&") +
