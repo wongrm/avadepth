@@ -632,7 +632,6 @@ avaIFaceJS = {
         avaIFaceJS.paramWindow.useParam(false);
         if (!avaIFaceJS.mapJS) {
             avaIFaceJS.mapJS = $('#embed_map')[0].contentWindow.avaMapJS;
-            avaIFaceJS.detailWindow.mapJS = $('#report_map')[0].contentWindow.avaMapDetJS;
 
             // create trigger on window resize
             $(window).unbind('resize').resize(function() {
@@ -701,7 +700,6 @@ avaIFaceJS = {
 
         // Retrieve Page Elements and initiate Page code
         avaIFaceJS.mapJS.setPageActivity(avaIFaceJS.currentPage);
-        avaIFaceJS.detailWindow.mapJS.setPageActivity(avaIFaceJS.currentPage);
         avaIFaceJS[avaIFaceJS.currentPage + "_func"].init();
 
         // Open Parameters Tab, Map Window
