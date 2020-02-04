@@ -29,8 +29,49 @@ avaMapJS={
 			units:"m",
       maxZoomLevel:20,
       minZoomLevel:5
-		};
+    };
 
+    myButton = new OpenLayers.Control.Button({
+      id: "toggleLayer",
+      text: "Toggle Map",
+      title: "Use this button to switch between aerial and street view",
+      trigger: function(){
+        console.log("from buttom");
+
+        if(baseLayer == gmap){
+          avaMapJS.map.removeLayer(gmap);
+          avaMapJS.map.addLayer(bingStreet);
+          baseLayer = bingStreet;
+        }
+        else {
+          avaMapJS.map.removeLayer(bingStreet);
+          avaMapJS.map.addLayer(gmap);
+          baseLayer = gmap;
+        }
+
+      }
+    });
+
+    var panel = new OpenLayers.Control.Panel({
+      defaultControl: myButton,
+      createControlMarkup: function(control) {
+        var button = document.createElement('button'),
+
+        iconSpan = document.createElement('span'),
+        textSpan = document.createElement('span');
+        iconSpan.innerHTML = '&nbsp;';
+        button.appendChild(iconSpan);
+
+        if (control.text) {
+          textSpan.innerHTML = control.text;
+        }
+
+        button.appendChild(textSpan);
+        return button;
+      }  
+    }); 
+
+    panel.addControls([myButton]);
     // allow testing of specific renderers via "?renderer=Canvas", etc
     avaMapJS.renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
     avaMapJS.renderer = (avaMapJS.renderer)
@@ -38,21 +79,34 @@ avaMapJS={
       : OpenLayers.Layer.Vector.prototype.renderers;
 
 		avaMapJS.map = new oscar.Map('ava_map_ref',options);
-    avaMapJS.map.getControlsByClass("OpenLayers.Control.SelectFeature")[0].handlers.feature.stopDown=false;
+    avaMapJS
+        .map.getControlsByClass("OpenLayers.Control.SelectFeature")[0]
+        .handlers
+        .feature
+        .stopDown=false;
+    avaMapJS.map.addControl(panel);
     // Google Maps layer
     // Loads Google Satellite map, or Google Street map for <IE9
-    var gmap;
+    var gmap, bingStreet;
     if ( document.addEventListener ){
       //gmap = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
       gmap = new OpenLayers.Layer.Bing({
-          name: "My layer",
+          name: "Satellite",
           type: "Aerial",
+          key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
+        });
+      bingStreet = new OpenLayers.Layer.Bing({
+          name: "Street layer",
+          type: "Road",
           key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
         });
     } else {
       //gmap = new OpenLayers.Layer.Google("Google", {});
       gmap = new OpenLayers.Layer.Bing("Bing", {});
     }
+
+
+    var baseLayer = gmap;
 
     var navControl = avaMapJS.map.getControlsByClass('OpenLayers.Control.Navigation');
     for (var i = 0; i < navControl.length; i++){
@@ -69,9 +123,11 @@ avaMapJS={
 	    {alpha:true}
     );
 
+    baseLayer = gmap;
+    bingStreet.setVisibility(false);
     // Add layers
    	//avaMapJS.map.addLayers([gmap,wmsLayer]);
-   	avaMapJS.map.addLayers([gmap]);
+   	avaMapJS.map.addLayers([baseLayer]);
     //avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(-13625920,6283000,-13941007,6458623));
     if(!avaMapJS.map.size) {
       window.location.reload(true);
