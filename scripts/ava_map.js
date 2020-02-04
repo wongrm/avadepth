@@ -9,15 +9,22 @@ avaMapJS={
 
       // Initializes the map interface. Loads layers and map components.
   initMap:function() {
-	if(window.location.href.indexOf("fra") > -1) {
-	//If url contains 'fra'	use 
-		loadJS('incl_ava_defs-fra',function(){});
-	} else {
-	//If url does not contain 'fra' use
-		loadJS('incl_ava_defs-eng',function(){});
-	}
-    avaMapJS.curLayer="";
+    avaMapJS.streetViewtxt = '';
+    avaMapJS.aerialViewtxt = '';
+    avaMapJS.curLayer= '';
     avaMapJS.curControls=[];
+
+    if(window.parent.location.href.indexOf("fra") > -1) {
+    //If url contains 'fra'	use 
+      loadJS('incl_ava_defs-fra',function(){});
+      avaMapJS.aerialViewtxt = '(FRA)Switch to Aerial view';
+      avaMapJS.streetViewtxt = '(FRA)Switch to Street view';
+    } else {
+    //If url does not contain 'fra' use
+      loadJS('incl_ava_defs-eng',function(){});
+      avaMapJS.aerialViewtxt = 'Switch to Aerial view';
+      avaMapJS.streetViewtxt = 'Switch to Street view';
+    }
 
     // Map Options and constructor
     var opNav = new OpenLayers.Control.Navigation({'zoomWheelEnabled':false});
@@ -31,47 +38,45 @@ avaMapJS={
       minZoomLevel:5
     };
 
-    myButton = new OpenLayers.Control.Button({
-      id: "toggleLayer",
-      text: "Toggle Map",
+
+    toggleButton = new OpenLayers.Control.Button({
+      id: "toggleLayerBtn",
       title: "Use this button to switch between aerial and street view",
       trigger: function(){
-        console.log("from buttom");
+        var toggleLayerBtn = document.getElementById('toggleButtonTxt');
 
         if(baseLayer == gmap){
           avaMapJS.map.removeLayer(gmap);
           avaMapJS.map.addLayer(bingStreet);
           baseLayer = bingStreet;
+          toggleLayerBtn.innerHTML = avaMapJS.aerialViewtxt;
         }
         else {
           avaMapJS.map.removeLayer(bingStreet);
           avaMapJS.map.addLayer(gmap);
           baseLayer = gmap;
+          toggleLayerBtn.innerHTML = avaMapJS.streetViewtxt;
         }
 
       }
     });
 
     var panel = new OpenLayers.Control.Panel({
-      defaultControl: myButton,
+      defaultControl: toggleButton,
       createControlMarkup: function(control) {
         var button = document.createElement('button'),
 
-        iconSpan = document.createElement('span'),
         textSpan = document.createElement('span');
-        iconSpan.innerHTML = '&nbsp;';
-        button.appendChild(iconSpan);
 
-        if (control.text) {
-          textSpan.innerHTML = control.text;
-        }
+        textSpan.innerHTML = avaMapJS.streetViewtxt;
+        textSpan.setAttribute("id", "toggleButtonTxt");
 
         button.appendChild(textSpan);
         return button;
       }  
     }); 
 
-    panel.addControls([myButton]);
+    panel.addControls([toggleButton]);
     // allow testing of specific renderers via "?renderer=Canvas", etc
     avaMapJS.renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
     avaMapJS.renderer = (avaMapJS.renderer)
