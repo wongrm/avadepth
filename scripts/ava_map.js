@@ -42,16 +42,16 @@ avaMapJS={
         trigger: function(){
           var toggleLayerBtn = document.getElementById('toggleButtonTxt');
 
-          if(baseLayer == gmap){
-            avaMapJS.map.removeLayer(gmap);
+          if(baseLayer == bingAerial){
+            avaMapJS.map.removeLayer(bingAerial);
             avaMapJS.map.addLayer(bingStreet);
             baseLayer = bingStreet;
             toggleLayerBtn.innerHTML = toggleButtonTxt.aerial;
           }
           else {
             avaMapJS.map.removeLayer(bingStreet);
-            avaMapJS.map.addLayer(gmap);
-            baseLayer = gmap;
+            avaMapJS.map.addLayer(bingAerial);
+            baseLayer = bingAerial;
             toggleLayerBtn.innerHTML = toggleButtonTxt.street;
           }
         }
@@ -87,10 +87,10 @@ avaMapJS={
       avaMapJS.map.addControl(panel);
       // Google Maps layer
       // Loads Google Satellite map, or Google Street map for <IE9
-      var gmap, bingStreet;
+      var bingAerial, bingStreet;
       if ( document.addEventListener ){
-        //gmap = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
-        gmap = new OpenLayers.Layer.Bing({
+        //bingAerial = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
+        bingAerial = new OpenLayers.Layer.Bing({
             name: "Satellite",
             type: "Aerial",
             key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
@@ -101,11 +101,11 @@ avaMapJS={
             key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
           });
       } else {
-        //gmap = new OpenLayers.Layer.Google("Google", {});
-        gmap = new OpenLayers.Layer.Bing("Bing", {});
+        //bingAerial = new OpenLayers.Layer.Google("Google", {});
+        bingAerial = new OpenLayers.Layer.Bing("Bing", {});
       }
 
-      var baseLayer = gmap;
+      var baseLayer = bingAerial;
 
       var navControl = avaMapJS.map.getControlsByClass('OpenLayers.Control.Navigation');
       for (var i = 0; i < navControl.length; i++){
@@ -122,10 +122,10 @@ avaMapJS={
         {alpha:true}
       );
 
-      baseLayer = gmap;
+      baseLayer = bingAerial;
       bingStreet.setVisibility(false);
       // Add layers
-      //avaMapJS.map.addLayers([gmap,wmsLayer]);
+      //avaMapJS.map.addLayers([bingAerial,wmsLayer]);
       avaMapJS.map.addLayers([baseLayer]);
       //avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(-13625920,6283000,-13941007,6458623));
       if(!avaMapJS.map.size) {
