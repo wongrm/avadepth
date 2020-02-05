@@ -684,16 +684,27 @@ var padZero = function(num){
             {tag:'input',attr:{id:'date',type:'text',name:'date',className:'datepicker'}},
             {tag:'input',attr:{id:'alt-date',type:'hidden'}},
             {tag:'label',attr:{for:'period'},child:["Period:"]},
-            {tag:'select',attr:{id:'period'},ref:{tag:'option',values:[{key:3,value:"12 Months"},{key:2,value:'6 Months'},{key:1,value:'2 Months'},{key:0,value:'1 Month'}]}},
+            {tag:'select',attr:{id:'period'},
+              ref:{
+                tag:'option',
+                values:[
+                  {key:3,value:"12 Months"},
+                  {key:2,value:'6 Months'},
+                  {key:1,value:'2 Months'},
+                  {key:0,value:'1 Month'}]}},
             {tag:'label',attr:{for:'plot'},child:["Plot:"]},
+            //" Actual",
             {tag:'input',attr:{id:'actual',type:'checkbox',name:'actual',checked:'checked'}},
             {tag:'label',attr:{for:'actual',style:'font-weight:normal'},child:[" Actual"]},
-            //" Actual",
             {tag:'br'},
+            //" Predicted",
             {tag:'input',attr:{id:'predicted',type:'checkbox',name:'predicted',checked:'checked'}},
             {tag:'label',attr:{for:'predicted',style:'font-weight:normal'},child:[" Predicted"]},
-            //" Predicted",
-            {tag:'br'}
+            {tag:'br'},
+            //" Min/Max",
+            {tag:'input',attr:{id:'minMax',type:'checkbox',name:'minMax',checked:'checked'}},
+            {tag:'label',attr:{for:'minMax',style:'font-weight:normal'},child:[" Min/Max"]},
+            {tag:'br'},{tag:'br'}
           ]}
         ],
         'reportBody':[
