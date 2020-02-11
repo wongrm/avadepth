@@ -53,6 +53,8 @@
 			});
 
 			var chainage = avadepth.util.getUrlParameter("chainage");
+			var innerChannelResp, outterChannelResp;
+			var today = moment().format("YYYY-M-D");
 
 			$('#print_remove').addClass('align-center')
 			$('input[id="inner_select"]').attr('checked', 'checked');
@@ -65,30 +67,91 @@
 				$('#detail_print').find('#segment').text($(this).next().text()); // updates print div with current channel information
 				$('#surveys tbody').html('');
 
-				return $.getJSON(("/api/History?date=" + moment().format("YYYY-M-D") + "&") +
-					("lane=" + (detailIsInnerChannel ? "1" : "2")) + "&" +
-					("chainage=" + chainage), function (data) {
-						$.each(data, function (index) {
-							var row, surveydate, ishigh = "", ishighast = "";
-							surveydate = moment(this.date).format("D-MMM-YYYY");
+				$.when(
+					$.getJSON(("/api/History?date=" + today + "&") +
+						("lane=1&") +
+						("chainage=" + chainage)),
+					$.getJSON(("/api/History?date=" + today + "&") +
+						("lane=2&") +
+						("chainage=" + chainage))
+					
+			).done(
+				function(innerData, outterData){
+						var combinedData = [];
+						var channel = "innerChannel";
+
+						$.each(innerData[0], function(){
+							var surveydate = moment(this.date).format("D-MMM-YYYY");
+							var ishigh = "", ishighast = "";
+
 							if (this.grade > this.sounding) {
 								ishigh = " class=\"red\"";
 								ishighast = "*";
 							}
-							if (this.Plan.slice(0, 2) != "FR") {
+
+							combinedData.push({date: surveydate, plan: this.Plan});
+							combinedData[combinedData.length-1][channel] = {
+									grade: this.grade.toFixed(1),
+									sounding : this.sounding.toFixed(1),
+									width: this.width,
+									widthPerc:  this.widthperc,
+									isHigh: ishigh,
+									isHighAst: ishighast
+							};
+						});
+
+						$.each(outterData[0], function(outterIx, outterVal){
+							$.each(combinedData, function(innerIx, innerVal){
+								var outterValDate = moment(outterVal.date).format("D-MMM-YYYY");
+								var ishigh = "", ishighast = "";
+								
+								if (outterVal.grade > outterVal.sounding) {
+									ishigh = " class=\"red\"";
+									ishighast = "*";
+								}
+
+								if(innerVal.date == outterValDate){
+									combinedData[innerIx]["outterChannel"] = {
+										grade: outterVal.grade.toFixed(1),
+										sounding : outterVal.sounding.toFixed(1),
+										width: outterVal.width,
+										widthPerc: outterVal.widthperc,
+										isHigh: ishigh,
+										isHighAst: ishighast
+
+									}
+
+									return false;
+								} 
+							});
+						});
+
+						$.each(combinedData, function (index) {
+							var row, surveydate, ishigh = "", ishighast = "";
+							surveydate = moment(this.date).format("D-MMM-YYYY");
+							
+							console.log(this);
+							if (this.plan.slice(0, 2) != "FR" && this.outterChannel !== undefined) {
 								row = "<tr>" +
 									"<td>" + surveydate + "</td>" +
-									"<td><a href=\"http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.Plan + ".dwf?\"" +
-									"target=\"_blank\">" + this.Plan + "</a></td>" +
-									"<td" + ishigh + ">" + (this.grade.toFixed(1)) + "</td>" +
-									"<td" + ishigh + ">" + (this.sounding.toFixed(1)) + ishighast + "</td>" +
-									"<td" + ishigh + ">" + this.width + "</td>" +
-									"<td" + ishigh + ">" + this.widthperc + "</td>" +
+									"<td><a href=\"http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.plan + ".dwf?\"" +
+									"target=\"_blank\">" + this.plan + "</a></td>" +
+									"<td" + this.innerChannel.isHigh + ">" + (this.innerChannel.grade) + "</td>" +
+									"<td" + this.innerChannel.isHigh + ">" + (this.innerChannel.sounding) + ishighast + "</td>" +
+									"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.width + "</td>" +
+									"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.widthPerc + "</td>" +
+									"<td" + this.outterChannel.isHigh + ">" + (this.outterChannel.grade) + "</td>" +
+									"<td" + this.outterChannel.isHigh + ">" + (this.outterChannel.sounding) + ishighast +  "</td>" +
+									"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.width + "</td>" +
+									"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.widthPerc + "</td>" +
 									"</tr>";
 							}
 							return $("#surveys tbody").append(row);
 						});
-					});
+
+						console.log(combinedData);
+					}
+				);
 			}).change();
 		});
 	</script>
@@ -135,16 +198,28 @@
 					</div>
 				</div>
 				<div class="grid-12">
-					<table class="styled align-center" id="surveys" style="width: 600px; margin-right: auto; margin-left: auto;">
+					<table class="styled align-center" id="surveys" style="margin-right: auto; margin-left: auto;">
 						<thead>
+							<tr>
+								<th colspan="2">&nbsp;</th>
+								<th colspan="4">Inner Channel</th>
+								<th colspan="4">Outter Channel</th>
+							</tr>
 							<tr>
 								<th rowspan="2">Date of Survey</th>
 								<th rowspan="2">Reference Plan</th>
 								<th style="width: 55px;">Design Grade</th>
 								<th style="width: 55px;">Least Soundings</th>
 								<th colspan="2">Available Width</th>
+								<th style="width: 55px;">Design Grade</th>
+								<th style="width: 55px;">Least Soundings</th>
+								<th colspan="2">Available Width</th>
 							</tr>
 							<tr>
+								<th>(m)</th>
+								<th>(m)</th>
+								<th>(m)</th>
+								<th>(%)</th>
 								<th>(m)</th>
 								<th>(m)</th>
 								<th>(m)</th>
