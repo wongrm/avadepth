@@ -47,112 +47,85 @@
 	</style>
 
 	<script>
+		var formatDate = function(date){
+			var dateFormat = "YYYY-M-D";
+			return (date === undefined)
+				? moment().format(dateFormat)
+				: moment(date).format(dateFormat);
+		}
+
+		var channelItem = function(apiLineItem){
+			this.grade = apiLineItem.grade.toFixed(1);
+			this.sounding  = apiLineItem.sounding.toFixed(1);
+			this.width = apiLineItem.width;
+			this.widthPerc = apiLineItem.widthperc;
+			this.isHigh = "";
+			this.isHighAst = "";
+								
+			if (apiLineItem.grade > apiLineItem.sounding) {
+				this.isHigh = " class=\"red\"";
+				this.isHighAst = "*";
+			}
+		};
+
 		$(document).ready(function () {
 			$('button[name="print"]').click(function () {
 				window.print()
 			});
 
 			var chainage = avadepth.util.getUrlParameter("chainage");
-			var innerChannelResp, outterChannelResp;
-			var today = moment().format("YYYY-M-D");
+			var today = formatDate();
+			var apiURL = "/api/History?date=" + today + "&chainage=" + chainage;
 
 			$('#print_remove').addClass('align-center')
-			$('input[id="inner_select"]').attr('checked', 'checked');
 			$('#heading').text("km " + (chainage - 1) + " - " + (chainage));
 
-			$('input[name=channel_select]').change(function () {
-				if (!($(this).is(':checked'))) { return; }
-				var detailIsInnerChannel = ($(this).val() === "1");
+			$('#detail_print').find('#segment').text($(this).next().text()); // updates print div with current channel information
+			$('#surveys tbody').html('');
 
-				$('#detail_print').find('#segment').text($(this).next().text()); // updates print div with current channel information
-				$('#surveys tbody').html('');
+			$.when(
+				$.getJSON(apiURL + "&lane=1"),
+				$.getJSON(apiURL + "&lane=2")
+			).done(function(innerChannelData, outterChannelData){
+				var combinedData = [];
 
-				$.when(
-					$.getJSON(("/api/History?date=" + today + "&") +
-						("lane=1&") +
-						("chainage=" + chainage)),
-					$.getJSON(("/api/History?date=" + today + "&") +
-						("lane=2&") +
-						("chainage=" + chainage))
+				$.each(outterChannelData[0], function(outterIx, outterVal){
+					var outterValDate = formatDate(outterVal.date);
+
+					$.each(innerChannelData[0], function(innerIx, innerVal){
+						var innerValDate = formatDate(innerVal.date);
+						if(innerValDate == outterValDate){
+							if (this.Plan.slice(0, 2) != "FR") {
+								combinedData.push({date: innerVal.date, plan: this.Plan});
+								combinedData[combinedData.length-1]["outterChannel"] = new channelItem(outterVal);
+								combinedData[combinedData.length-1]["innerChannel"] = new channelItem(innerVal);
+							}
+
+							return false;
+						}
+					});
+				});
+
+				$.each(combinedData, function () {
+					var row;
+					var surveydate = moment(this.date).format("D-MMM-YYYY");
 					
-			).done(
-				function(innerData, outterData){
-						var combinedData = [];
-						var channel = "innerChannel";
+					row = "<tr>" +
+						"<td>" + surveydate + "</td>" +
+						"<td><a href='http://avadepth.ccg-gcc.gc.ca/Data/dwf/" + this.plan + ".dwf?' target='blank'>" + this.plan + "</a></td>" +
+						"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.grade + "</td>" +
+						"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.sounding + this.innerChannel.isHighAst + "</td>" +
+						"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.width + "</td>" +
+						"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.widthPerc + "</td>" +
+						"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.grade + "</td>" +
+						"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.sounding + this.outterChannel.isHighAst +  "</td>" +
+						"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.width + "</td>" +
+						"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.widthPerc + "</td>" +
+					"</tr>";
 
-						$.each(innerData[0], function(){
-							var surveydate = moment(this.date).format("D-MMM-YYYY");
-							var ishigh = "", ishighast = "";
-
-							if (this.grade > this.sounding) {
-								ishigh = " class=\"red\"";
-								ishighast = "*";
-							}
-
-							combinedData.push({date: surveydate, plan: this.Plan});
-							combinedData[combinedData.length-1][channel] = {
-									grade: this.grade.toFixed(1),
-									sounding : this.sounding.toFixed(1),
-									width: this.width,
-									widthPerc:  this.widthperc,
-									isHigh: ishigh,
-									isHighAst: ishighast
-							};
-						});
-
-						$.each(outterData[0], function(outterIx, outterVal){
-							$.each(combinedData, function(innerIx, innerVal){
-								var outterValDate = moment(outterVal.date).format("D-MMM-YYYY");
-								var ishigh = "", ishighast = "";
-								
-								if (outterVal.grade > outterVal.sounding) {
-									ishigh = " class=\"red\"";
-									ishighast = "*";
-								}
-
-								if(innerVal.date == outterValDate){
-									combinedData[innerIx]["outterChannel"] = {
-										grade: outterVal.grade.toFixed(1),
-										sounding : outterVal.sounding.toFixed(1),
-										width: outterVal.width,
-										widthPerc: outterVal.widthperc,
-										isHigh: ishigh,
-										isHighAst: ishighast
-
-									}
-
-									return false;
-								} 
-							});
-						});
-
-						$.each(combinedData, function (index) {
-							var row, surveydate, ishigh = "", ishighast = "";
-							surveydate = moment(this.date).format("D-MMM-YYYY");
-							
-							console.log(this);
-							if (this.plan.slice(0, 2) != "FR" && this.outterChannel !== undefined) {
-								row = "<tr>" +
-									"<td>" + surveydate + "</td>" +
-									"<td><a href=\"http://www2.pac.dfo-mpo.gc.ca/Data/dwf/" + this.plan + ".dwf?\"" +
-									"target=\"_blank\">" + this.plan + "</a></td>" +
-									"<td" + this.innerChannel.isHigh + ">" + (this.innerChannel.grade) + "</td>" +
-									"<td" + this.innerChannel.isHigh + ">" + (this.innerChannel.sounding) + ishighast + "</td>" +
-									"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.width + "</td>" +
-									"<td" + this.innerChannel.isHigh + ">" + this.innerChannel.widthPerc + "</td>" +
-									"<td" + this.outterChannel.isHigh + ">" + (this.outterChannel.grade) + "</td>" +
-									"<td" + this.outterChannel.isHigh + ">" + (this.outterChannel.sounding) + ishighast +  "</td>" +
-									"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.width + "</td>" +
-									"<td" + this.outterChannel.isHigh + ">" + this.outterChannel.widthPerc + "</td>" +
-									"</tr>";
-							}
-							return $("#surveys tbody").append(row);
-						});
-
-						console.log(combinedData);
-					}
-				);
-			}).change();
+					return $("#surveys tbody").append(row);
+				});
+			});
 		});
 	</script>
 </head>
@@ -186,16 +159,6 @@
 							</tr>
 						</tbody>
 					</table>
-					<div class="print_hide align-center" id="print_remove">
-						<strong>Channel Select</strong>
-						<br>
-						<input name="channel_select" id="inner_select" style="display: inline;" type="radio" checked="checked"
-							value="1">
-						<label style="display: inline;" for="inner_select">Inner Channel</label>
-						<input name="channel_select" id="outer_select" style="display: inline;" type="radio" value="2">
-						<label style="display: inline;" for="outer_select">Outer Channel</label>
-						<br>
-					</div>
 				</div>
 				<div class="grid-12">
 					<table class="styled align-center" id="surveys" style="margin-right: auto; margin-left: auto;">
