@@ -80,7 +80,7 @@ avaIFaceJS = {
 
             $('#cboxClose').unbind('click').click(avaIFaceJS.detailWindow.hide);
             $('button[name="print"]').unbind('click').click(function() {
-                window.print()
+                window.print();
             });
         },
 
@@ -337,14 +337,14 @@ avaIFaceJS = {
             avaIFaceJS.reportWindow.setTitle();
 
             $('button[name="print"]').unbind('click').click(function() {
-                window.print()
+                window.print();
             });
         },
 
         // Adds strings to fit into Report Title Template
         addTitle: function(repTitle1, repTitle2, subT1, subT2) {
             if (!avaIFaceJS.reportWindow.isInit) {
-                avaIFaceJS.reportWindow.init()
+                avaIFaceJS.reportWindow.init();
             }
             if (repTitle1 != undefined) {
                 avaIFaceJS.reportWindow.title1 = repTitle1;
@@ -373,7 +373,7 @@ avaIFaceJS = {
         // Applies report layout to report window
         addContent: function(content) {
             if (!avaIFaceJS.reportWindow.isInit) {
-                avaIFaceJS.reportWindow.init()
+                avaIFaceJS.reportWindow.init();
             }
             avaIFaceJS.reportWindow.repContent = $.extend([], content);
         },
@@ -386,7 +386,7 @@ avaIFaceJS = {
             $('#report_content').show();
 
             if (!avaIFaceJS.reportWindow.isInit) {
-                avaIFaceJS.reportWindow.init()
+                avaIFaceJS.reportWindow.init();
             }
 
             avaIFaceJS.reportWindow.repWrapper.trigger('resize').show();
@@ -420,7 +420,7 @@ avaIFaceJS = {
 
         useParam: function(state) {
             if (!avaIFaceJS.paramWindow.isInit) {
-                avaIFaceJS.paramWindow.init()
+                avaIFaceJS.paramWindow.init();
             }
             if (state) {
                 avaIFaceJS.paramWindow.show();
@@ -457,7 +457,7 @@ avaIFaceJS = {
 
         addForm: function(content) {
             if (!avaIFaceJS.paramWindow.isInit) {
-                avaIFaceJS.paramWindow.init()
+                avaIFaceJS.paramWindow.init();
             }
             var pgParam = $.extend([], content);
             if (window.location.href.indexOf("fra") > -1) {
@@ -562,7 +562,7 @@ avaIFaceJS = {
 
         isOpen: function() {
             if (!avaIFaceJS.paramWindow.isInit) {
-                avaIFaceJS.paramWindow.init()
+                avaIFaceJS.paramWindow.init();
             }
             // return (!(document.getElementById('paramButton').innerText == "Parameters"))
         }
@@ -637,17 +637,17 @@ avaIFaceJS = {
             $(window).unbind('resize').resize(function() {
                 var hgt = $('#wb-core').width() * 8.5 / 15;
                 if (hgt < 680) {
-                    hgt = 680
+                    hgt = 680;
                 }
                 $('#embed_map').height(hgt);
             });
             $('#ref_map_link').click(function() {
                 var hgt = $('#wb-core').width() * 8.5 / 15;
                 if (hgt < 680) {
-                    hgt = 680
+                    hgt = 680;
                 }
                 $('#embed_map').height(hgt);
-            })
+            });
         }
         // avaIFaceJS.setMapOpen(avaIFaceJS.MapState.Open);
 
@@ -733,7 +733,7 @@ avaIFaceJS = {
         var embedMap = $('#embed_map');
         var hgt = $('#wb-core').width() * 8.5 / 15;
         if (hgt < 680) {
-            hgt = 680
+            hgt = 680;
         }
         embedMap.height(hgt);
         $('#map').height(hgt);
@@ -753,19 +753,19 @@ avaIFaceJS = {
         if ($.isArray(arr)) {
             for (var a = 0; a < arr.length; a++) {
                 if ($.type(arr[a]) === 'object') {
-                    var t = $('<' + arr[a]['tag'] + '></' + arr[a]['tag'] + '>');
+                    var t = $('<' + arr[a].tag + '></' + arr[a].tag + '>');
                     if ('attr' in arr[a]) {
                         if ('className' in arr[a].attr) {
                             t.addClass(arr[a].attr.className);
                             delete arr[a].attr.className;
                         }
-                        t.attr(arr[a].attr)
+                        t.attr(arr[a].attr);
                     }
                     if ('ref' in arr[a]) {
-                        var tagUsed = arr[a]['ref']['tag'];
-                        var oArr = arr[a]['ref']['values'];
+                        var tagUsed = arr[a].ref.tag;
+                        var oArr = arr[a].ref.values;
                         if (typeof oArr == 'function') {
-                            oArr = oArr()
+                            oArr = oArr();
                         }
                         var r = [];
                         for (var k in oArr) {
@@ -775,17 +775,17 @@ avaIFaceJS = {
                                 child: [oArr[k].value]
                             };
                             if ('key' in oArr[k]) {
-                                v.attr.value = oArr[k].key
+                                v.attr.value = oArr[k].key;
                             }
                             if ('select' in oArr[k]) {
-                                v.attr.selected = "selected"
+                                v.attr.selected = "selected";
                             }
                             r.push(v);
                         }
                         arr[a].child = r;
                     }
                     if ('child' in arr[a]) {
-                        t.append(avaIFaceJS.getElements(arr[a]['child']));
+                        t.append(avaIFaceJS.getElements(arr[a].child));
                     }
                     res.push(t);
                 } else {
@@ -832,17 +832,17 @@ function pBarToggle() {
         document.getElementById('map_parameters').style.display = 'none';
         //document.getElementById('pBarContainer').style.opacity = '0.8';
         //document.getElementById('pBarContainer').style.filter = 'Alpha(opacity=80)';
-        document.getElementById('pBarButton').innerText = "+"
+        document.getElementById('pBarButton').innerText = "+";
     } else {
         document.getElementById('map_parameters').style.display = 'block';
         //document.getElementById('pBarContainer').style.opacity = '1';
         //document.getElementById('pBarContainer').style.filter = 'Alpha(opacity=100)';
-        document.getElementById('pBarButton').innerText = "-"
+        document.getElementById('pBarButton').innerText = "-";
     }
-};
+}
 
 // takes the user to specified selector
 function NavigateTo(selector){
     var elemLocation = $(selector).offset();
     window.scrollTo(elemLocation.left,elemLocation.top);
-};
+}
