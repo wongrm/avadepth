@@ -745,7 +745,6 @@ avaIFaceJS = {
         var ifr = $('iframe');
         var mp = $('#ava_map_ref', ifr.contents());
         mp.height(hgt);
-        (this.isMapOpen() ? $('#map_wrapper').className = "print_show" : $('#map_wrapper').className = "print_hide");
     },
 
     isMapOpen: function() {
