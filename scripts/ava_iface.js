@@ -9,7 +9,12 @@ Current Conditions: cc-ca.js, soundings-sondages.js
 
 // Load def JS File
 var loadJS = function(name, callback) {
-    $.getScript('scripts/' + name + '.js', callback);
+    $.getScript('scripts/' + name + '.js')
+        .done(callback)
+        .fail(function(jqxhr, settings, exception){
+            console.error(exception);
+            console.error('failed to load script: ' + name);
+        });
 };
 
 // Create global variables
