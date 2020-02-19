@@ -21,11 +21,11 @@ var loadJS = function(name, callback) {
 var page_lang = $('html').attr('lang');
 
 // Create avaIFace
-var avaIFaceJS;
-avaIFaceJS = {
+/** @namespace */
+var avaIFaceJS = {};
 
     // Internal Object for handling the detail window
-    detailWindow: {
+    avaIFaceJS.detailWindow = {
         useMap: false,
         mapColorKey: null,
         detailContent: null,
@@ -148,10 +148,10 @@ avaIFaceJS = {
             $('<style>@media print { #report_body { display: block; } }</style>').appendTo('head');
             $("#detail_print").html("");
         }
-    },
+    }
 
     // Internal Object for handling the report window
-    reportWindow: {
+    avaIFaceJS.reportWindow = {
         isInit: false,
         title1: "",
         title2: "",
@@ -408,10 +408,10 @@ avaIFaceJS = {
         clear: function() {
             avaIFaceJS.reportWindow.repBodyElem.innerHTML = "";
         }
-    },
+    };
 
     // Internal Object for Parameters Window
-    paramWindow: {
+    avaIFaceJS.paramWindow = {
         linkBtn: null,
         paramForm: null,
         isInit: false,
@@ -571,10 +571,10 @@ avaIFaceJS = {
             }
             // return (!(document.getElementById('paramButton').innerText == "Parameters"))
         }
-    },
+    };
 
     // side navigation panel for results
-    sideNavPanel: {
+    avaIFaceJS.sideNavPanel = {
         navTitle: $("#side_nav .panel-heading .panel-title"),
         navBody: $("#side_nav .panel-body"),
         Title: "",
@@ -625,10 +625,10 @@ avaIFaceJS = {
             navBody.empty();
             this.hide();
         }
-    },
+    };
 
     // Initiate avaIFaceJS Object/add Event Triggers and load page elements
-    init: function() {
+    avaIFaceJS.init = function() {
         // console.clear();
         // Clear and nullify objects
         avaIFaceJS.mapJS = null;
@@ -660,11 +660,11 @@ avaIFaceJS = {
         if (querystring('page').length > 0) {
             avaIFaceJS.loadPage(querystring('page'));
         }
-    },
+    };
 
     /*** General Functions ***/
     // Change page for new report
-    loadPage: function(page_name) {
+    avaIFaceJS.loadPage = function(page_name) {
 
         // Load Embedded Map
         avaIFaceJS.mapJS.map.updateSize();
@@ -676,9 +676,9 @@ avaIFaceJS = {
         } else {
             avaIFaceJS.getPage();
         }
-    },
+    };
 
-    getPage: function() {
+    avaIFaceJS.getPage = function() {
         var pg_entry = incl_ava_defs.avaPages[avaIFaceJS.currentPage];
 
         // Set Title
@@ -716,14 +716,15 @@ avaIFaceJS = {
         // Close Report Window
         avaIFaceJS.reportWindow.hide();
 
-    },
+    };
 
     // Open/Close Map when needed
-    MapState: {
+    avaIFaceJS.MapState = {
         Close: false,
         Open: true
-    },
-    setMapOpen: function(state, callback, arg) {
+    };
+
+    avaIFaceJS.setMapOpen = function(state, callback, arg) {
         // console.log("state: " + state + ", arg: " + arg 
         //             + ", isMapOpen: " + this.isMapOpen());
         var mapLink = $('#ref_map_link');
@@ -746,14 +747,14 @@ avaIFaceJS = {
         var mp = $('#ava_map_ref', ifr.contents());
         mp.height(hgt);
         ifr.height(hgt+50);
-    },
+    };
 
-    isMapOpen: function() {
+    avaIFaceJS.isMapOpen = function() {
         return document.getElementById('ref_map_det').clientHeight > 50;
-    },
+    };
 
     // Parse incoming JSON struct to DOM for Form, Report, and Detail layouts
-    getElements: function(arr) {
+    avaIFaceJS.getElements = function(arr) {
         var res = [];
         if ($.isArray(arr)) {
             for (var a = 0; a < arr.length; a++) {
@@ -799,8 +800,8 @@ avaIFaceJS = {
             }
         }
         return res;
-    }
-};
+    };
+
 if (window.location.href.indexOf("fra") > -1) {
     //If url contains 'fra'	use 
     loadJS('incl_ava_defs-fra', function() {});
