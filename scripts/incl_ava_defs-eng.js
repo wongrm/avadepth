@@ -27,6 +27,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':true,
+          'hasMapFunc': true,
           'longReport':false,
           'landscapeReport':false,
           'formParam':[
@@ -147,6 +148,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
+          'hasMapFunc': false,
           'longReport':false,
           'landscapeReport':false,
           'formParam': [
@@ -346,6 +348,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
+          'hasMapFunc': false,
           'longReport':false,
           'landscapeReport':false,
           'formParam':[
@@ -530,6 +533,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
+          'hasMapFunc': true,
           'longReport':true,
           'formParam':
             [
@@ -663,6 +667,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
+          'hasMapFunc': false,
           'longReport':false,
           'landscapeReport':true,
           'formParam':[
@@ -702,6 +707,7 @@ var padZero = function(num){
           'mapInitState':false,
           'hasParameters':false,
           'hasAnimate':false,
+          'hasMapFunc': false,
           'longReport':true,
           'landscapeReport':false,
           'formParam':[
@@ -850,6 +856,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
+          'hasMapFunc': true,
           'longReport':true,
           'landscapeReport':false,
           'formParam':
@@ -912,6 +919,7 @@ var padZero = function(num){
           'mapInitState':true,
           'hasParameters':false,
           'hasAnimate':false,
+          'hasMapFunc': true,
           'longReport':true,
           'landscapeReport':false,
           'formParam':

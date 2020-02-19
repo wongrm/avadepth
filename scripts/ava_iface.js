@@ -671,8 +671,8 @@ avaIFaceJS.detailWindow = {
 
         // Retrieve Page Definition
         avaIFaceJS.currentPage = page_name;
-        if (!avaIFaceJS[page_name + '_func']) {
-            loadJS(page_name + '_func', avaIFaceJS.getPage);
+        if (!avaIFaceJS[page_name + '_pg_func']) {
+            loadJS(page_name + '_pg_func', avaIFaceJS.getPage);
         } else {
             avaIFaceJS.getPage();
         }
@@ -704,7 +704,10 @@ avaIFaceJS.detailWindow = {
         avaIFaceJS.reportWindow.loadReport();
 
         // Retrieve Page Elements and initiate Page code
-        avaIFaceJS.mapJS.setPageActivity(avaIFaceJS.currentPage);
+        if(pg_entry.hasMapFunc){
+            avaIFaceJS.mapJS.setPageActivity(avaIFaceJS.currentPage);
+        }
+
         avaIFaceJS[avaIFaceJS.currentPage + "_func"].init();
 
         // Open Parameters Tab, Map Window
