@@ -51,12 +51,12 @@ avaMapJS.pwl_func = {
     _hasRiver: function(rivObj, riverName) {
         try {
             if (rivObj.pwl.key == riverName) {
-                return true
+                return true;
             } else {
-                return false
+                return false;
             }
         } catch (err) {}
-        return false
+        return false;
     },
 
     lookupRiver: function(riverName) {
@@ -69,7 +69,7 @@ avaMapJS.pwl_func = {
                         return {
                             obj: rivObj,
                             key: s
-                        }
+                        };
                     }
                 }
             } else {
@@ -78,14 +78,14 @@ avaMapJS.pwl_func = {
                     return {
                         obj: rivObj,
                         key: r
-                    }
+                    };
                 }
             }
         }
         return {
             obj: undefined,
             key: ""
-        }
+        };
     },
 
     refreshMarkers: function(riverName) {
