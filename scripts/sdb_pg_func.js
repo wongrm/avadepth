@@ -53,13 +53,11 @@ avaIFaceJS.sdb_func = {
 
         // Colour and resize map, and fill location drop down when channel field changes
         $channel.change(function() {
-            var $this = $(this);
-
-            if ($this.val() !== "GLOBAL"){
+            if ($channel.val() !== "GLOBAL"){
                 avaIFaceJS.mapJS.sdb_func.refreshLocation("");
                 //avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
                 // console.profile("channel change event");
-                avaIFaceJS.mapJS.sdb_func.setChannelExtents($sdb_waterway.val(), $this.val()); // Broken?
+                avaIFaceJS.mapJS.sdb_func.setChannelExtents($sdb_waterway.val(), $channel.val()); // Broken?
                 avaIFaceJS.sdb_func.fillLocation();
                 // console.profileEnd();
                 return $('#map').css("min-height", "400px");
