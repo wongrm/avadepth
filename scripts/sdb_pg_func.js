@@ -39,15 +39,13 @@ avaIFaceJS.sdb_func = {
 
         // Colour and resize map extents when waterway field changes
         $sdb_waterway.change(function() {
-            var $this = $(this);
-
-            avaIFaceJS.mapJS.sdb_func.setExtents($this.val());
+            avaIFaceJS.mapJS.sdb_func.setExtents($sdb_waterway.val());
             avaIFaceJS.sdb_func.fillChannel();
             avaIFaceJS.sdb_func.fillLocation();
             if ($channel.val() !== "Select a channel") 
-                avaIFaceJS.mapJS.sdb_func.setChannelExtents($this.val(), $channel.val());
+                avaIFaceJS.mapJS.sdb_func.setChannelExtents($sdb_waterway.val(), $channel.val());
             else
-                avaIFaceJS.mapJS.sdb_func.setExtents($this.val());
+                avaIFaceJS.mapJS.sdb_func.setExtents($sdb_waterway.val());
             return $('#map').css("min-height", "400px");
         });
 
