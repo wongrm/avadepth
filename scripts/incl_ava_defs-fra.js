@@ -1074,36 +1074,30 @@ var padZero = function(num){
           })
       }
   };
-  
+   
+  /**
+   * [buildParametersObject gets Survey Parameters and sets it on incl_ava_defs.locDefs via API call]
+   * @return {[void]} - incl_ava_defs.locDefs becomes modified to have Survey Parameters
+   */
   function buildParametersObject(){
     jQuery.ajax({
       url: "/api2/SurveyParameters",
       method: "GET",
-      async: false,
+      async:false,    
       success: function(data){
-        var params = new Object();
+        params = new Object();
         data.forEach(function(waterway){
             params[waterway.Key] = waterway;
-            var Sections = waterway.Sections;
+            var Sections = waterway.Sections; // Create back-up of sections for loop
             params[waterway.Key]["Sections"] = {};
-            Sections.forEach(function(sec){
-                params[waterway.Key]["Sections"][sec.Form.Key] = sec;
-                params[waterway.Key]["Sections"][sec.Form.Key]["Names"] = [];
-                sec.Locations.forEach(function(loc){
-                    params[waterway.Key]["Sections"][sec.Form.Key]["Names"].push({ "Location Name": loc.Name, "Tile": loc.Tile});
-                });
-
-                delete params[waterway.Key]["Sections"][sec.Form.Key]["Locations"];
-                
-                if (sec.pwl){
-                    params[waterway.Key]["Sections"][sec.Form.Key]["pwl"] = sec.pwl;
-                }
+            Sections.forEach(function(section){
+                params[waterway.Key]["Sections"][section.Form.Key] = section;
             });
             delete params[waterway.Key].Key;
         });
-        //Change when modifying code
         incl_ava_defs["locDefs"] = params;
+
       }
   });
-
 }
+//# sourceURL=incl_ava_defs-fra.js
