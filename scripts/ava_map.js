@@ -142,7 +142,7 @@ var avaMapJS = {};
   /*** General Functions ***/
   avaMapJS.setPageActivity = function(pageName){
     avaMapJS.currentPage=pageName;
-    loadJS(pageName+'_func',avaMapJS.getPageActivity);
+    loadJS(pageName+'_map_func',avaMapJS.getPageActivity);
   };
 
   avaMapJS.getPageActivity = function(){
