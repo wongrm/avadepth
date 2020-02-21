@@ -936,9 +936,9 @@ var padZero = function(num){
       },
       ava_map :{
         toggleLayerBtn : {
-          aerial : 'Switch to Aerial view',
-          street : 'Switch to Street view',
-          title : 'Use this button to switch between aerial and street view'
+          aerial : 'Change to Aerial view',
+          street : 'Change to Street view',
+          title : 'Use this button to toggle between Aerial and Street view'
         }
       }
   };

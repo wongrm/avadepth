@@ -940,9 +940,9 @@ var padZero = function(num){
     },
     ava_map :{
       toggleLayerBtn : {
-        aerial : '[FRA] Switch to Aerial view',
-        street : '[FRA] Switch to Street view',
-        title : '[FRA] Use this button to switch between aerial and street view'
+        aerial : 'Passer à la vue aérienne',
+        street : 'Passer à la vue de la rue',
+        title : 'Utilisez ce bouton pour passer de la vue aérienne à la vue de la rue'
       }
     }
   };
