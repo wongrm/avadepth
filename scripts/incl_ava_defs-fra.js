@@ -878,34 +878,36 @@ var padZero = function(num){
         'landscapeReport':false,
         'formParam':
           [
-            {tag:'label',attr:{for:'sdb_waterway'},child:['Voie navigable&nbsp;:']},
-            {tag:'select',attr:{id:'sdb_waterway'},ref:{tag:'option',values:
-              function(){
-                var oArr=[];
-                for(var k in incl_ava_defs.locDefs){
-                  var v=incl_ava_defs.locDefs[k].Form;
-                  oArr[v.Order]={key:k, value:v.Title};
-                }
-                return oArr;
-              }
-            }},
-            {tag:'label',attr:{for:'channel'},child:['Chenal&nbsp;:']},
-            {tag:'select',attr:{id:'channel'}},
-            {tag:'label',attr:{for:'location'},child:['Emplacement&nbsp;:']},
-            {tag:'select',attr:{id:'location'}},
-            {tag:'label',attr:{for:'type'},child:['Type&nbsp;:']},
-            {tag:'div',child:[
-              {tag:'select',attr:{id:'type',name:'type'},ref:{tag:'option',values:
-                function() {
-                  var res = [];
-                  var oArr = ["Select All", "Composite", "Annual", "Monitor", "Recon", "Investigation", "Dredging", "Structure", "Photograph"];
-                  for (var k in oArr) {
-                    res.push({key: oArr[k], value: oArr[k]});
+              {tag:'label',attr:{for:'sdb_waterway', style:'font-weight: bold;'},child:['Voie navigable&nbsp;:']},
+              {tag:'select',attr:{id:'sdb_waterway', style:'width:100%;'},ref:{tag:'option',values:
+                function(){
+                  var oArr=[];
+                  for(var k in incl_ava_defs.locDefs){
+                    var v=incl_ava_defs.locDefs[k].Form;
+                    oArr[v.Order]={key:k, value:v.Title};
                   }
-                  return res;
+                  return oArr;
                 }
-              }}
-            ]}
+              }},
+              {tag:'label',attr:{for:'channel', style:'font-weight: bold;'},child:['Chenal&nbsp;:']},
+              {tag:'select',attr:{id:'channel',  style:'width:100%;'}},
+              {tag:'label',attr:{for:'location', style:'font-weight: bold;'},child:['Emplacement&nbsp;:']},
+              {tag:'select',attr:{id:'location',  style:'width:100%;'}},
+              {tag:'label',attr:{for:'type', style:'font-weight: bold;'},child:['Type&nbsp;:']},
+              {tag:'div',child:[
+                {tag:'select',attr:{id:'type',name:'type', style:'width:100%;'},ref:{tag:'option',values:
+                  function() {
+                    var res = [];
+                    var oArr = ["Select All",
+                                "Recon", "Monitor", "Annual", "Investigation", "Composite",
+                                "Dredging", "Design", "Photograph"];
+                    for (var k in oArr) {
+                      res.push({key: oArr[k], value: oArr[k]});
+                    }
+                    return res;
+                  }
+                }}
+              ]}
           ],
         'reportBody':
           [
