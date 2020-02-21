@@ -66,6 +66,7 @@ var avaMapJS = {};
 
           textSpan.innerHTML = incl_ava_defs.ava_map.toggleLayerBtn.street;
           textSpan.setAttribute("id", "toggleButtonTxt");
+          textSpan.setAttribute("style", "font: 140% helvetica,arial,clean,sans-serif;");
 
           button.appendChild(textSpan);
           return button;
