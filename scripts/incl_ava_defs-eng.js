@@ -881,7 +881,7 @@ var padZero = function(num){
                 {tag:'select',attr:{id:'type',name:'type', style:'width:100%;'},ref:{tag:'option',values:
                   function() {
                     var res = [];
-                    var oArr = ["",
+                    var oArr = ["Select All",
                                 "Recon", "Monitor", "Annual", "Investigation", "Composite",
                                 "Dredging", "Design", "Photograph"];
                     for (var k in oArr) {

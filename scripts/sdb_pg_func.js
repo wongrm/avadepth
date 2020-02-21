@@ -51,6 +51,7 @@ avaIFaceJS.sdb_func = {
 
         // Colour and resize map, and fill location drop down when channel field changes
         $channel.change(function() {
+            $("#sel_chan_opt").remove();
             if ($channel.val() !== "GLOBAL"){
                 avaIFaceJS.mapJS.sdb_func.refreshLocation("");
                 //avaIFaceJS.mapJS.sdb_func.refreshChannel($('#channel :selected').text());
@@ -65,10 +66,9 @@ avaIFaceJS.sdb_func = {
             }
         });
 
-        // Colour Tiles when location field changes - Removed to prevent automatic query (listener logic moved to submit)
-        // $('#location').change(function() {
-        //     return avaIFaceJS.mapJS.sdb_func.refreshLocation($(this).val());
-        // });
+        $('#location').change(function() {
+            return $("#sel_loc_opt").remove();
+        });
 
         $('#type').change(function() {
             avaIFaceJS.sdb_func.update();
@@ -86,7 +86,8 @@ avaIFaceJS.sdb_func = {
     fillChannel: function() {
         $location.find('option').remove();
         $channel.find('option').remove();
-        $channel.append('<option>Select a channel</option>');
+        $channel.append('<option id=\'sel_chan_opt\'>Select a channel</option>');
+        $channel.append('<option value=\'GLOBAL\'>Select All</option>');
         return $.each(incl_ava_defs.locDefs[$sdb_waterway.val()].Sections, function() {
             return $channel.append("<option value='" + this.Form.Key + "'>" + this.Form.Title + "</option>");
         });
@@ -101,16 +102,21 @@ avaIFaceJS.sdb_func = {
         if($channel.val() != "Select a channel"){
             var locations = incl_ava_defs.locDefs[$sdb_waterway.val()].Sections[$channel.val()].Locations;
             $location.find('option').remove();
-            $location.append('<option>Select a location</option>');
-            $location.append('<option value=\'GLOBAL\'>Select All</option>');
-            //$('#location').append('<option></option>');
+
+            if(locations.length !== 0){
+                $location.append('<option id=\'sel_loc_opt\'>Select a location</option>');
+                $location.append('<option value=\'GLOBAL\'>Select All</option>');
+            } else {
+                //enable submit;
+            }
+
             if (debug) {
                 console.log("void fillLocation(): sdb_waterway=" + $sdb_waterway.val());
                 console.log("void fillLocation(): channel=" + $channel.val());
             }
             try {
 
-                return $.each(incl_ava_defs.locDefs[$sdb_waterway.val()].Sections[$channel.val()].Locations, function() {
+                return $.each(locations, function() {
                     return $location.append("<option value='" + this.Name + "'>" + this.Name + "</option>");
                 });
             } catch (err) {
@@ -158,7 +164,7 @@ avaIFaceJS.sdb_func = {
             var tile;
             var channelStruct = incl_ava_defs.locDefs[riverVal].Sections[channelVal];
             //if a location hasn't been selected, get all drawings listed under channel 
-            if(location == "Select All")
+            if(location == "Select All" || location == "")
             {
                 //if the channel has its own tile, query for drawings under that tile
                 if(channelStruct.Form.hasOwnProperty("Tile") && channelStruct.Form.Tile != null)
@@ -184,7 +190,7 @@ avaIFaceJS.sdb_func = {
                 apiParams.push("Tile=", tile);
             }
         }
-        if(type != "") apiParams.push("&Type=", type);
+        if(type != "Select All") apiParams.push("&Type=", type);
 
         if(apiParams.length != 0) 
         {
@@ -259,6 +265,8 @@ avaIFaceJS.sdb_func = {
                 // (4) Display the number of results on the page.
                 $("#reportCount").empty();
                 $("#reportCount").text("Number of Results: " + data.length);
+                $("#sel_chan_opt").remove();
+                $("#sel_loc_opt").remove();
 
             }).done(function() {
                 $('.spinner').hide();
