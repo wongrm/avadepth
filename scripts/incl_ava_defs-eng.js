@@ -917,7 +917,19 @@ var padZero = function(num){
           'formParam':
             [{tag:'text', child: ["To view channel infill & scour analysi click on a highlighted area."]}],
           'reportBody':
-            [],
+            [
+              {tag:'section',attr:{'style':'padding-left:25%; padding-right:25%'},child:[
+                {tag:'table',attr:{id:'isas',style:"text-align:center"},child:[
+                  {tag:'thead',child:[
+                    {tag:'tr',child:[
+                      {tag:'th',child:['Filename']},
+                      {tag:'th',child:['Year']}
+                    ]}
+                  ]},
+                  {tag:'tbody'}
+                ]}
+              ]}
+            ],
           'reportDetail':
             []
         }
