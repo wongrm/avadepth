@@ -937,6 +937,13 @@ var padZero = function(num){
         'reportDetail':
           []
       }
+    },
+    ava_map :{
+      toggleLayerBtn : {
+        aerial : 'Passer à la vue aérienne',
+        street : 'Passer à la vue de la rue',
+        title : 'Utilisez ce bouton pour passer de la vue aérienne à la vue de la rue'
+      }
     }
   };
   buildParametersObject();

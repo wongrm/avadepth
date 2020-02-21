@@ -1,6 +1,6 @@
 // Load def JS File
 var loadJS=function(scriptName,callback) {
-  jQuery.getScript('scripts/'+scriptName+'.js', callback);
+  return jQuery.getScript('scripts/'+scriptName+'.js', callback);
 };
 
 // avaMapJS map object
@@ -9,77 +9,133 @@ avaMapJS={
 
       // Initializes the map interface. Loads layers and map components.
   initMap:function() {
-	if(window.location.href.indexOf("fra") > -1) {
-	//If url contains 'fra'	use 
-		loadJS('incl_ava_defs-fra',function(){});
-	} else {
-	//If url does not contain 'fra' use
-		loadJS('incl_ava_defs-eng',function(){});
-	}
-    avaMapJS.curLayer="";
+    avaMapJS.curLayer= '';
     avaMapJS.curControls=[];
 
-    // Map Options and constructor
-    var opNav = new OpenLayers.Control.Navigation({'zoomWheelEnabled':false});
-	  var options = {
-      maxExtent: new OpenLayers.Bounds(-13625920,6283000,-13941007,6458623),//-125,49,-121,50),
-		  controls:[new oscar.Control.PanZoomBar,  new OpenLayers.Control.MousePosition, new OpenLayers.Control.ScaleLine, opNav],
-			projection: new OpenLayers.Projection("EPSG:3857"),
-			displayProjection: new OpenLayers.Projection("EPSG:4326"),
-			units:"m",
-      maxZoomLevel:20,
-      minZoomLevel:5
-		};
-
-    // allow testing of specific renderers via "?renderer=Canvas", etc
-    avaMapJS.renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-    avaMapJS.renderer = (avaMapJS.renderer)
-      ? [avaMapJS.renderer]
-      : OpenLayers.Layer.Vector.prototype.renderers;
-
-		avaMapJS.map = new oscar.Map('ava_map_ref',options);
-    avaMapJS.map.getControlsByClass("OpenLayers.Control.SelectFeature")[0].handlers.feature.stopDown=false;
-    // Google Maps layer
-    // Loads Google Satellite map, or Google Street map for <IE9
-    var gmap;
-    if ( document.addEventListener ){
-      //gmap = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
-      gmap = new OpenLayers.Layer.Bing({
-          name: "My layer",
-          type: "Aerial",
-          key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
-        });
+    var avaDefsScript = '';
+    if(window.parent.location.href.indexOf("fra") > -1) {
+      //If url contains 'fra'	use 
+      avaDefsScript = 'incl_ava_defs-fra';
     } else {
-      //gmap = new OpenLayers.Layer.Google("Google", {});
-      gmap = new OpenLayers.Layer.Bing("Bing", {});
+      //If url does not contain 'fra' use
+      avaDefsScript = 'incl_ava_defs-eng';
     }
 
-    var navControl = avaMapJS.map.getControlsByClass('OpenLayers.Control.Navigation');
-    for (var i = 0; i < navControl.length; i++){
-      navControl[i].disableZoomWheel();
-    }
+    loadJS(avaDefsScript).then(function(){
+      // Map Options and constructor
+      var opNav = new OpenLayers.Control.Navigation({'zoomWheelEnabled':false});
+      var options = {
+        maxExtent: new OpenLayers.Bounds(-13625920,6283000,-13941007,6458623),//-125,49,-121,50),
+        controls:[new oscar.Control.PanZoomBar,  new OpenLayers.Control.MousePosition, new OpenLayers.Control.ScaleLine, opNav],
+        projection: new OpenLayers.Projection("EPSG:3857"),
+        displayProjection: new OpenLayers.Projection("EPSG:4326"),
+        units:"m",
+        maxZoomLevel:20,
+        minZoomLevel:5
+      };
 
-    // WMS Avadepth Bathymetry Layer
-    var wmsLayer = new OpenLayers.Layer.WMS(
-      "Bathymetry",
-      "http://www2.pac.dfo-mpo.gc.ca/spatialfusionserver/services/ows/wms/avadepth",
-      {layers: "Avadepth_surfaces",transparent:true,isBaseLayer:false,format:'image/png'},
-      //"http://localhost:8080/spatialfusionserver/services/ows/wms/bdb",
-      //{layers: "sample_depth",transparent:true,isBaseLayer:false,format:'image/png'},
-	    {alpha:true}
-    );
+      var toggleButtonTxt = incl_ava_defs.ava_map.toggleLayerBtn;
 
-    // Add layers
-   	//avaMapJS.map.addLayers([gmap,wmsLayer]);
-   	avaMapJS.map.addLayers([gmap]);
-    //avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(-13625920,6283000,-13941007,6458623));
-    if(!avaMapJS.map.size) {
-      window.location.reload(true);
-    }
-    avaMapJS.map.setCenter(new OpenLayers.LonLat(-13682000,6306500),5);
+      toggleButton = new OpenLayers.Control.Button({
+        id: "toggleLayerBtn",
+        title: toggleButtonTxt.title,
+        trigger: function(){
+          var toggleLayerBtn = document.getElementById('toggleButtonTxt');
 
-    // Notify parent page map is active
-    parent.avaIFaceJS.init();
+          if(baseLayer == bingAerial){
+            avaMapJS.map.removeLayer(bingAerial);
+            avaMapJS.map.addLayer(bingStreet);
+            baseLayer = bingStreet;
+            toggleLayerBtn.innerHTML = toggleButtonTxt.aerial;
+          }
+          else {
+            avaMapJS.map.removeLayer(bingStreet);
+            avaMapJS.map.addLayer(bingAerial);
+            baseLayer = bingAerial;
+            toggleLayerBtn.innerHTML = toggleButtonTxt.street;
+          }
+        }
+      });
+
+      var panel = new OpenLayers.Control.Panel({
+        defaultControl: toggleButton,
+        createControlMarkup: function(control) {
+          var button = document.createElement('button');
+          var textSpan = document.createElement('span');
+
+          textSpan.innerHTML = incl_ava_defs.ava_map.toggleLayerBtn.street;
+          textSpan.setAttribute("id", "toggleButtonTxt");
+
+          button.appendChild(textSpan);
+          return button;
+        }  
+      }); 
+
+      panel.addControls([toggleButton]);
+      // allow testing of specific renderers via "?renderer=Canvas", etc
+      avaMapJS.renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+      avaMapJS.renderer = (avaMapJS.renderer)
+        ? [avaMapJS.renderer]
+        : OpenLayers.Layer.Vector.prototype.renderers;
+
+      avaMapJS.map = new oscar.Map('ava_map_ref',options);
+      avaMapJS
+          .map.getControlsByClass("OpenLayers.Control.SelectFeature")[0]
+          .handlers
+          .feature
+          .stopDown=false;
+      avaMapJS.map.addControl(panel);
+      // Google Maps layer
+      // Loads Google Satellite map, or Google Street map for <IE9
+      var bingAerial, bingStreet;
+      if ( document.addEventListener ){
+        //bingAerial = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE});
+        bingAerial = new OpenLayers.Layer.Bing({
+            name: "Satellite",
+            type: "Aerial",
+            key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
+          });
+        bingStreet = new OpenLayers.Layer.Bing({
+            name: "Street layer",
+            type: "Road",
+            key: "AqQ2w0kBuNgd9zJTPkmpxAM4AKdtOn95_uL_fwyuzM47rThWIUDknroTOmjnSrW5"
+          });
+      } else {
+        //bingAerial = new OpenLayers.Layer.Google("Google", {});
+        bingAerial = new OpenLayers.Layer.Bing("Bing", {});
+      }
+
+      var baseLayer = bingAerial;
+
+      var navControl = avaMapJS.map.getControlsByClass('OpenLayers.Control.Navigation');
+      for (var i = 0; i < navControl.length; i++){
+        navControl[i].disableZoomWheel();
+      }
+
+      // WMS Avadepth Bathymetry Layer
+      var wmsLayer = new OpenLayers.Layer.WMS(
+        "Bathymetry",
+        "http://www2.pac.dfo-mpo.gc.ca/spatialfusionserver/services/ows/wms/avadepth",
+        {layers: "Avadepth_surfaces",transparent:true,isBaseLayer:false,format:'image/png'},
+        //"http://localhost:8080/spatialfusionserver/services/ows/wms/bdb",
+        //{layers: "sample_depth",transparent:true,isBaseLayer:false,format:'image/png'},
+        {alpha:true}
+      );
+
+      baseLayer = bingAerial;
+      bingStreet.setVisibility(false);
+      // Add layers
+      //avaMapJS.map.addLayers([bingAerial,wmsLayer]);
+      avaMapJS.map.addLayers([baseLayer]);
+      //avaMapJS.map.zoomToExtent(new OpenLayers.Bounds(-13625920,6283000,-13941007,6458623));
+      if(!avaMapJS.map.size) {
+        window.location.reload(true);
+      }
+      avaMapJS.map.setCenter(new OpenLayers.LonLat(-13682000,6306500),5);
+
+      // Notify parent page map is active
+      parent.avaIFaceJS.init();
+    });
   },
 
   /*** General Functions ***/
