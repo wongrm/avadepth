@@ -48,7 +48,7 @@ avaIFaceJS.detailWindow = {
                         tag: 'button',
                         attr: {
                             name: 'print',
-                            className: 'button button-accent print_button print_hide'
+                            className: 'btn btn-primary print_button print_hide'
                         },
                         child: ['Print']
                     }]
@@ -69,7 +69,7 @@ avaIFaceJS.detailWindow = {
                         tag: 'button',
                         attr: {
                             name: 'print',
-                            className: 'button button-accent print_button print_hide'
+                            className: 'btn btn-primary print_button print_hide'
                         },
                         child: ['Print']
                     }]
@@ -236,9 +236,14 @@ avaIFaceJS.detailWindow = {
                         tag: 'button',
                         attr: {
                             name: 'print',
-                            className: 'button button-accent print_button print_hide'
+                            className: 'btn btn-primary print_button print_hide'
                         },
-                        child: ['Print']
+                        child: [{
+                            tag: 'span',
+                            attr: {
+                                className: 'glyphicon glyphicon-print'
+                            }
+                        }, ' Print']
                     }]
                 }, {
                     tag: 'div',
@@ -325,9 +330,14 @@ avaIFaceJS.detailWindow = {
                         tag: 'button',
                         attr: {
                             name: 'print',
-                            className: 'button button-accent print_button print_hide'
+                            className: 'btn btn-primary print_button print_hide'
                         },
-                        child: ['Print']
+                        child: [{
+                            tag: 'span',
+                            attr: {
+                                className: 'glyphicon glyphicon-print'
+                            }
+                        }, ' Print']
                     }]
                 });
             }
@@ -472,7 +482,7 @@ avaIFaceJS.detailWindow = {
                     attr: {
                         id: 'submit',
                         type: 'button',
-                        className: 'button button-accent',
+                        className: 'btn btn-primary',
                         name: 'submit',
                         //alt: 'Appliquer'
                     },
@@ -485,7 +495,7 @@ avaIFaceJS.detailWindow = {
                     attr: {
                         id: 'submit',
                         type: 'button',
-                        className: 'button button-accent',
+                        className: 'btn btn-primary',
                         name: 'submit'
                         //alt: 'Apply'
                     },
@@ -498,7 +508,7 @@ avaIFaceJS.detailWindow = {
                     attr: {
                         id: 'replay',
                         type: 'button',
-                        className: 'button button-accent',
+                        className: 'btn btn-primary',
                         name: 'replay',
                         style: 'font-style: normal; margin-left: 5px'
                     },

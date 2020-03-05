@@ -10,11 +10,15 @@
 	<script src="/wet-boew/js/deps/jquery.dataTables.min.js"></script>
 	<script src="/scripts/avadepth_util.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="/wet-boew/dist/js/css/pe-ap-min.css">
-	<link rel="stylesheet" type="text/css" href="/wet-boew/dist/grids/css/util-min.css">
-	<link rel="stylesheet" type="text/css" href="/css/custom.css">
-	<link rel="stylesheet" type="text/css" href="/wet-boew/dist/theme-gcwu-fegc/css/theme-min.css">
+	<noscript><link rel="stylesheet" href="/wet-boew/css/noscript.min.css" /></noscript>
+	<link href="/GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
+	<link rel="stylesheet" href="/GCWeb/css/theme.min.css" />
 
+	<!-- CustomCSSStart -->
+	<link rel="stylesheet" href="/css/custom.css" />
+	<link rel="stylesheet" media="print" href="/css/print.css" />
+	<link rel="stylesheet" href="/css/smoothness/jquery-ui-1.7.1.custom.css" />
+	<!-- CustomCSSEnd -->
 	<style type="text/css" media="screen">
 		.span-8 {
 			width: 98%;
@@ -34,14 +38,14 @@
 			height: 50px;
 		}
 
-		.button {
+		.btn {
 			height: 26px;
 			margin: auto;
 		}
 	</style>
 
 	<style type="text/css" media="print">
-		.button {
+		.btn {
 			display: none;
 		}
 	</style>
@@ -133,8 +137,8 @@
 <body>
 	<div id="detail_content">
 		<div class="print_holder">
-			<button name="print" class="button button-accent print_button print_hide">Print</button>
-			<input class="button button-accent" onclick="window.close()" type="button" value="Close">
+			<button name="print" class="btn btn-primary print_button print_hide">Print</button>
+			<input class="btn btn-primary" onclick="window.close()" type="button" value="Close">
 		</div>
 		<div>
 			<div>
@@ -197,8 +201,8 @@
 		</div>
 		<div class="page-break"></div>
 		<div class="print_holder">
-			<button name="print" class="button button-accent print_button print_hide">Print</button>
-			<input class="button button-accent" onclick="window.close()" type="button" value="Close">
+			<button name="print" class="btn btn-primary print_button print_hide">Print</button>
+			<input class="btn btn-primary" onclick="window.close()" type="button" value="Close">
 		</div>
 	</div>
 </body>
