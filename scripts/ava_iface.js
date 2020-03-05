@@ -475,33 +475,22 @@ avaIFaceJS.detailWindow = {
                 avaIFaceJS.paramWindow.init();
             }
             var pgParam = $.extend([], content);
-            if (window.location.href.indexOf("fra") > -1) {
-                //If url contains 'fra'	use 
-                pgParam.push({
-                    tag: 'button',
-                    attr: {
-                        id: 'submit',
-                        type: 'button',
-                        className: 'btn btn-primary',
-                        name: 'submit',
-                        //alt: 'Appliquer'
-                    },
-                    'child': ['Appliquer']
-                });
-            } else {
-                //If url does not contain 'fra' use
-                pgParam.push({
-                    tag: 'button',
-                    attr: {
-                        id: 'submit',
-                        type: 'button',
-                        className: 'btn btn-primary',
-                        name: 'submit'
-                        //alt: 'Apply'
-                    },
-                    'child': ['Apply']
-                });
-            }
+            var applyButtonText = (window.location.href.indexOf("fra") > -1)
+                ? 'Appliquer'
+                : 'Apply';
+            
+            pgParam.push({
+                tag: 'button',
+                attr: {
+                    id: 'submit',
+                    type: 'button',
+                    className: 'btn btn-primary',
+                    name: 'submit',
+                    //alt: 'Appliquer'
+                },
+                'child': [applyButtonText]
+            });
+
             if (avaIFaceJS.paramWindow.hasAnimate) {
                 pgParam.push({
                     tag: 'button',
