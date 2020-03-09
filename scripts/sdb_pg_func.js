@@ -49,6 +49,7 @@ avaIFaceJS.sdb_func = {
                 avaIFaceJS.mapJS.sdb_func.setChannelExtents($sdb_waterway.val(), $channel.val());
             else
                 avaIFaceJS.mapJS.sdb_func.setExtents($sdb_waterway.val());
+                $submit.prop("disabled", "disabled");
             return $('#map').css("min-height", "400px");
         });
 
@@ -65,6 +66,7 @@ avaIFaceJS.sdb_func = {
                 return $('#map').css("min-height", "400px");
             } else {
                 avaIFaceJS.mapJS.sdb_func.setExtents($sdb_waterway.val());
+                $submit.prop("disabled", "");
                 return $('#map').css("min-height", "400px");
             }
         });
@@ -217,7 +219,11 @@ avaIFaceJS.sdb_func = {
                 }
 
                 var title = (chann == "")? (wat) : (wat + " - " + chann); 
-                if(location != "") location = "At " + location;
+
+                location = (location == "" || location == "Select All")
+                    ? ""
+                    : "At " + location;
+
 
                 avaIFaceJS.reportWindow.addTitle(header, title, location);
 
