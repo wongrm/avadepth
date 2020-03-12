@@ -102,6 +102,7 @@ avaMapJS.isa_func = {
         if (tileName.indexOf('/') >= 0) {
             parent.window.open("http://www2.pac.dfo-mpo.gc.ca" + tileName, '_blank');
         } else {
+            parent.avaIFaceJS.isa_func.location = tile.feature.data.location;
             parent.avaIFaceJS.isa_func.update(tileName); // refresh page from updated parameters
         }
     },

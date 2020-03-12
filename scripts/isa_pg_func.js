@@ -40,6 +40,7 @@ avaIFaceJS.isa_func = {
                 "info": false,
             }));
 
+            avaIFaceJS.reportWindow.addTitle(s, avaIFaceJS.isa_func.location, "");
             avaIFaceJS.isa_func.tableReport.clear();
             $('#isas tbody tr').remove();
 
