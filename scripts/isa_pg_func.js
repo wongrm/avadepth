@@ -7,6 +7,8 @@ var locException = [];
 
 /*** Interface functions ***/
 avaIFaceJS.isa_func = {
+    /** @propery {string} location - Location of the selected tile */
+    location: null,
     init: function() {
         locException.push({ riverCode: "FSD",
                             re: /Fraser\sSurrey\sDocks/});
@@ -40,7 +42,7 @@ avaIFaceJS.isa_func = {
                 "info": false,
             }));
 
-            avaIFaceJS.reportWindow.addTitle(s, avaIFaceJS.isa_func.location, "");
+            avaIFaceJS.reportWindow.addTitle("Search Results for", avaIFaceJS.isa_func.location, "");
             avaIFaceJS.isa_func.tableReport.clear();
             $('#isas tbody tr').remove();
 
