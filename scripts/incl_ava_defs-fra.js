@@ -743,7 +743,7 @@ var padZero = function(num){
         reportBody:[
           {tag:'div',attr:{id:'conditions'},child:[
             {tag:'div',attr:{id:'soundings-header'},child:[
-              {tag:'table',attr:{className:'print-margin-0',style:'table-layout: fixed; margin: 0 auto; width: 950px;'},child:[
+              {tag:'table',attr:{className:'print-margin-0',style:'margin: 0 auto; width: 950px;'},child:[
                 {tag:'thead',child:[
                 {tag:'tr',child:[
                   {tag:'td',attr:{className:'align-left'},child:["Remarque : Toutes les profondeurs et tous les sondages sont relatifs au niveau d’eau basse local."]}
@@ -772,16 +772,17 @@ var padZero = function(num){
             ]},
             {tag:'div',attr:{className:'clear'}},
             {tag:'br'},
-            {tag:'table',attr:{id:'soundings',className:'align-center print-align-center print-margin-0'},child:[
+            {tag:'table',attr:{id:'soundings',className:'align-center print-align-center print-margin-0', style:'width: 800px'},child:[
               {tag:'thead',child:[
                 {tag:'tr',attr:{className:'first-row'},child:[
-                  {tag:'th',attr:{colspan:2,style:'background-color: white;'}},
+                  {tag:'th',attr:{colspan:3,style:'background-color: white;'}},
                   {tag:'th',attr:{colspan:4,style:'background-color: white;'},child:["Limite intérieure du chenal"]},
                   {tag:'th',attr:{colspan:4,style:'background-color: white;'},child:["Limite extérieure du chenal"]}
                 ]},
                 {tag:'tr',child:[
                   {tag:'th',child:["Km"]},
                   {tag:'th',child:["Date du relevé"]},
+                  {tag:'th',child:["Plan de référence"]},
                   {tag:'th',child:["Pente d’origine"]},
                   {tag:'th',attr:{style:'padding:0'},child:["Profondeur minimum sondée"]},
                   {tag:'th',attr:{colspan:2},child:["Largeur disponible"]},
@@ -790,7 +791,7 @@ var padZero = function(num){
                   {tag:'th',attr:{colspan:2},child:["Largeur disponible"]}
                 ]},
                 {tag:'tr',child:[
-                  {tag:'th',attr:{colspan:2}},
+                  {tag:'th',attr:{colspan:3}},
                   {tag:'th',child:["(m)"]},
                   {tag:'th',child:["(m)"]},
                   {tag:'th',child:["(m)"]},
