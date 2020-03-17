@@ -258,8 +258,8 @@ avaIFaceJS.sdb_func = {
                 avaIFaceJS.sideNavPanel.reset();
                 
                 var refMapString = (window.location.href.indexOf("fra") > -1) ? "Carte Physique" : "Reference Map";
-                var repHeaderString = (window.location.href.indexOf("fra") > -1) ? "Top of Report" : "Top of Report";
-                var sideNavTitleString = (window.location.href.indexOf("fra") > -1) ? "Navigate To" : "Navigate To";
+                var repHeaderString = (window.location.href.indexOf("fra") > -1) ? "Haut du rapport" : "Top of Report";
+                var sideNavTitleString = (window.location.href.indexOf("fra") > -1) ? "Aller à" : "Navigate To";
 
                 avaIFaceJS.sideNavPanel.addTitle(sideNavTitleString);
                 avaIFaceJS.sideNavPanel.addLink(refMapString,"#ava_map_ttl");
