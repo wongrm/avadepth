@@ -31,8 +31,7 @@ var padZero = function(num){
   incl_ava_defs={
     "avaPages" : {
         'acv':{
-          'title_e': "Animated Currents and Velocities for Fraser River South Arm",
-          'title_f': "Animation et vélocités du courant",
+          'title': "Animated Currents and Velocities for Fraser River South Arm",
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':true,
@@ -351,8 +350,7 @@ var padZero = function(num){
           ]
         },
         'tw':{
-          'title_e':"Transit Window Report for Fraser River South Arm",
-          'title_f':"Fenêtre de circulation",
+          'title':"Transit Window Report for Fraser River South Arm",
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
@@ -536,8 +534,7 @@ var padZero = function(num){
           ]
         },
         'pwl':{
-          'title_e':"Predicted Water Levels & Velocities",
-          'title_f':"Vélocités et niveaux prévus de l’eau",
+          'title':"Predicted Water Levels & Velocities",
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
@@ -670,8 +667,7 @@ var padZero = function(num){
             ]
         },
         'frh':{
-          'title_e':"Fraser River Hydrograph",
-          'title_f':"Hydrographie du fleuve Fraser",
+          'title':"Fraser River Hydrograph",
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
@@ -721,8 +717,7 @@ var padZero = function(num){
           ]
         },
         'ccc':{
-          'title_e':"Current Channel Conditions for Fraser River – South Arm",
-          'title_f':"Conditions actuelles du chenal – bras sud du fleuve Fraser",
+          'title':"Current Channel Conditions for Fraser River – South Arm",
           'mapInitState':false,
           'hasParameters':false,
           'hasAnimate':false,
@@ -870,8 +865,7 @@ var padZero = function(num){
     
         },
         'sdb':{
-          'title_e':"Survey Drawings",
-          'title_f':"Dessins d'arpentage",
+          'title':"Survey Drawings",
           'mapInitState':true,
           'hasParameters':true,
           'hasAnimate':false,
@@ -933,8 +927,7 @@ var padZero = function(num){
             [{tag:'p',child:['This tool does not support detailed search items']}]
         },
         'isa':{
-          'title_e':"Channel Infill & Scour Analysis",
-          'title_f':"Analyse du remplissage et de l'affouillement du chenal",
+          'title':"Channel Infill & Scour Analysis",
           'mapInitState':true,
           'hasParameters':false,
           'hasAnimate':false,

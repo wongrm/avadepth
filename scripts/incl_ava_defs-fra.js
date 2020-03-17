@@ -29,8 +29,7 @@ var padZero = function(num){
   incl_ava_defs={
     avaPages:{
       'acv':{
-        'title_e': "Animated Currents and Velocities",
-        'title_f': "Animation et vélocités du courant",
+        'title': "Animation et vélocités du courant",
         'mapInitState':true,
         'hasParameters':true,
         'hasAnimate':true,
@@ -162,8 +161,7 @@ var padZero = function(num){
         'reportDetail':[]
       },
       'dd': {
-        'title_e': "Available Depth Report for Fraser River South Arm",
-        'title_f': "Rapport sur les profondeurs disponibles",
+        'title': "Rapport sur les profondeurs disponibles",
         'mapInitState':true,
         'hasParameters':true,
         'hasAnimate':false,
@@ -365,8 +363,7 @@ var padZero = function(num){
         ]
       },
       'tw':{
-        'title_e':"Transit Window Report",
-        'title_f':"Fenêtre de circulation",
+        'title':"Fenêtre de circulation",
         'mapInitState':true,
         'hasParameters':true,
         'hasAnimate':false,
@@ -551,8 +548,7 @@ var padZero = function(num){
         ]
       },
       'pwl':{
-        'title_e':"Predicted Water Levels & Velocities",
-        'title_f':"Vélocités et niveaux prévus de l’eau",
+        'title':"Vélocités et niveaux prévus de l’eau",
         'mapInitState':true,
         'hasParameters':true,
         'hasAnimate':false,
@@ -684,8 +680,7 @@ var padZero = function(num){
           ]
       },
       'frh':{
-        'title_e':"Fraser River Hydrograph",
-        'title_f':"Hydrographie du fleuve Fraser",
+        'title':"Hydrographie du fleuve Fraser",
         'mapInitState':false,
         'hasParameters':true,
         'hasAnimate':false,
@@ -735,8 +730,7 @@ var padZero = function(num){
         ]
       },
       'ccc':{
-        'title_e':"Current Channel Conditions for Fraser River South Arm",
-        'title_f':"Conditions actuelles du chenal – bras sud du fleuve Fraser",
+        'title':"Conditions actuelles du chenal – bras sud du fleuve Fraser",
         'mapInitState':false,
         'hasParameters':false,
         'hasAnimate':false,
@@ -877,8 +871,7 @@ var padZero = function(num){
   
       },
       'sdb':{
-        'title_e':"Survey Drawings",
-        'title_f':"Dessins d'arpentage",
+        'title':"Dessins d'arpentage",
         'mapInitState':true,
         'hasParameters':true,
         'hasAnimate':false,
@@ -940,8 +933,7 @@ var padZero = function(num){
           [{tag:'p',child:['This tool does not support detailed search items']}]
       },
       'isa':{
-        'title_e':"Channel Infill & Scour Analysis",
-        'title_f':"Analyse du remplissage et de l'affouillement du chenal",
+        'title':"Analyse du remplissage et de l'affouillement du chenal",
         'mapInitState':true,
         'hasParameters':false,
         'hasAnimate':false,

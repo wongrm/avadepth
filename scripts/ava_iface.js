@@ -687,14 +687,7 @@ avaIFaceJS.detailWindow = {
     avaIFaceJS.getPage = function() {
         var pg_entry = incl_ava_defs.avaPages[avaIFaceJS.currentPage];
 
-        // Set Title
-        if (window.location.href.indexOf("fra") > -1) {
-            //If url contains 'fra'	show the French title
-            $('#ava_map_ttl').text(pg_entry.title_f);
-        } else {
-            //If url does not contain 'fra' show the English title
-            $('#ava_map_ttl').text(pg_entry.title_e);
-        }
+        $('#ava_map_ttl').text(pg_entry.title);
 
         // Page Form Parameters
         avaIFaceJS.paramWindow.hasAnimate = pg_entry.hasAnimate;
