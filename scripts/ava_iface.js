@@ -50,7 +50,12 @@ avaIFaceJS.detailWindow = {
                             name: 'print',
                             className: 'btn btn-primary print_button print_hide'
                         },
-                        child: ['Print']
+                        child: [{
+                            tag: 'span',
+                            attr: {
+                                className: 'glyphicon glyphicon-print'
+                            }
+                        }, ' Print']
                     }]
                 }, {
                     tag: 'div',
@@ -71,7 +76,12 @@ avaIFaceJS.detailWindow = {
                             name: 'print',
                             className: 'btn btn-primary print_button print_hide'
                         },
-                        child: ['Print']
+                        child: [{
+                            tag: 'span',
+                            attr: {
+                                className: 'glyphicon glyphicon-print'
+                            }
+                        }, ' Print']
                     }]
                 }]
             }];
