@@ -184,3 +184,4 @@ avaIFaceJS.frh_func= {
 function labelFontControl(label,series) {
   return '<span style="font-size: 150%">' + label;
 }
+//# sourceURL=frh_pg_func.js
