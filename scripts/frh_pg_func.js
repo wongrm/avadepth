@@ -94,13 +94,16 @@ avaIFaceJS.frh_func= {
       $.each(results, function(i,v){
         year= v.year;
         month= v.month-1;
-        $.each(v.minMax, function(i, v){
-          var selDate, day;
-          day= v.day+1;
-          selDate = [year,month,day];
-          minimum.push([moment(selDate), v.minValue]);
-          return maximum.push([moment(selDate), v.maxValue]);
-        });
+        if ($("#minMax").prop("checked")) {
+          $.each(v.minMax, function(i, v){
+            var selDate, day;
+            day= v.day+1;
+            selDate = [year,month,day];
+            minimum.push([moment(selDate), v.minValue]);
+            return maximum.push([moment(selDate), v.maxValue]);
+          });
+        }
+
         if ($("#actual").prop("checked")) {
           $.each(v.actual, function(i, v) {
             var discharge;
