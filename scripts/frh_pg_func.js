@@ -61,7 +61,7 @@ avaIFaceJS.frh_func= {
     predicted=[];
   
     curDate=$('#date').datepicker('getDate');
-  period=parseInt($('#period option:selected').html().split(" ")[0]); // data period in months
+    period=parseInt($('#period option:selected').html().split(" ")[0]); // data period in months
   
     month=curDate.getMonth();
     month_end = (month + period) % 12;
@@ -79,18 +79,31 @@ avaIFaceJS.frh_func= {
   
   // set date language
   if(window.location.href.indexOf("fra") > -1) {
-  moment.locale('fr');
-  }  else {
-  moment.locale('en');
-    }
+    moment.locale('fr');
+  } else {
+    moment.locale('en');
+  }
   
-    avaIFaceJS.reportWindow.addTitle("Fraser River Hydrograph at Hope - 08MF005","From "+moment(curDate).format("MMMM YYYY")+" to "+ moment([year_end,month_end,1]).format("MMMM YYYY"));
+    avaIFaceJS.reportWindow.addTitle(
+        "Fraser River Hydrograph at Hope - 08MF005",
+        "From " + moment(curDate).format("MMMM YYYY") +
+        " to " + moment([year_end,month_end,1]).format("MMMM YYYY"));
+
     $('#spinner').show();
     $('#loading').show();
     $('#hydrograph_chart').html('');
 
     //TODO: Replace with following line for production
-    $.getJSON(getAPI(("/api/hydrograph?year=" + year + "&") + ("month=" + (month) + "&") + ("period=" + ($('#period').val()) + "&") + "actual=false&" + "predicted=true","api/depths/hydrograph.json"), function(results) {
+    $.getJSON(
+        getAPI(
+          ("/api/hydrograph?year=" + year + "&")
+            + ("month=" + (month) + "&")
+            + ("period=" + ($('#period').val()) + "&")
+            + "actual=false&"
+            + "predicted=true",
+          "api/depths/hydrograph.json"),
+        function(results) {
+    //$.getJSON("api/depths/hydrograph.json", function(results) {
       $.each(results, function(i,v){
         year= v.year;
         month= v.month-1;
@@ -113,6 +126,7 @@ avaIFaceJS.frh_func= {
             }
           });
         }
+
         if ($("#predicted").prop("checked")) {
           return $.each(v.predicted, function(i, v) {
             var discharge;
