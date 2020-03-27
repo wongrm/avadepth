@@ -53,41 +53,35 @@ avaIFaceJS.frh_func= {
         labelBoxBorderColor: "none"
       }
     };
-
-    var dataset, actual, maximum, minimum, predicted, curDate, period, month, month_end, year, year_end;
+    
+    // set date language
+    if(window.location.href.indexOf("fra") > -1) {
+      moment.locale('fr');
+    } else {
+      moment.locale('en');
+    }
+  
+    var dateFormat = "MMMM YYYY";
+    var dataset, actual, maximum, minimum, predicted, period, month, curDateMom;
     actual=[];
     maximum=[];
     minimum=[];
     predicted=[];
   
-    curDate=$('#date').datepicker('getDate');
     period=parseInt($('#period option:selected').html().split(" ")[0]); // data period in months
+
+    curDateMom = moment($('#date').datepicker('getDate'));
   
-    month=curDate.getMonth();
-    month_end = (month + period) % 12;
-  
-  year=curDate.getFullYear();
-  if ((period == 12) || ((month + period) > 11)){
-  year_end = year + 1;
-  } else {
-  year_end = year;
-  }
-  
-  month = (month == 11)? 1 : (month + 2); // increment value to align with database request
+    // increment value to align with database request
+    month = curDateMom.month() == 11
+      ? 1
+      : curDateMom.month() + 2;
 
   avaIFaceJS.reportWindow.loadReport();
-  
-  // set date language
-  if(window.location.href.indexOf("fra") > -1) {
-    moment.locale('fr');
-  } else {
-    moment.locale('en');
-  }
-  
     avaIFaceJS.reportWindow.addTitle(
         "Fraser River Hydrograph at Hope - 08MF005",
-        "From " + moment(curDate).format("MMMM YYYY") +
-        " to " + moment([year_end,month_end,1]).format("MMMM YYYY"));
+        "From " + curDateMom.format(dateFormat) +
+        " to " + moment(curDateMom).add(period, 'months').format(dateFormat));
 
     $('#spinner').show();
     $('#loading').show();
@@ -96,7 +90,7 @@ avaIFaceJS.frh_func= {
     //TODO: Replace with following line for production
     $.getJSON(
         getAPI(
-          ("/api/hydrograph?year=" + year + "&")
+          ("/api/hydrograph?year=" + curDateMom.year() + "&")
             + ("month=" + (month) + "&")
             + ("period=" + ($('#period').val()) + "&")
             + "actual=false&"
