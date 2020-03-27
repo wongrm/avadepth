@@ -177,6 +177,8 @@ avaIFaceJS.frh_func= {
       h.getData()[3].lines.lineWidth=2.5;
       h.draw();
       $('#loading').hide();
+
+      $('.legendColorBox').children().css("margin-top", "8px");
     });
   }
 };
