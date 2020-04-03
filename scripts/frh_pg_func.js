@@ -62,7 +62,7 @@ avaIFaceJS.frh_func= {
     }
   
     var dateFormat = "MMMM YYYY";
-    var dataset, actual, maximum, minimum, predicted, period, month, curDateMom;
+    var dataset, actual, maximum, minimum, predicted, period, month, curDateMom, endDateMom;
     actual=[];
     maximum=[];
     minimum=[];
@@ -71,6 +71,10 @@ avaIFaceJS.frh_func= {
     period=parseInt($('#period option:selected').html().split(" ")[0]); // data period in months
 
     curDateMom = moment($('#date').datepicker('getDate'));
+    endDateMom = moment(curDateMom).add(period, 'months');
+
+    options.xaxis.min =  curDateMom.valueOf();
+    options.xaxis.max =  endDateMom.valueOf();
   
     // increment value to align with database request
     month = curDateMom.month() == 11
@@ -81,7 +85,7 @@ avaIFaceJS.frh_func= {
     avaIFaceJS.reportWindow.addTitle(
         "Fraser River Hydrograph at Hope - 08MF005",
         "From " + curDateMom.format(dateFormat) +
-        " to " + moment(curDateMom).add(period, 'months').format(dateFormat));
+        " to " + endDateMom.format(dateFormat));
 
     $('#spinner').show();
     $('#loading').show();
