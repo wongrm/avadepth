@@ -94,10 +94,10 @@ avaIFaceJS.sdb_func = {
         $location.find('option').remove();
         $channel.find('option').remove();
         $channel.append('<option id=\'sel_chan_opt\'>Select a channel</option>');
-        $channel.append('<option value=\'GLOBAL\'>Select All</option>');
-        return $.each(incl_ava_defs.locDefs[$sdb_waterway.val()].Sections, function() {
+        $.each(incl_ava_defs.locDefs[$sdb_waterway.val()].Sections, function() {
             return $channel.append("<option value='" + this.Form.Key + "'>" + this.Form.Title + "</option>");
         });
+        return $channel.append('<option value=\'GLOBAL\'>Select All</option>');
     },
 
     // Load and fill location drop down
@@ -110,28 +110,28 @@ avaIFaceJS.sdb_func = {
             var locations = incl_ava_defs.locDefs[$sdb_waterway.val()].Sections[$channel.val()].Locations;
             $location.find('option').remove();
 
-            if(locations.length !== 0){
-                $location.append('<option id=\'sel_loc_opt\'>Select a location</option>');
-                $location.append('<option value=\'GLOBAL\'>Select All</option>');
-                $submit.prop("disabled", "disabled");
-            } else {
-                //enable submit;
-                $submit.prop("disabled", "");
-            }
-
             if (debug) {
                 console.log("void fillLocation(): sdb_waterway=" + $sdb_waterway.val());
                 console.log("void fillLocation(): channel=" + $channel.val());
             }
-            try {
 
-                return $.each(locations, function() {
-                    return $location.append("<option value='" + this.Name + "'>" + this.Name + "</option>");
-                });
-            } catch (err) {
-                if (debug) console.log("void fillLocation(): No location defined for channel " + $channel.val());
-                return;
-            
+            if(locations.length !== 0){
+                $location.append('<option id=\'sel_loc_opt\'>Select a location</option>');
+
+                try {
+                    $.each(locations, function() {
+                        return $location.append("<option value='" + this.Name + "'>" + this.Name + "</option>");
+                    });
+
+                    $location.append('<option value=\'GLOBAL\'>Select All</option>');
+                    $submit.prop("disabled", "disabled");
+                } catch (err) {
+                    if (debug) console.log("void fillLocation(): No location defined for channel " + $channel.val());
+                    return;
+                }
+            } else {
+                //enable submit;
+                $submit.prop("disabled", "");
             }
         }
     },
